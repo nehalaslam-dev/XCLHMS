@@ -1,0 +1,89 @@
+﻿@model XCLHMS.Models.Stock
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Manage Stock</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.Label("Issuance Date", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.StockDate, "{0:dd/MM/yyyy}", new { @class = "date form-control" })
+                @Html.ValidationMessageFor(model => model.StockDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Medicine", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Product.Name, new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(model => model.Product.Name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.batchno, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.batchno, new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(model => model.batchno)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MfgDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.MfgDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(model => model.MfgDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExpiryDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ExpiryDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(model => model.ExpiryDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.QtyIn, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.QtyIn, new { @class = "form-control", @readonly = true })
+                @Html.ValidationMessageFor(model => model.QtyIn)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.QtyOut, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.QtyOut, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.QtyOut)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IssuedTo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.IssuedTo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IssuedTo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+            </div>
+        </div>
+    </div>
+}
+

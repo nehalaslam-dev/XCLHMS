@@ -1,0 +1,70 @@
+﻿@model IEnumerable<XCLHMS.Models.IRDetail>
+
+@{
+    ViewBag.Title = "Details";
+
+}
+
+<h2>Details</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Product Name")
+        </th>
+        <th>
+            @Html.DisplayName("Batch No")
+        </th>
+        <th>
+            @Html.DisplayName("Mfg Date")
+        </th>
+        <th>
+            @Html.DisplayName("Expiry Date")
+        </th>
+        <th>
+            @Html.DisplayName("Available Qty")
+        </th>
+        <th>
+            @Html.DisplayName("Requst Qty")
+        </th>
+        <th>
+            @Html.DisplayName("Delivered Qty")
+        </th>
+        <th>
+            @Html.DisplayName("Suppliment")
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.batchno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MfgDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.expiryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReqQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DelvQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Suppliment)
+            </td>
+        </tr>
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

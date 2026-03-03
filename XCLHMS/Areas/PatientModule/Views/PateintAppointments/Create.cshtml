@@ -1,0 +1,111 @@
+﻿@model XCLHMS.Models.PateintAppointment
+
+@{
+    ViewBag.Title = "Create";
+}
+<div style="font-family:Arial">
+    <h2>Create</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Make Appointment</h4>
+            <hr />
+            @Html.ValidationSummary(true)
+
+
+            <div class="form-group">
+                @Html.Label("TokenNo", "Search by token", new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <input type="text" id="tokenId" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <input type="button" id="btnSearch" value="Search" class="btn btn-primary btn-success" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PatientId, "Select Patient", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("PatientId", null, new { @class = "form-control", @disabled = true })
+                    @Html.ValidationMessageFor(model => model.PatientId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeId, "Consultant Doctor", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("EmployeeId", (IEnumerable<SelectListItem>)ViewBag.EmployeeId, "--Select--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EmployeeId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AppDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.AppDate, new { @class = "date form-control" })
+                    @Html.ValidationMessageFor(model => model.AppDate)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AppTime, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.AppTime, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AppTime)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Description)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary btn-success" />
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#btnSearch').click(function () {
+                if ($('#tokenId').val() != '') {
+                    var _tokenno = $('#tokenId').val();
+                    var ddlPatient = $("#PatientId");
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        url: "/PatientModule/PateintAppointments/GetPateintByToken",
+                        data: { "tokenno": _tokenno },
+                        success: function (data) {
+                            ddlPatient.html('');
+                            $.each(data, function (id, option) {
+                                ddlPatient.append($('<option></option>').val(option.id).html(option.name));
+                            });
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert('Found error to load data!!.');
+                        }
+                    });
+                }
+                else {
+                    alert('Please enter some value.');
+                }
+            });
+        });
+    </script>
+}

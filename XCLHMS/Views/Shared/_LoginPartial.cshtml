@@ -1,0 +1,40 @@
+﻿@if (@XCLHMS.Helpers.SessionHelper.EmployeeID > 0)
+{
+    using (Html.BeginForm("LogOut", "Login", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + @XCLHMS.Helpers.SessionHelper.UserName + "!", "", "", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="/Login/LogOut"><i class="fa fa-power-off"></i> Logout</a></li>
+
+
+        </ul>
+
+        @Html.Hidden("hdnEmployeeID", @XCLHMS.Helpers.SessionHelper.EmployeeID)
+
+    }
+}
+else
+{
+    @*<ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        </ul>*@
+}
+
+
+
+<script>
+
+    jQuery(function () {
+
+        var _EmpID = jQuery('#hdnEmployeeID').val();
+        if (parseInt(_EmpID) <= 0) {
+            window.location.href = '/Login/LogOut';
+        }
+
+    });
+
+</script>

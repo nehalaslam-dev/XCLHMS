@@ -1,0 +1,196 @@
+﻿@model XCLHMS.Models.GRN
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Goods Recieved Notes</h2>
+<div style="font-family:Arial">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.POId, "Select PO", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+
+                    @Html.DropDownList("POId", (IEnumerable<SelectListItem>)ViewBag.POId, "--Select--", new { @class = "form-control" })
+                    <span class="error">Select PO</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.GRNNO, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.GRNNO, new { @class = "form-control", @readonly = "true" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.GRNDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.GRNDate, new { @class = "date form-control" })
+                    <span class="error">Date required.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TotalAmount, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.TotalAmount, new { @class = "form-control", @id = "TotalAmount", @readonly = true })
+                    <span class="error">Amount required.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsComplete, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.CheckBox("IsComplete")
+                    @Html.ValidationMessageFor(model => model.IsComplete)
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+<div class="details">
+    <h2>Recieved Items</h2>
+    <table class="table table-responsive">
+        <tr>
+            <td>Category</td>
+            <td>Items</td>
+            <td>Description</td>
+            <td>Order Qty</td>
+            <td>Recvd Qty</td>
+            <td>Reject Qty</td>
+            <td>Mfg Date</td>
+            <td>Exp Date</td>
+            <td>Batch No</td>
+            <td>UnitCost</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr class="mycontainer" id="mainrow">
+            <td class="col-md-2">
+                @Html.DropDownList("ItemCategory", null, new { @class = "ic form-control" })
+                <span class="error">Select Category</span>
+            </td>
+            <td class="col-md-2">
+                @Html.DropDownList("productCategory", null, new { @class = "pc form-control" })
+                <span class="error">Select Items</span>
+            </td>
+            <td class="col-md-2">
+                <input type="text" id="description" class="description form-control" />
+            </td>
+            <td class="col-md-1">
+                <input type="text" id="orderquantity" disabled="disabled" class="orderquantity form-control" />
+
+            </td>
+            <td class="col-md-1">
+                <input type="text" id="quantity" class="quantity form-control" />
+                <span class="error">Qty required</span>
+            </td>
+            <td class="col-md-1">
+                <input type="text" id="rejectquantity" class="rejectquantity form-control" />
+                <span class="error">Qty required</span>
+            </td>
+            <td class="col-md-1">
+                <input type="text" id="mfgDate" class="date mfgDate form-control" />
+                <span class="error">date required</span>
+            </td>
+            <td class="col-md-1">
+                <input type="text" id="expiryDate" class="date expiryDate form-control" />
+                <span class="error">date required</span>
+            </td>
+            <td class="col-md-1">
+                <input type="text" id="batchno" class="batchno form-control" />
+            </td>
+            <td class="col-md-1">
+                <input type="text" id="unitcost" class="unitcost form-control" />
+                <span class="error">unitcost required</span>
+            </td>
+
+            <td>
+                <input type="button" id="add" value="add" style="width:80px" class="btn btn-success" />
+            </td>
+        </tr>
+    </table>
+    <div id="orderItems">
+        <table class="table table-responsive" id="orderdetailsItems"></table>
+        <span id="orderItemError" style="color:red"></span>
+    </div>
+    <div style="padding:10px 0; text-align:right">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+        <input id="submit" type="button" value="Save Order" class="btn btn-warning" />
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/GRNScript.js"></script>
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            if ($("#ItemCategory").val() == '0') {
+                var dutyDefaultValue = "<option value='0'>--Select--</option>";
+                $("#productCategory").html(dutyDefaultValue).show();
+            }
+
+            $("#ItemCategory").change(function () {
+                var selectedItemValue = $(this).val();
+                var ddlProduct = $("#productCategory");
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "/InventoryModule/GRN/GetItemsById",
+                    data: { "id": selectedItemValue },
+                    success: function (data) {
+                        ddlProduct.html('');
+                        $.each(data, function (id, option) {
+                            ddlProduct.append($('<option></option>').val(option.id).html(option.name));
+                        });
+                        $("#productCategory").trigger('change');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Found error to load!!.');
+                    }
+                });
+            });
+
+            $("#productCategory").change(function () {
+                var selectedItemValue = $(this).val();
+                var POID = $('#POId').val();
+
+                $.ajax({
+                    url: "/InventoryModule/GRN/GetDescriptionByproductId",
+                    type: "GET",
+                    data: {
+                        POId: POID,
+                        ProductId: selectedItemValue
+                    },
+                    success: function (data) {
+                        $('#description').val(data.description);
+                        $('#orderquantity').val(data.orderQty);
+                    },
+                    error: function () {
+                        alert("Error! Fetching records or PO Number not Selected.")
+                    }
+                });
+
+            });
+
+        });
+    </script>
+}

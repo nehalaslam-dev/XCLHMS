@@ -1,0 +1,115 @@
+﻿@model XCLHMS.Models.AccountLedger
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Accounts Ledger</h2>
+<div style="font-family:Arial">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.voucherNumber, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.voucherNumber, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.voucherDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.voucherDate, new { @class = "date form-control" })
+                    <span class="error">Voucher date required.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Description)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsPosted, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.CheckBox("IsPosted")
+                    @Html.ValidationMessageFor(model => model.IsPosted)
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+<div class="details">
+    <h2>Ledger Details</h2>
+    <table class="table table-responsive">
+        <tr>
+            <td>Head</td>
+            <td>Debit</td>
+            <td>Credit</td>
+            <td>Narration</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr class="mycontainer" id="mainrow">
+            <td class="col-md-2">
+                @Html.DropDownList("accountHeads", (IEnumerable<SelectListItem>)ViewBag.HeadId, "--Select--", new { @class = "pc form-control" })
+                <span class="error">Select Heads</span>
+            </td>
+            <td >
+                <input type="text" value="0.00" id="debit" class="debit form-control" />
+                <span class="error">Valid debit amount required.</span>
+                <span class="error1">Only debit or credit required.</span>
+            </td>
+            <td >
+                <input type="text" value="0.00" id="credit" class="credit form-control" />
+                <span class="error">Valid credit amount required</span>
+                <span class="error1">Only debit or credit required.</span>
+            </td>
+            <td >
+                <input type="text" id="narration" class="narration form-control" />
+            </td>
+            <td >
+                <input type="button" id="add" value="add" style="width:80px" class="btn btn-success" />
+            </td>
+        </tr>
+    </table>
+    <div id="orderItems">
+        <table class="table table-responsive" id="orderdetailsItems"></table>
+        <span id="orderItemError" style="color:red"></span>
+    </div>
+    <div style="padding:10px 0; text-align:right">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+        <input id="submit" type="button" value="Save" class="btn btn-warning" />
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/LedgerScript.js"></script>
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+
+    span.error1 {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error1 {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>

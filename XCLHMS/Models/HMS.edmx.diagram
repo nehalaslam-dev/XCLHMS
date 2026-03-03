@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2132d008083b4b699978a39d7ae09d07" Name="Diagram1">
+        <EntityTypeShape EntityType="HMSModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.AccountLedger" Width="1.5" PointX="6" PointY="54.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.AccountLedgerDetail" Width="1.5" PointX="8.25" PointY="50.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.AccountRegister" Width="1.5" PointX="8.25" PointY="36.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.AspNetRole" Width="1.5" PointX="7.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.AspNetUserClaim" Width="1.5" PointX="10.125" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.AspNetUserLogin" Width="1.5" PointX="12.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.AspNetUser" Width="1.5" PointX="10" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.AU" Width="1.5" PointX="7.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.BedManagement" Width="1.5" PointX="15.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Bed" Width="1.5" PointX="13" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Budget" Width="1.5" PointX="8.25" PointY="54.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.COA" Width="1.5" PointX="6" PointY="50.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Customer" Width="1.5" PointX="6" PointY="47.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Department" Width="1.5" PointX="0.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Designation" Width="1.5" PointX="0.75" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Document" Width="1.5" PointX="15.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Dosage" Width="1.5" PointX="17.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.DutyShift" Width="1.5" PointX="3" PointY="30" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Employee" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Employee_EncryptedPassworLog" Width="1.5" PointX="10.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.EmployeeAllowance" Width="1.5" PointX="3" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.EmployeeDutyRoaster" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.EmployeeRole" Width="1.5" PointX="17.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.EmployeeType" Width="1.5" PointX="0.75" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.GRN" Width="1.5" PointX="8.25" PointY="28.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.GRNDetail" Width="1.5" PointX="7.5" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.InventoryGRNDetail" Width="1.5" PointX="18.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.InventoryGRNMaster" Width="1.5" PointX="18.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.InventoryIssuanceDetail" Width="1.5" PointX="18.75" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.InventoryIssuanceMaster" Width="1.5" PointX="19.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.InventoryItem" Width="1.5" PointX="9.75" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.IR" Width="1.5" PointX="8.25" PointY="47" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.IRDetail" Width="1.5" PointX="10.5" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Items_Stock" Width="1.5" PointX="15.75" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.LabRegistration" Width="1.5" PointX="8.25" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Lab" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.LabTest" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.MainCategory" Width="1.5" PointX="20.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.MainStore" Width="1.5" PointX="20.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Menu_List" Width="1.5" PointX="20.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.MenuAppCompanyMapp" Width="1.5" PointX="20.75" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.MenuApplicationPrivacy" Width="1.5" PointX="20.75" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.MenuAuthorization" Width="1.5" PointX="17.75" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.MLC" Width="1.5" PointX="13.75" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.MLCDetail" Width="1.5" PointX="16" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Organization" Width="1.5" PointX="20.75" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.PageSecurity" Width="1.5" PointX="21.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Pateint" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.PateintAppointment" Width="1.5" PointX="5.25" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.PatientPrescription" Width="1.5" PointX="7.5" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.PatientType" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.PatientVisit" Width="1.5" PointX="11.75" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Pharmacy" Width="1.5" PointX="22.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.PO" Width="1.5" PointX="5.25" PointY="42.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.PODetail" Width="1.5" PointX="10.5" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.PostMartam" Width="1.5" PointX="22.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.ProductCategory" Width="1.5" PointX="3" PointY="34.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Product" Width="1.5" PointX="5.25" PointY="35" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.SemanAnalysi" Width="1.5" PointX="11.25" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.ShiftPeriod" Width="1.5" PointX="0.75" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Stock" Width="1.5" PointX="10.5" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.SubCategory" Width="1.5" PointX="22.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.sysdiagram" Width="1.5" PointX="22.75" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.TaxDetail" Width="1.5" PointX="16" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.tax" Width="1.5" PointX="13.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Test" Width="1.5" PointX="6" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.TestCategory" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.TestResult" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.TestResultDetail" Width="1.5" PointX="8.25" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.TestUnit" Width="1.5" PointX="22.75" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.ThumbImpression" Width="1.5" PointX="23.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Token" Width="1.5" PointX="13.75" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Vendor" Width="1.5" PointX="3" PointY="37.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Ward" Width="1.5" PointX="10.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.AccountRegister_BK09OCT2019" Width="1.5" PointX="15.75" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Budget_BK09OCT2019" Width="1.5" PointX="17.75" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.cashbook" Width="1.5" PointX="19.75" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.cashbook_BK09OCT2019" Width="1.5" PointX="21.75" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.Pateint09SEP2020" Width="1.5" PointX="23.75" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HMSModel.token_archieve" Width="1.5" PointX="24.75" PointY="6.25" IsExpanded="true" />
+        <AssociationConnector Association="HMSModel.FK_AccountLedgerDetail_AccountLedger" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_AccountLedgerDetail_COA" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_AccountRegister_COA" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_AccountRegister_Vendors" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_BedManagement_Beds" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_BedManagement_Pateint" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Beds_Wards" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Budget_COA" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_IR_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Employee_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Employee_Designations" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_DutyShifts_ShiftPeriods" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_EmployeeDutyRoaster_DutyShifts" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Employee_EmployeeType" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_EmployeeDutyRoaster_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_LabRegistration_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_LabRegistration_Employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_LabTest_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_LabTest_Employee1" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_PateintAppointments_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_SemanAnalysis_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_EmployeeAllowance_EmployeeType" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_EmployeeDutyRoaster_ShiftPeriods" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_GRNDetail_GRN" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Stock_GRN" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_GRNDetail_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_IRDetails_IR" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Stock_IR" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_IRDetails_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_LabRegistration_Pateint" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_LabRegistration_Test" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_LabTest_Labs" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_SemanAnalysis_Labs" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_TestResult_Labs" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_LabTest_Pateint" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_LabTest_Test" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_MCLDetail_MLC" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Pateint_PatientType" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_PateintAppointments_Pateint" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_SemanAnalysis_Pateint" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_TestResult_Pateint" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_PatientPrescriptions_PateintAppointments" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_PatientPrescriptions_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_PO_Vendors" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_PODetail_PO" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_PODetail_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Products_ProductCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Inventory_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Products_Vendors" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_TaxDetail_taxes" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_Test_TestCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_TestResultDetails_Test" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.FK_TestResultDetails_TestResult" ManuallyRouted="false" />
+        <AssociationConnector Association="HMSModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HMSModel.Brand" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HMSModel.Manufacture" Width="1.5" PointX="7.375" PointY="0.75" />
+        <AssociationConnector Association="HMSModel.FK_Products_Brand" />
+        <AssociationConnector Association="HMSModel.FK_Products_Dosage" />
+        <AssociationConnector Association="HMSModel.FK_Products_Manufacture" />
+        <AssociationConnector Association="HMSModel.FK_Products_AU" />
+        <AssociationConnector Association="HMSModel.FK_PODetail_AU" />
+        <AssociationConnector Association="HMSModel.FK_PODetail_Brand" />
+        <AssociationConnector Association="HMSModel.FK_PODetail_Dosage" />
+        <AssociationConnector Association="HMSModel.FK_PODetail_Manufacture" />
+        <EntityTypeShape EntityType="HMSModel.Issuance" Width="1.5" PointX="14.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

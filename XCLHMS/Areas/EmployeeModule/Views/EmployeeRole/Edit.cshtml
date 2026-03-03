@@ -1,0 +1,50 @@
+﻿@model XCLHMS.Models.EmployeeRole
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>EmployeeRole</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.employeeroleid)
+
+        <div class="form-group">
+            @Html.Label("Select Employee", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("employeeid", null, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.employeeid)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Select Designation", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("designationId", null, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.designationId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isdefault, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBox("isdefault")
+                @Html.ValidationMessageFor(model => model.isdefault)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save"  class="btn btn-primary btn-success" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+            </div>
+        </div>
+    </div>
+}

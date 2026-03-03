@@ -1,0 +1,232 @@
+﻿@model XCLHMS.Models.MLC
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.Label("MLC #", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.MlcNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MlcNo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Name of Injured", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.PatientName, new { @class = "form-control" })
+                <span class="error">Name required</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Title", new List<SelectListItem> {
+                new SelectListItem{Text="S/O",Value="S/O"},
+                new SelectListItem{Text="D/O",Value="D/O"},
+                new SelectListItem{Text="W/O",Value="W/O"},
+                new SelectListItem{Text="Other",Value="Other"}
+             }, "-- Select --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Guardian Name", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.GuardianName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.GuardianName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("MLC Type", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("MLCType", new List<SelectListItem> {
+                new SelectListItem{Text="Final",Value="Final"},
+                new SelectListItem{Text="Provisional",Value="Provisional"}}, "-- Select --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MLCType)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Age, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Age, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Age)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Gender, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Gender", new List<SelectListItem> {
+                new SelectListItem{Text="Male",Value="Male"},
+                new SelectListItem{Text="Female",Value="Female"}}, "-- Select --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Gender)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PS, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.PS, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PS)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Address, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Marks of Identification", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.IdentifyMarks, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdentifyMarks)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Police Letter#", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.LetterNo, new { @class = "form-control" })
+                <span class="error">Police letter# required</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Dated, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Dated, new { @class = "date form-control" })
+                @Html.ValidationMessageFor(model => model.Dated)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Date/Time of Incidence", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.IncidentDateTime, new { @class = "date form-control" })
+                @Html.ValidationMessageFor(model => model.IncidentDateTime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Date/Time of Arrival", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ArrivalDateTime, new { @class = "date form-control" })
+                @Html.ValidationMessageFor(model => model.ArrivalDateTime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Place of Occurrence", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Place, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Place)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Blonging Recovered", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Blonging, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Blonging)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("History Of", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.History, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.History)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Description of Injuries", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Injuries, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Injuries)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Investigation X-Ray", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Xray, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Xray)
+            </div>
+        </div>     
+    </div>
+}
+<div class="details">
+    <h2>Opnion</h2>
+    <table class="table table-responsive">
+        <tr>
+            <td>Injury No</td>
+            <td>Nature of Injury</td>
+            <td>Kind of Weapon</td>
+            <td>Duration of Injury</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr class="mycontainer" id="mainrow">
+            <td class="col-md-3">
+                <input type="text" id="injuryNo" class="injuryNo form-control" />
+                <span class="error">Injury No required.</span>
+            </td>
+            <td class="col-md-3">
+                <input type="text" id="injuryNature" class="injuryNature form-control" />
+                <span class="error">Injury nature required.</span>
+            </td>
+            <td class="col-md-3">
+                <input type="text" id="weapon" class="weapon form-control" />
+                <span class="error">Weapon kind required.</span>
+            </td>
+            <td class="col-md-3">
+                <input type="text" id="injuryDur" class="injuryDur form-control" />
+                <span class="error">Duration required.</span>
+            </td>
+            <td>
+                <input type="button" id="add" value="add" style="width:80px" class="btn btn-success" />
+            </td>
+        </tr>
+    </table>
+    <div id="orderItems">
+        <table class="table table-responsive" id="orderdetailsItems"></table>
+        <span id="orderItemError" style="color:red"></span>
+    </div>
+    <div style="padding:10px 0; text-align:right">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+        <input id="submit" type="button" value="Save" class="btn btn-warning" />
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/MLCScript.js"></script>
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>

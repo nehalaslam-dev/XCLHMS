@@ -1,0 +1,109 @@
+﻿@model XCLHMS.Models.PO
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Vouchers</h2>
+<div style="font-family:Arial">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.VendorId, "Select Voucher", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("VendorId", (IEnumerable<SelectListItem>)ViewBag.VendorId, "--Select--", new { @class = "form-control" })
+                    <span class="error">Select Vendor</span>
+                </div>
+            </div>
+         
+
+            <div class="form-group">
+                @Html.Label("Voucher Date", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.PQDate, new { @class = "form-control" })
+                    <span class="error">date required.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Description", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.TotalAmount, new { @class = "form-control", @id = "TotalAmount" })
+                    <span class="error">Amount required.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Posted", new { @class = "control-label col-md-2", @id = "IsComplete" })
+                <div class="col-md-10">
+                    @Html.CheckBox("IsComplete")
+                    @Html.ValidationMessageFor(model => model.IsComplete)
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+<div class="details">
+    <h2>Ledger</h2>
+    <table class="table table-responsive">
+        <tr>
+            <td>Account Heads</td>
+            <td>Debit</td>
+            <td>Credit</td>
+            <td>Comments</td>           
+            <td>&nbsp;</td>
+        </tr>
+        <tr class="mycontainer" id="mainrow">
+            <td>
+                @Html.DropDownList("productCategory", (IEnumerable<SelectListItem>)ViewBag.ProductID, "--Select--", new { @class = "pc form-control" })
+                <span class="error">Select Product</span>
+            </td>
+            <td>
+                <input type="text" id="quantity" class="quantity form-control" />
+               
+            </td>
+            <td>
+                <input type="text" id="unitprice" class="unitprice form-control" />
+                
+            </td>
+            <td>
+                <input type="text" id="unitcost" class="unitcost form-control" />               
+            </td>           
+            <td>
+                <input type="button" id="add" value="add" style="width:80px" class="btn btn-success" />
+            </td>
+        </tr>
+    </table>
+    <div id="orderItems">
+        <table class="table table-responsive" id="orderdetailsItems"></table>
+        <span id="orderItemError" style="color:red"></span>
+    </div>
+    <div style="padding:10px 0; text-align:right">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+        <input id="submit" type="button" value="Save Transaction" class="btn btn-warning" style="padding:10px 20px" />
+    </div>
+</div>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/POScript.js"></script>
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>

@@ -1,0 +1,175 @@
+﻿@model XCLHMS.Models.SemanAnalysi
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Seman Analysis</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Lab Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lab.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Pateint Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pateint.Name)
+        </dd>
+        <dt>
+            @Html.DisplayName("Doctor")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Name)
+        </dd>
+        <dt>
+            @Html.DisplayName("NIC")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pateint.NIC)
+        </dd>
+        <dt>
+            @Html.DisplayName("MR No")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pateint.MRNo)
+        </dd>
+        <dt>
+            @Html.DisplayName("Test Date")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestDate)
+        </dd>
+        <dt>
+            @Html.DisplayName("Sample Collection Date")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sampleDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("COLOUR")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.colour)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Consistency")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.consistency)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Reaction")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.reaction)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Count")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.count)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Count Unit")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.countUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Motility")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.motility)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Motility Unit")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.motilityUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Normal")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.normal)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Normal Unit")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.normalUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Puscells")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.puscells)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Puscells Unit")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.puscellsUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+
+      
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-small" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-small" })
+</p>

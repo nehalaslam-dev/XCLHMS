@@ -1,0 +1,44 @@
+﻿@model IEnumerable<XCLHMS.Models.AccountLedgerDetail>
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Head Name")
+        </th>
+        <th>
+            @Html.DisplayName("Debit")
+        </th>
+        <th>
+            @Html.DisplayName("Credit")
+        </th>
+        <th>
+            @Html.DisplayName("Narration")
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.COA.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Debit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Narration)
+            </td>
+        </tr>
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

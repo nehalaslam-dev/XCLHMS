@@ -1,0 +1,67 @@
+﻿@model XCLHMS.Models.PateintAppointment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PateintAppointment</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Pateint Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pateint.Name)
+        </dd>
+        <dt>
+            @Html.DisplayName("Employee Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Status")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-small" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-small" })
+</p>

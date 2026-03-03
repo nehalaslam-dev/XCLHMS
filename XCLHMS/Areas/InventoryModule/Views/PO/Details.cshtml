@@ -1,0 +1,80 @@
+﻿@model IEnumerable<XCLHMS.Models.PODetail>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Tender #")
+        </th>
+        <th>
+            @Html.DisplayName("Dosage")
+        </th>
+        <th>
+            @Html.DisplayName("AU")
+        </th>
+        <th>
+            @Html.DisplayName("Name Of Product")
+        </th>
+        <th>
+            @Html.DisplayName("Brand Name")
+        </th>
+        <th>
+            @Html.DisplayName("MFG")
+        </th>
+        <th>
+            @Html.DisplayName("Quantity")
+        </th>
+        <th>
+            @Html.DisplayName("Remarks")
+        </th>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tender_)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dosage.DosageName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AU.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand.BrandName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manufacture.ManufactureName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qty)
+            </td>
+            <td>
+                @if (item.Remarks == true)
+                {
+                    <span style="color: green; font-weight: bold;">Verified</span>
+                }
+                else
+                {
+                    <span style="color: red; font-weight: bold;">Not Verified</span>
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+<p>
+    <div class="col-md-10">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+    </div>
+</p>

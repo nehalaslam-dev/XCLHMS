@@ -1,0 +1,67 @@
+﻿@model XCLHMS.Models.BedManagement
+
+@{
+    ViewBag.Title = "Edit";
+}
+<div style="font-family:Arial">
+
+    <h2>Edit</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Bed Allocation</h4>
+            <hr />
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.ID)           
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BedID, "Select Beds", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("BedID", null, "--Select--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BedID)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PatientID, "Select Pateint", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("PatientID", null, "--Select--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PatientID)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Discharge Status", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("dischargeType", new List<SelectListItem> {
+                    new SelectListItem{Text="DC",Value="DC"},
+                    new SelectListItem{Text="LAMA",Value="LAMA"},
+                    new SelectListItem{Text="DOR",Value="DOR"},
+                    new SelectListItem{Text="Death",Value="Death"},
+                    new SelectListItem{Text="Refferd",Value="Refferd"}
+               }, "-- Select --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.dischargeType)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DischargeDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.DischargeDate, new { @class = "date form-control" })
+                    @Html.ValidationMessageFor(model => model.DischargeDate)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary btn-success" />
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

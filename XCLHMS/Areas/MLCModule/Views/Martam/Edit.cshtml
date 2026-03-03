@@ -1,0 +1,186 @@
+﻿@model XCLHMS.Models.PostMartam
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+      
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.Label("PostMortam #", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.martamNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.martamNo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Mortam Date", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.martamDate, new { @class = "date form-control" })
+                @Html.ValidationMessageFor(model => model.martamDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Father Name", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.FName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Age, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Age, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Age)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Address, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Police Letter", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.letterNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.letterNo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Police Station", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.policeStation, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.policeStation)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Identified By", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.identifiedBy, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.identifiedBy)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Arrival Date/Time", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ArrivalDateTime, new { @class = "date form-control" })
+                @Html.ValidationMessageFor(model => model.ArrivalDateTime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Mortam Started", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.martamStart, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.martamStart)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Mortam Finished", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.martamEnd, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.martamEnd)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Furnished By Police", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.furnishByPolice, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.furnishByPolice)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Brought By", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.BroughtBy, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BroughtBy)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Examination 1", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.finalExam1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.finalExam1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Examination 2", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.finalExam2, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.finalExam2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Examination 3", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.finalExam3, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.finalExam3)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remarks, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Remarks, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Remarks)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Injury/Death Time", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.injuryTime, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.injuryTime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Death and PM Time", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.deathTime, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.deathTime)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary btn-success" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,59 @@
+﻿@model XCLHMS.Models.Budget
+
+@{
+    ViewBag.Title = "Details";
+   
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Budget</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Budget1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Budget1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.budgetDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.budgetDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COA.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COA.Code)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

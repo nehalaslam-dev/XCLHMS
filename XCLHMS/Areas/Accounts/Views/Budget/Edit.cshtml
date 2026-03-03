@@ -1,0 +1,53 @@
+﻿@model XCLHMS.Models.Budget
+
+@{
+    ViewBag.Title = "Edit";
+   
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Budget</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HeadId, "Select Head", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("HeadId", null, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.HeadId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Code", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("Code", null, new { @class = "form-control", @disabled = "true" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Budget1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Budget1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Budget1)
+            </div>
+        </div>
+
+       
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary btn-success" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+            </div>
+        </div>
+    </div>
+}

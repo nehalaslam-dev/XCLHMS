@@ -1,0 +1,217 @@
+﻿@model XCLHMS.Models.IR
+
+@{
+    ViewBag.Title = "Create";
+}
+<div style="font-family:Arial">
+    <h2>Delivery Challan</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.customerId, "Select Customer", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("customerId", (IEnumerable<SelectListItem>)ViewBag.customerId, "--Select--", new { @class = "form-control" })
+                    <span class="error">Select Customers</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IRCode, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.IRCode, new { @class = "form-control", @readonly = "true" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IRDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.IRDate, new { @class = "date form-control" })
+                    <span class="error">date required.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Remarks, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Remarks, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Remarks)
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+<div class="details">
+    <h2>Challan Items</h2>
+    <table class="table table-responsive">
+        <tr>
+            <td>Category</td>
+            <td>Items</td>
+            <td>Batch#</td>
+            <td>Mfg Date</td>
+            <td>Expiry</td>
+            <td>Stock</td>
+            <td>Request</td>
+            <td>Deliver</td>
+            <td>Suppliment</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr class="mycontainer" id="mainrow">
+            <td class="col-md-2">
+                @Html.DropDownList("ItemCategory", null, new { @class = "ic form-control" })
+                <span class="error">Select Category</span>
+            </td>
+            <td class="col-md-2">
+                @Html.DropDownList("productCategory", null, new { @class = "pc form-control" })
+                <span class="error">Select Items</span>
+            </td>
+            <td class="col-md-2">
+                @Html.DropDownList("batchno", null, new { @class = "bc form-control" })
+                <span class="error">Select Batch</span>
+            </td>
+            <td class="col-md-1">
+                <input type="text" id="mfgDate" disabled="disabled" class="mfgDate form-control" />
+            </td>
+            <td class="col-md-1">
+                <input type="text" id="expiryDate" disabled="disabled" class="expiryDate form-control" />
+            </td>
+            <td class="col-md-1">
+                <input type="text" id="availableQty" disabled="disabled" class="availableQty form-control" />
+            </td>
+            <td class="col-md-1">
+                <input type="text" id="reqQty" value="0" class="reqQty form-control" />
+                <span class="error">Qty required</span>               
+            </td>
+            <td class="col-md-1">
+                <input type="text" id="delvrQty" value="0" class="delvrQty form-control" />
+                <span class="error">Qty required</span>
+            </td>
+            <td class="col-md-2">
+                <input type="text" id="suppliment" value="0" class="suppliment form-control" />
+            </td>
+            <td>
+                <input type="button" id="add" value="add" style="width:80px" class="btn btn-success" />
+            </td>
+        </tr>
+    </table>
+    <div id="orderItems">
+        <table class="table table-responsive" id="orderdetailsItems"></table>
+        <span id="orderItemError" style="color:red"></span>
+    </div>
+    <div style="padding:10px 0; text-align:right">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+        <input id="submit" type="button" value="Save Order" class="btn btn-warning" />
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/IRScripts.js"></script>
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            if ($("#ItemCategory").val() == '0') {
+                var dutyDefaultValue = "<option value='0'>--Select--</option>";
+                $("#productCategory").html(dutyDefaultValue).show();
+            }
+
+            if ($("#productCategory").val() == '0') {
+                var dutyDefaultValue = "<option value='0'>--Select--</option>";
+                $("#batchno").html(dutyDefaultValue).show();
+            }
+
+            $("#ItemCategory").change(function () {
+                var selectedItemValue = $(this).val();
+                var ddlProduct = $("#productCategory");
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "/InventoryModule/IR/GetItemsById",
+                    data: { "id": selectedItemValue },
+                    success: function (data) {
+                        ddlProduct.html('');
+                        $.each(data, function (id, option) {
+                            ddlProduct.append($('<option></option>').val(option.id).html(option.name));
+                        });
+                        $("#productCategory").trigger('change');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Found error to load.');
+                    }
+
+                });
+            });
+
+            function ToJavaScriptDate(value) {
+                var pattern = /Date\(([^)]+)\)/;
+                var results = pattern.exec(value);
+                var dt = new Date(parseFloat(results[1]));
+                return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+            }
+
+            $("#productCategory").change(function () {
+                var selectedItemValue = $(this).val();
+                var ddlBatch = $("#batchno");
+                $.ajax({
+                    url: "/InventoryModule/IR/GetBatchById",
+                    type: "GET",
+                    data: { Id: selectedItemValue },
+                    success: function (data) {
+                        ddlBatch.html('');
+                        $.each(data, function (id, option) {
+                            ddlBatch.append($('<option></option>').val(option.id).html(option.name));
+                        });
+                        $("#batchno").trigger('change');
+                    },
+                    error: function () {
+                        alert("Error! Fetching records.")
+                    }
+                });
+
+            });
+
+            $("#batchno").change(function () {
+                var productId = $("#productCategory").val();
+                var selectedItemValue = $(this).val();
+              
+                $.ajax({
+                    url: "/InventoryModule/IR/GetStockQty",
+                    type: "GET",
+                    data: { Id: productId, BatchNo: selectedItemValue },
+                    success: function (data) {
+                        $.each(data, function (index, item) {                       
+                            $('#mfgDate').val(ToJavaScriptDate(item.mfgdate));
+                            $('#expiryDate').val(ToJavaScriptDate(item.expiryDate));
+                            $('#availableQty').val(item.totalQty);
+                        });
+                    },
+                    error: function () {
+                        alert("Error! Fetching records.")
+                    }
+                });
+
+            });
+
+        });
+    </script>
+
+}

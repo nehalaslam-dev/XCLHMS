@@ -1,0 +1,112 @@
+﻿@model XCLHMS.Models.Product
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div style="font-family:Arial">
+
+    <h2>Create</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Items</h4>
+            <hr />
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AUId, "Select AU", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("AUId", (IEnumerable<SelectListItem>)ViewBag.AUId, "--Select--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AUId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DosageId, "Select Dosage", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("DosageId", (IEnumerable<SelectListItem>)ViewBag.DosageId, "--Select--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DosageId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BrandId, "Select Brand", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("BrandId", (IEnumerable<SelectListItem>)ViewBag.BrandId, "--Select--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BrandId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ManufactureId, "Select Manufacture", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ManufactureId", (IEnumerable<SelectListItem>)ViewBag.ManufactureId, "--Select--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ManufactureId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary btn-success" />
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Disable Dosage dropdown initially
+            $("#DosageId").prop("disabled", true);
+
+            // When AU changes
+            $("#AUId").change(function () {
+                var auId = $(this).val();
+
+                if (auId) {
+                    $.ajax({
+                        url: '@Url.Action("GetDosageByAU", "Products", new { area = "InventoryModule" })',
+                        type: 'GET',
+                        data: { auId: auId },
+                        success: function (data) {
+                            var dosageDropdown = $("#DosageId");
+                            dosageDropdown.empty();
+                            dosageDropdown.append($('<option>', { value: '', text: '--Select--' }));
+
+                            if (data.length > 0) {
+                                $.each(data, function (i, dosage) {
+                                    dosageDropdown.append($('<option>', {
+                                        value: dosage.Id,
+                                        text: dosage.Name
+                                    }));
+                                });
+                                dosageDropdown.prop("disabled", false);
+                            } else {
+                                dosageDropdown.prop("disabled", true);
+                            }
+                        }
+                    });
+                } else {
+                    $("#DosageId").empty().append('<option value="">--Select--</option>').prop("disabled", true);
+                }
+            });
+        });
+    </script>
+}
+

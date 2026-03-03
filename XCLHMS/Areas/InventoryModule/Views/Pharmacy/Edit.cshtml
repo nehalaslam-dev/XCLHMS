@@ -1,0 +1,256 @@
+﻿@model XCLHMS.Models.Pharmacy
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Pharmacy</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.Label("TokenNo", "Search by token", new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                <input type="text" id="tokenId" class="form-control" />
+            </div>
+            <div class="col-md-1">
+                <input type="button" id="btnSearch" value="Search" class="btn btn-primary btn-success" />
+
+            </div>
+            <div class="col-md-1">
+                <input type="button" id="btnPresc" value="Prescriptions" class="btn btn-primary btn-success" />
+            </div>
+
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PatientId, "Select Patients", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PatientId", (IEnumerable<SelectListItem>)ViewBag.PatientId, "--Select--", new { @class = "form-control" })
+                <span class="error">Select patient</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Medicines", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ProductId, new { @class = "form-control", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.ProductId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Recieved Date", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.recievedDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.recievedDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Issued Date", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.IssuedDate, "{0:dd/MM/yyyy}", new { @class = "date form-control" })
+                <span class="error">Issue Date required.</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Qty Recieved", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.QtyRec, new { @class = "form-control", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.QtyRec)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Qty Issue", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.QtyIssue, new { @class = "form-control" })
+                <span class="error">Qty required.</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.comments, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.comments, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.comments)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>
+
+<div class="modal fade" id="newOrderModal">
+    <div class="modal-dialog modal-lg" style=" width: 900px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4>Prescription</h4>
+            </div>
+            <form id="NewOrderForm" method="post">
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <table class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Medicine</th>
+                                        <th>Qty</th>
+                                        <th>Commnets</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Medicine</th>
+                                        <th>Qty</th>
+                                        <th>Commnets</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var productId = $('#ProductId').val();
+            var ddlPatient = $("#PatientId");
+            $.ajax({
+                url: "/InventoryModule/Pharmacy/GetItemNameById",
+                type: "GET",
+                data: { Id: productId },
+                success: function (data) {
+                    $('#ProductId').val(data);
+                },
+                error: function () {
+                    alert("Error! Fetching records.")
+                }
+            });
+
+            $('#btnSearch').click(function () {
+                if ($('#tokenId').val() != '') {
+                    var _tokenno = $('#tokenId').val();
+                    var ddlPatient = $("#PatientId");
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        url: "/InventoryModule/Pharmacy/GetPateintByToken",
+                        data: { "tokenno": _tokenno },
+                        success: function (data) {
+                            ddlPatient.html('');
+                            $.each(data, function (id, option) {
+                                ddlPatient.append($('<option></option>').val(option.id).html(option.name));
+                            });
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert('Found error to load data!!.');
+                        }
+                    });
+                }
+                else {
+                    alert('Please enter token.');
+                }
+
+            });
+
+            $('#submit').click(function () {
+                if ($('#PatientId').val() == 0) {
+                    $('#PatientId').siblings('span.error').css('visibility', 'visible');
+                }
+                else {
+                    $('#PatientId').siblings('span.error').css('visibility', 'hidden');
+                }
+
+                if ($('#IssuedDate').val().trim() == '') {
+                    $('#IssuedDate').siblings('span.error').css('visibility', 'visible');
+
+                }
+                else {
+                    $('#IssuedDate').siblings('span.error').css('visibility', 'hidden');
+                }
+
+                if ($('#QtyIssue').val() == '') {
+                    $('#QtyIssue').siblings('span.error').css('visibility', 'visible');
+                }
+                else {
+                    $('#QtyIssue').siblings('span.error').css('visibility', 'hidden');
+                }
+            });
+
+            $('#btnPresc').click(function () {
+
+                if ($('#tokenId').val() != '') {
+                    $("#newOrderModal").modal();
+                    var token = $('#tokenId').val();
+                    $.ajax({
+                        url: "/InventoryModule/Pharmacy/GetMedicineByToken",
+                        type: 'GET',
+                        data: { token: token },
+                        success: function (data) {
+                            bindGrid(data);
+                        },
+                        error: function () {
+                            alert("Not Generated!")
+                        }
+                    });
+                }
+                else {
+                    alert('Please enter token.');
+                }
+
+            });
+
+
+            function bindGrid(data) {
+                var tbldetailsTable = $("#demoGrid");
+                $("#demoGrid tr").remove();
+                $.each(data, function (index, item) {
+                    var tr = $("<tr></tr>");
+                    tr.html(("<td>" + item.medicine + "</td>")
+                        + " " + ("<td>" + item.qty + "</td>")
+                        + " " + ("<td>" + item.comments + "</td>")
+                        );
+                    tbldetailsTable.append(tr);
+                });
+
+            }
+        });
+    </script>
+}

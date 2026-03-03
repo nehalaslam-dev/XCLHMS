@@ -1,0 +1,244 @@
+﻿@model XCLHMS.Models.PO
+
+@{
+    ViewBag.Title = "Create";
+
+}
+
+<div style="font-family:Arial">
+    <h2>Purchase Order</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.VendorId, "Select Vendor", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("VendorId", (IEnumerable<SelectListItem>)ViewBag.VendorId, "--Select--", new { @class = "form-control" })
+                    <span class="error">Select Vendor</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PONO, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.PONO, new { @class = "form-control"})
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("PO Date", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.PQDate, new { @class = "date form-control" })
+                    <span class="error">date required.</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="details">
+    <h2>Purchase Order Items</h2>
+    <table class="table table-responsive">
+        <tr>
+            @*<td>S#</td>*@
+            <td>Tender#</td>
+            <td>Dosage</td>
+            <td>AU</td>
+            <td>Name Of Product</td>
+            <td>Brand Name</td>
+            <td>MFG</td>
+            <td>Quantity</td>
+            <td>Remarks</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr class="mycontainer" id="mainrow">
+
+            @Html.Hidden("POId", TempData["POId"])
+
+            <td class="col-md-2">
+                <input type="text" id="Tender" class="Tender form-control" />
+                <span class="error">Enter Tender#</span>
+            </td>
+
+            <td class="col-md-2">
+                @Html.DropDownList("Dosage", null, new { @class = "d form-control" , @disabled = "disabled" })
+                <span class="error">Select Dosage</span>
+            </td>
+
+            <td class="col-md-2">
+                @Html.DropDownList("AU", null, new { @class = "AU form-control" })
+                <span class="error">Select AU</span>
+            </td>
+
+            <td class="col-md-2">
+                @Html.DropDownList("productCategory", null, new { @class = "pc form-control" })
+                <span class="error">Select Items</span>
+            </td>
+
+            <td class="col-md-2">
+                @Html.DropDownList("BrandName", null, new { @class = "BN form-control", @disabled = "disabled" })
+                <span class="error">Select Brand</span>
+            </td>
+
+            <td class="col-md-2">
+                @Html.DropDownList("Manufacture", null, new { @class = "MFG form-control", @disabled = "disabled" })
+                <span class="error">Select MFG</span>
+            </td>
+
+            <td class="col-md-2">
+                <input type="text" id="quantity" class="quantity form-control" style="width:120px;" />
+                <span class="error">Enter Quantity</span>
+            </td>
+
+            <td class="col-md-2">
+                <input type="checkbox" id="Remarks" class="rmks form-check-input" />
+                @*<label for="Remarks">Remarks</label>*@
+                <span class="error">Please check this box</span>
+            </td>
+
+            <td>
+                <input type="button" id="add" value="add" style="width:80px" class="btn btn-success" />
+            </td>
+        </tr>
+    </table>
+
+    <div id="orderItems">
+        <table class="table table-responsive" id="orderdetailsItems">
+            <tbody></tbody>
+        </table>
+        <span id="orderItemError" style="color:red"></span>
+    </div>
+    <div style="padding:10px 0; text-align:right">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+        <input id="submit" type="button" value="Save Order" class="btn btn-warning" />
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/POScript.js"></script>
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            // Safe existence check
+            var $au = $("#AU");
+            var $productCategory = $("#productCategory");
+
+            if ($au.length && $productCategory.length) {
+
+                if (($au.val() || "0") === '0') {
+                    var dutyDefaultValue = "<option value='0'>--Select--</option>";
+                    $productCategory.html(dutyDefaultValue).show();
+                }
+
+                $au.on("change", function () {
+                    var selectedItemValue = ($(this).val() || "").trim();
+                    var ddlProduct = $productCategory;
+
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        url: "/InventoryModule/PO/GetItemsById",
+                        data: { "id": selectedItemValue },
+                        success: function (data) {
+                            ddlProduct.empty();
+                            $.each(data, function (id, option) {
+                                ddlProduct.append(
+                                    $('<option></option>').val(option.id).text(option.name)
+                                );
+                            });
+                            ddlProduct.trigger('change');
+                        },
+                        error: function () {
+                            alert('Found error to load.');
+                        }
+                    });
+                });
+
+                $('#productCategory').change(function () {
+                    var productId = $(this).val();
+
+                    if (productId && productId != 0) {
+                        $.ajax({
+                            url: '/InventoryModule/PO/GetItemDetailsById',
+                            type: 'GET',
+                            data: { id: productId },
+                            success: function (response) {
+                                if (response.success && response.data) {
+                                    $('#Dosage').val(response.data.DosageId);
+                                    $('#BrandName').val(response.data.BrandId);
+                                    $('#Manufacture').val(response.data.ManufactureId);
+                                } else {
+                                    $('#Dosage').val(0);
+                                    $('#BrandName').val(0);
+                                    $('#Manufacture').val(0);
+                                }
+                            },
+                            error: function () {
+                                alert('Error fetching item details.');
+                            }
+                        });
+                    } else {
+                        $('#Dosage').val(0);
+                        $('#BrandName').val(0);
+                        $('#Manufacture').val(0);
+                    }
+                });
+
+
+                $productCategory.on("change", function () {
+                    var selectedItemValue = ($(this).val() || "").trim();
+                    if (selectedItemValue) {
+                        $.ajax({
+                            url: "/InventoryModule/PO/GetDescriptionByproductId",
+                            type: "GET",
+                            data: { Id: selectedItemValue },
+                            success: function (data) {
+                                $('#description').val(data);
+                            },
+                            error: function () {
+                                alert("Error! Fetching records.")
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+    </script>
+
+    @if (ViewBag.EditMode == true)
+    {
+        <input type="hidden" id="POId" value="@TempData["POId"]" />
+    }
+
+    @if (ViewBag.EditMode == true)
+    {
+        <script>
+            $(document).ready(function () {
+                // Disable Vendor and PONO fields in Edit mode
+                $('#VendorId').prop('disabled', true);
+                $('#PONO').prop('readonly', true); // already readonly, keeping for safety
+            });
+        </script>
+    }
+
+
+
+}

@@ -1,0 +1,152 @@
+﻿@model XCLHMS.Models.SemanAnalysi
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SemanAnalysi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TestDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TestDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.colour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.colour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.consistency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.consistency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reaction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.reaction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.count)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.count)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.countUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.countUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.motility)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.motility)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.motilityUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.motilityUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.normal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.normal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.normalUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.normalUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.puscells)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.puscells)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.puscellsUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.puscellsUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lab.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lab.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pateint.NIC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pateint.NIC)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

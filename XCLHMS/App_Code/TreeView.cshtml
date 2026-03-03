@@ -1,0 +1,29 @@
+﻿@helper GetTreeView(List<XCLHMS.Models.COA> parentHead, int parentId)
+{
+    foreach (var item in parentHead.Where(x => x.ParentID.Equals(parentId)))
+    {
+        <li>
+            @{
+                var subHead = parentHead.Where(x => x.ParentID.Equals(item.ID)).Count();
+            }
+            @if (subHead > 0)
+            {
+                <span class="collapse collapsible">&nbsp;</span>
+            }
+            else
+            {
+                <span style="width:15px; display:inline-block">&nbsp;</span>
+            }
+            <span>
+                <a>@item.Name</a>
+            </span>
+            @if (subHead > 0)
+            {
+                <ul>
+                    @TreeView.GetTreeView(parentHead, item.ID);
+                </ul>
+            }
+        </li>
+
+    }
+}

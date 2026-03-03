@@ -1,0 +1,310 @@
+﻿@model IEnumerable<XCLHMS.Models.GetPateintAppointments_Result3>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .th-width {
+        width: 32px !important;
+    }
+</style>
+
+<h2>Manage Appointment</h2>
+
+<div class="container">
+    <br />
+    <div style="width:100%; margin:0 auto;">
+        <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Pateint Name</th>
+                    <th>Doctor Name</th>
+                    <th>Appointment Date</th>
+                    <th>Appointment Time</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Blood Group</th>
+                    <th>Status</th>
+                    <th class="th-width"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="newOrderModal">
+    <div class="modal-dialog modal-lg" style=" width: 900px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4>Add New Prescription</h4>
+            </div>
+            <form id="NewOrderForm" method="post">
+                <div class="modal-body">
+                    <h5 style="color:#ff6347">Patient Detail</h5>
+                    <hr />
+                    <div class="form-horizontal">
+                        <label id="pateintRecId" class="hide"></label>
+                        <div class="form-group">
+                            <table class="table table-striped table-bordered dt-responsive nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Doctor</th>
+                                        <th>Appointment Date</th>
+                                        <th>Appointment Time</th>
+                                        <th>Age</th>
+                                        <th>Blood Group</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td><label id="pateintName"></label></td>
+                                    <td><label id="doctorName"></label></td>
+                                    <td><label id="appDate"></label></td>
+                                    <td><label id="appTime"></label></td>
+                                    <td><label id="appAge"></label></td>
+                                    <td><label id="appBloodGroup"></label></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <h5 style="margin-top:10px;color:#ff6347">Prescription Details</h5>
+                    <hr />
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                Medicine Name
+                            </label>
+                            <div class="col-md-4">
+                                @Html.DropDownList("ProductID", (IEnumerable<SelectListItem>)ViewBag.ProductID, "--Select--", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">
+                                Quantity
+                            </label>
+                            <div class="col-md-4">
+                                <input type="number" id="quantity" name="quantity" placeholder="Quantity" class="form-control" />
+                            </div>
+                            <label class="control-label col-md-2">
+                                Comments
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" id="comments" name="comments" placeholder="Comments" class="form-control" />
+                            </div>
+                            <div class="col-md-2 col-lg-offset-4">
+                                <a id="addToList" class="btn btn-primary">Add To List</a>
+                            </div>
+                        </div>
+                       
+                        <table id="detailsTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width:30%;display:none;">MedicineId</th>
+                                    <th style="width:30%">Medicine</th>
+                                    <th style="width:15%">Quantity</th>
+                                    <th style="width:25%" align="justify">Comments</th>
+                                    <th style="width:10%"></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="savePresc" type="submit" class="btn btn-danger">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/moment.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#demoGrid').DataTable({
+                "ajax": {
+                    "url": "/PatientPrescriptions/LoadGrid",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "className": "tdid", "data": "Id", "autoWidth": true },
+                    { "className": "tdpName", "data": "pateintName", "autoWidth": true },
+                    { "className": "tddName", "data": "doctorName", "autoWidth": true },
+                     {
+                         "className": "tdappDate",
+                         "data": "appdate",
+                         "type": "date",
+                         "render": function (value) {
+                             if (value === null) return "";
+
+                             var pattern = /Date\(([^)]+)\)/;
+                             var results = pattern.exec(value);
+                             var dt = new Date(parseFloat(results[1]));
+                             return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+                         }
+                     },
+                      {
+                          "className": "tdappTime",
+                          "title": "Time",
+                          "data": "apptime",
+                          render: function (d) {
+                              return moment(d).format("HH:mm:ss");
+                          }
+                      },
+                      { "className": "tdAge", "data": "Age", "autoWidth": true },
+                      { "data": "Gender", "autoWidth": true },
+                      { "className": "tdgrp", "data": "bloodgroup", "autoWidth": true },
+                      { "data": "appStatus", "autoWidth": true },
+                      {
+                          data: null, render: function (data, type, row) {
+                              return "<a  class='btn btn-primary'  onclick=addNewPres();>Manage</a>";
+                          }
+                      },
+                ]
+            });
+
+            $("#addToList").click(function (e) {
+                e.preventDefault();
+               
+                $("#detailsTable").show();
+                if ($.trim($("#ProductID").val()) == 0 || $.trim($("#quantity").val()) == "") return;
+
+                var medicineName = $("#ProductID option:selected").text(),
+                    medicineId = $("#ProductID option:selected").val(),
+                    quantity = $("#quantity").val(),
+                    comments = $("#comments").val(),
+                    detailsTableBody= $("#detailsTable tbody");
+               
+                var productItem = '<tr><td style="display:none;">' + medicineId + '</td><td>' + medicineName + '</td><td>' + quantity + '</td><td>' + comments + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+                detailsTableBody.append(productItem);
+                clearItem();
+            });
+
+            //Collect Multiple Order List For Pass To Controller
+            $("#savePresc").click(function (e) {
+                e.preventDefault();
+                var orderArr = [];
+                orderArr.length = 0;
+
+                $.each($("#detailsTable tbody tr"), function () {
+                    orderArr.push({
+                        ProductId: $(this).find('td:eq(0)').html(),
+                        Qty: $(this).find('td:eq(2)').html(),
+                        comments: $(this).find('td:eq(3)').html()
+                    });
+                });
+
+                var data = JSON.stringify({
+                    PatientRecordId: $("#pateintRecId").text(),
+                    pres: orderArr
+                });
+
+                $.when(savePresc(data)).then(function (response) {
+                    console.log(response);
+
+                }).fail(function (err) {
+                    console.log(err);
+
+                });
+            });
+        });
+
+        function addNewPres() {
+            var pid, pName, dName, pDate, pTime;                    
+            $("#newOrderModal").modal();
+            $('.table tr').click(function () {
+                pid = $(this).find('.tdid').html();
+                pName = $(this).find('.tdpName').html();
+                dName = $(this).find('.tddName').html();
+                pDate = $(this).find('.tdappDate').html();
+                pTime = $(this).find('.tdappTime').html();
+                pAge = $(this).find('.tdAge').html();
+                pGrp = $(this).find('.tdgrp').html();
+
+                $("#pateintRecId").text(pid);
+                $("#pateintName").text(pName);
+                $("#doctorName").text(dName);
+                $("#appDate").text(pDate);
+                $("#appTime").text(pTime);
+                $("#appAge").text(pAge);
+                $("#appBloodGroup").text(pGrp);
+
+                
+
+                $.ajax({
+                    url: "/PatientModule/PatientPrescriptions/GetPrescriptionById",
+                    type: 'GET',
+                    data: { pId: pid },
+                    success: function (data) {
+                        $('#detailsTable').find('tbody').empty();
+                        GetPrescriptionData(data);
+                    },
+                    error: function () {
+                        alert("Not Generated!")
+                    }
+                });
+            });
+        }
+
+        function GetPrescriptionData(data) {
+            var tbldetailsTable = $("#detailsTable");
+           
+            $.each(data, function (index, item) {
+                var tr = $("<tr></tr>");
+                tr.html(("<td style=" + "display:none;" + ">" + item.medicineId + "</td>")
+                    + " " + ("<td>" + item.medicineName + "</td>")
+                    + " " + ("<td>" + item.Qty + "</td>")
+                    + " " + ("<td>" + item.comments + "</td>")
+                    + " " + ("<td><a data-itemId='0' href='#' class='deleteItem'>Remove</a></td>")
+                    );
+                tbldetailsTable.append(tr);
+            });
+           
+        }
+
+
+        //After Add A New Order In The List, Clear The Form For Add More Order.
+        function clearItem() {
+            $("#ProductID").val(0);
+            $("#quantity").val('');
+            $("#comments").val('');
+        }
+
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                });
+            }
+        });
+
+        //After Click Save Button Pass All Data View To Controller For Save Database
+        function savePresc(data) {
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/PatientModule/PatientPrescriptions/savePresc",
+                data: data,
+                success: function (result) {
+                    alert(result);
+                    location.reload();
+                },
+                error: function () {
+                    alert('Error!')
+                }
+            });
+        }
+
+
+    </script>
+}

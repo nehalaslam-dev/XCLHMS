@@ -1,0 +1,248 @@
+﻿@model XCLHMS.Models.AssignApplicationModel
+@{
+    ViewBag.Title = "Manage Application";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/style.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jstree.min.js"></script>
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            @using (Html.BeginForm("ManageAssignApplication", "AssignApplication", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <h3 class="page-title">ADD/Edit Rate</h3>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                //@Html.HiddenFor(x => x.rateID)
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>
+                                Type
+                            </label>
+
+                            @Html.DropDownListFor(m => m.menuID, new SelectList(Enum.GetValues(typeof(AppSelectedTypes))),
+  "-- Select --", new { @class = "form-control ddlAppSelectedTypes" })
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="mainPanel hide">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>
+                                    Name
+                                </label>
+                                <select id="stateDropDown" class="stateDropDown form-control"></select>
+
+
+                                @*@Html.DropDownListFor(model => model.menuID, new SelectList(ViewBag.CategoryType, "Id", "Type_Name"), "-- Select --")*@
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-sm-12 text-center m-t-20">
+                                <button type="submit" class="btn btn-primary">Save &amp; update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btnTest hide">Test</button>
+                <input type="hidden" name="selectedItems" id="selectedItems" />
+                <input type="hidden" name="selectedType" id="selectedType" />
+                <input type="hidden" name="selectedNameid" id="selectedNameid" />
+
+
+                <br />
+
+
+
+            }
+        </div>
+
+        <div id="jstree" class="jstree">
+        </div>
+    </div>
+
+</div>
+@*@section Scripts {
+
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+
+<script>
+    jQuery(document).ready(function () {
+
+        var _qrSelType ='@ViewBag.QueryStringSeltype';
+        var _qrSelName = '@ViewBag.QueryStringSelName';
+
+
+
+        if((_qrSelType!='' && _qrSelType.length > 0) && (_qrSelName!='' && _qrSelName.length > 0))
+        {
+            //jQuery('.stateDropDown')
+            jQuery('.mainPanel').removeClass('hide');
+            jQuery('.ddlAppSelectedTypes').val(_qrSelType);
+            GetValueDesOREmpName(_qrSelType);
+
+        }
+        jQuery('.stateDropDown').change(function()
+        {
+            jQuery('.btnTest').trigger('click');
+
+        });
+
+
+        jQuery('.btnTest').click(function()
+        {
+            var _seltype1=jQuery('.ddlAppSelectedTypes').val();
+            var _selName1 =jQuery('.stateDropDown').val();
+
+            window.location.href = '/AssignApplication/ManageAssignApplication?seltype='+_seltype1+'&selName='+_selName1;
+            return false;
+        });
+
+        jQuery('.ddlAppSelectedTypes').change(function()
+        {
+
+            var _valSel = jQuery(this).val();
+            GetValueDesOREmpName(_valSel);
+
+        });
+
+
+
+
+        jQuery('#jstree').on('changed.jstree', function (e, data) {
+            var i, j;
+            var selectedItems = [];
+            for(i = 0, j = data.selected.length; i < j; i++) {
+
+                //Fetch the Id.
+                var id = data.selected[i];
+                //var id = '9-10';
+                //console.log('id=='+id);
+                //Remove the ParentId.
+                if(id.indexOf('-') != -1){
+                    //id = id.split("-")[1];
+                    id = id.split("-")[1];
+
+                }
+
+                //alert((data.selected[i]).text+'=='+id+'=='+parent);
+
+                console.log(data.selected[i]);
+                //Add the Node to the JSON Array.
+                selectedItems.push({
+                    text: data.instance.get_node(data.selected[i]).text,
+                    id: id,
+                    parent: data.node.parents[0]
+                });
+            }
+
+            //Serialize the JSON Array and save in HiddenField.
+            jQuery('#selectedItems').val(JSON.stringify(selectedItems));
+
+
+        }).jstree({
+            "core": {
+                "themes": {
+                    "theme": "classic",
+                    "dots": true,
+                    //"variant": "small",
+                    "icons": false,
+
+                },
+                "data": @Html.Raw(ViewBag.Json)
+                },
+            "checkbox": {
+                "keep_selected_style": true
+            },
+            "plugins": ["wholerow", "checkbox"],
+        });
+
+    });
+
+
+    jQuery('#jstree').on('loaded.jstree', function (e, data) {
+        //jQuery('#jstree').jstree().select_node(["8","9","10"])
+
+
+        //setTimeout(function() {jQuery('#jstree').jstree().select_node(["10","11","16"])},1250);
+        jQuery(this).jstree("open_all");
+        //alert(@Html.Raw(ViewBag.Json1))
+        setTimeout(function() {
+            jQuery('#jstree').jstree().select_node(@Html.Raw(ViewBag.Json1));
+            //jQuery('#jstree').jstree().select_node(["16","8"]);
+        },1250);
+        //
+    });
+
+
+    function GetValueDesOREmpName(selectedDDLvalue)
+    {
+        @*var _qrSelType ='@ViewBag.QueryStringSeltype';*@
+        var _qrSelNameddl = '@ViewBag.QueryStringSelName';
+
+        var _selval = selectedDDLvalue;//jQuery(this).val();
+        var _html ='';
+        var url = "/AssignApplication/Type_Selected";
+        //var ddlsource = "#cat_type_id";
+        jQuery('#selectedType').val(_selval);
+
+        //if(_selval!="-- Select --")
+        //{
+
+        jQuery.ajax({
+            url: '/AssignApplication/Type_Selected',
+            type: "POST",
+            dataType: "JSON",
+            data: { id: _selval },
+            success: function (cities) {
+                // alert(cities);
+                jQuery('.stateDropDown').html(""); // clear before appending new list
+                jQuery('.stateDropDown').get(0).options.length = 0;
+                jQuery('.stateDropDown').get(0).options[0] = new Option("-- Select --", "0");
+                //_html='<option value=0"> -- Select --</option>';
+                jQuery.each(cities, function (i, value) {
+
+                    jQuery('.stateDropDown').get(0).options[jQuery('.stateDropDown').get(0).options.length] = new Option(value.Name,value.ID);
+                   // _html+='<option value="' + value.ID + '">' + value.Name + '</option>';
+
+                });
+
+
+                jQuery('.stateDropDown').append(_html);
+                jQuery('#selectedNameid').val(_qrSelNameddl);
+                jQuery('.mainPanel').removeClass('hide');
+                jQuery(".stateDropDown option[value=" +  _qrSelNameddl +"]").attr("selected","selected") ;
+            }
+        });
+
+        //}
+        //else
+        //{
+        //    jQuery('.mainPanel').addClass('hide');
+
+        //}
+
+
+    }
+
+</script>
+
+

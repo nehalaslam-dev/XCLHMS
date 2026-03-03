@@ -1,0 +1,125 @@
+﻿@model IEnumerable<XCLHMS.Models.Supplier>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .th-width {
+        width: 32px !important;
+    }
+</style>
+
+<div style="font-family:Arial">
+
+    <h2>Supplier list</h2>
+
+    <p style="float:right;">
+        @Html.ActionLink("Add New", "Create", null, new { @class = "btn btn-primary btn-large btnAdd" })
+    </p>
+
+    <div class="container">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+            <table id="SupplierGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Supplier Name</th>
+                        <th>Contact No</th>
+                        <th>Description</th>
+                        <th class="th-width"></th>
+                        <th class="th-width"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        @Html.Hidden("hdnPageSecurity", @XCLHMS.Helpers.SessionHelper.GetPageSecurity())
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#SupplierGrid').DataTable({
+                "ajax": {
+                    "url": "/StockInventory/Suppliers/LoadGrid",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "order": [], // ✅ Disable DataTable default sorting
+
+                "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+
+                    var arr1 = jQuery('#hdnPageSecurity').val().split('|');
+                    var _valIsAdd = arr1[0];
+                    var _valIsEdit = arr1[1];
+                    var _valIsDelete = arr1[2];
+                    if (_valIsAdd == '1') {
+                        $('.btnAdd').removeAttr('disabled');
+                    } else {
+                        $('.btnAdd').attr('disabled', 'disabled');
+                    }
+
+                    if (_valIsEdit == '1') {
+                        $('td:eq(5)', nRow).find('a').removeAttr('disabled');
+                    } else {
+                        $('td:eq(5)', nRow).find('a').attr('disabled', 'disabled');
+                    }
+
+                    if (_valIsDelete == '1') {
+                        $('td:eq(6)', nRow).find('a').removeAttr('disabled');
+                    } else {
+                        $('td:eq(6)', nRow).find('a').attr('disabled', 'disabled');
+                    }
+                },
+                "columns": [
+                    { "data": "SupplierName", "autoWidth": true },
+                    { "data": "ContactNumber", "autoWidth": true },
+                    { "data": "Description", "autoWidth": true },
+
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-info btnEdit" href="/StockInventory/Suppliers/Edit/' + full.Id + '">Edit</a>';
+                        }
+                    },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a href="javascript:void(0);" class="btn btn-danger btnDelete" onclick="DeleteData(' + full.Id + ');">Delete</a>';
+                        }
+                    }
+                ]
+            });
+        });
+
+        function DeleteData(id) {
+            if (confirm("Are you sure you want to delete this record?")) {
+                Delete(id);
+            }
+            else {
+                return false;
+            }
+        }
+
+        function Delete(id) {
+            var url = "/StockInventory/Suppliers/Delete";
+            $.post(url, { Id: id }, function (data) {
+                if (data == "Deleted") {
+                    window.location.href = '/StockInventory/Suppliers/Index'
+                    alert("Record has been deleted!");
+                    var oTable = $('#SupplierGrid').DataTable();
+                    oTable.draw();
+
+
+                } else if (data == "Exists") {
+
+                    alert("Record cannot be deleted because it's linked with other data!");
+                }
+                else {
+                    alert("Something went wrong!");
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,209 @@
+﻿@model BusinessModels.EmployeeInformationModel
+@{
+    ViewBag.Title = "EmployeeList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script src=""></script>
+
+<div id="content" class="col-md-12">
+    <div class="pageheader">
+        <h2>
+            <i class="fa fa-tachometer"></i> Users
+        </h2>
+    </div>
+    <div class="main">
+        <!-- tile -->
+        <section class="tile transparent">
+            <!-- tile header -->
+            <div class="tile-header transparent">
+                <h1>
+                    <a id="hypAdd" title="[ Add New Employee ]" class="thickbox ui-corner-all btn btn-primary" data-toggle="modal" data-target="#myModal" href="#">
+                        Add New Employee
+                    </a>
+                </h1>
+                <div class="controls">
+                    <a href="#" class="minimize"><i class="fa fa-chevron-down"></i></a>
+                    <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                    <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <!-- /tile header -->
+            <!-- tile body -->
+            <div class="tile-body color transparent-black rounded-corners">
+                <div class="table-responsive">
+                    <table class="table table-datatable table-custom" id="example">
+                        <thead>
+                            <tr>
+                                <th>EmployeeID</th>
+                                <th>Employee Name</th>
+                                <th>Store Name</th>
+                                <th>Designation</th>
+                                <th>User Name</th>
+                                <th>Pseudo Name</th>
+                                <th>Edit</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <!-- /tile body -->
+
+
+
+        </section>
+        <!-- /tile -->
+
+        @*<div class="row cards">
+                <div class="container">
+                    <br />
+                    <div style="width:90%; margin:0 auto;">
+                        <a id="hypAdd" title="[ Add New Employee ]" class="fltLeft thickbox ui-corner-all fltRight" data-toggle="modal" data-target="#myModal" href="#">
+                            Add New Employee
+                        </a>
+                        <table id="example" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>EmployeeID</th>
+                                    <th>Employee Name</th>
+                                    <th>Store Name</th>
+                                    <th>Designation</th>
+                                    <th>User Name</th>
+                                    <th>Pseudo Name</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+</div>
+<div id="myModalContent">
+    @Html.Partial("~/Areas/Setting/Views/User/Partials/AddEmployee.cshtml", Model);
+</div>
+<div id="myRoleContent">
+    @Html.Partial("~/Areas/Setting/Views/User/Partials/_EmployeeRole.cshtml", Model.employeeRole);
+</div>
+<script>
+
+    //var EmployeeInformationModel = {
+    //    employeeID: 0,
+    //    userName: '',
+    //    fullName: '',
+    //    posID: 0,
+    //    wageTypeId: 0,
+    //    firstName: '',
+    //    lastName: '',
+    //    employeeEmail: '',
+    //    employeeGender: '',
+    //    dateOfBirth: '',
+    //    dateofJoin: '',
+    //    isActive: '',
+    //    IPSec: '',
+    //    companyID: 0,
+    //    terminationDate: '',
+    //    payrollCompID: 0,
+    //    payrollEffectiveDate: '',
+    //    createdBy: '',
+    //    createdDate: '',
+    //    isVirtualEmployee: '',
+    //    updatedBy: '',
+    //    lastUpdated: '',
+    //    pseudoName: '',
+    //    HideStaffing: '',
+    //    groupID: 0,
+    //    isDuplicate: '',
+    //    isPayrollBlock: '',
+    //    payrollBlockComments: '',
+    //    placeHolder: '',
+    //    workerID: 0,
+    //    password: ''
+    //}
+
+    function getEmployeeInformation(id) {
+        var options = {
+            "backdrop": "static",
+            keyboard: true
+        };
+        $.ajax({
+            type: "GET",
+            url: "/User/GetEmployee",
+            data: { Id: id },
+            success: function (res) {
+                $('#myModalContent').html('');
+                $('#myModalContent').html(res);
+                $('#myModal').modal(options);
+                $('#myModal').modal('show');
+            },
+            failure: function (err) {
+                console.log("Error on getting Employee Information");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $("#example").DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": "/User/LoadGrid",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columnDefs":
+            [{
+                "targets": [0],
+                "visible": false,
+                "searchable": false
+            }],
+            "columns": [
+                { "data": "employeeID", "name": "employeeID", "autoWidth": true },
+                { "data": "firstName", "name": "firstName", "autoWidth": true },
+                { "data": "StoreName", "name": "storeName", "autoWidth": true },
+                { "data": "DesignationName", "name": "designation", "autoWidth": true },
+                { "data": "userName", "name": "userName", "autoWidth": true },
+                { "data": "pseudoName", "name": "pseudoName", "autoWidth": true },
+                {
+                    "render": function (data, type, full, meta) {
+                        return '<a class="btn btn-info" id="' + full.employeeID + '" onclick="getEmployeeInformation(' + full.employeeID + ')"><i class="fa fa-pencil"></i></a> | <a class="btn btn-info" onclick="getEmployeeRoles(' + full.employeeID + ')">Roles</a>';
+                    }
+                },
+           
+            ]
+
+        });
+
+    });
+
+    function DeleteData(CustomerID) {
+        if (confirm("Are you sure you want to delete ...?")) {
+            Delete(CustomerID);
+        }
+        else {
+            return false;
+        }
+    }
+
+    function Delete(CustomerID) {
+        var url = '@Url.Content("~/")' + "DemoGrid/Delete";
+        $.post(url, { ID: CustomerID }, function (data) {
+            if (data) {
+                oTable = $('#example').DataTable();
+                oTable.draw();
+            }
+            else {
+                alert("Something Went Wrong!");
+            }
+        });
+    }
+
+
+
+
+
+</script>

@@ -1,0 +1,97 @@
+﻿@model XCLHMS.Models.Product
+
+@{
+    ViewBag.Title = "Edit";
+}
+<div style="font-family:Arial">
+    <h2>Edit</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Items</h4>
+            <hr />
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AUId, "Select AU", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("AUId", null, "--Select--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AUId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DosageId, "Select Dosage", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("DosageId", null, "--Select--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DosageId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BrandId, "Select Brand", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("BrandId", null, "--Select--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BrandId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ManufactureId, "Select Manufacture", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ManufactureId", null, "--Select--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ManufactureId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary btn-success" />
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#AUId").change(function () {
+            var auId = $(this).val();
+            if (auId) {
+                $.ajax({
+                    url: '/InventoryModule/Products/GetDosageByAU',
+                    type: 'GET',
+                    data: { auId: auId },
+                    success: function (data) {
+                        var dosageDropdown = $("#DosageId");
+                        dosageDropdown.empty();
+                        dosageDropdown.append($('<option>').val('').text('--Select--'));
+                        $.each(data, function (i, dosage) {
+                            dosageDropdown.append($('<option>').val(dosage.Id).text(dosage.Name));
+                        });
+                    }
+                });
+            }
+            else {
+                $("#DosageId").empty();
+                $("#DosageId").append($('<option>').val('').text('--Select--'));
+            }
+        });
+    });
+</script>

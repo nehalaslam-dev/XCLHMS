@@ -1,0 +1,50 @@
+﻿@model XCLHMS.Models.BedManagement
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Be Allocation</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bed.BedNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bed.BedNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pateint.MRNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pateint.MRNo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

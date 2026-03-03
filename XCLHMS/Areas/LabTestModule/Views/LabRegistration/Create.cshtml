@@ -1,0 +1,196 @@
+﻿@model XCLHMS.Models.LabRegistration
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>LabRegistration</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.Label("TokenNo", "Search by MR #", new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                <input type="text" id="tokenId" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <input type="button" id="btnSearch" value="Search" class="btn btn-primary btn-success" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PatientId, "Select Patient", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PatientId",null, new { @class = "form-control",@disabled=true })
+                <span class="error">select pateint</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RegNo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.RegNo, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RegDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.RegDate, new { @class = "date form-control" })
+                <span class="error">select date</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.deliveryDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.deliveryDate, new { @class = "date form-control" })
+                <span class="error">select date</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PrescribedById, "Prescribe By", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PrescribedById", (IEnumerable<SelectListItem>)ViewBag.PrescribedById, "--Select--", new { @class = "form-control" })
+                <span class="error">select doctor</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TestConductById, "Conduct By", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TestConductById", (IEnumerable<SelectListItem>)ViewBag.TestConductById, "--Select--", new { @class = "form-control" })
+                <span class="error">select doctor</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Category", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CategoryId", null, new { @class = "form-control" })
+                <span class="error">select Category</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Test", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TestId", null, new { @class = "form-control" })
+                <span class="error">select Test</span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-auto">
+                <a id="addToList" class="btn btn-primary pull-right">Add To List</a>
+            </div>
+        </div>
+    </div>
+}
+<hr />
+
+<div class="container">
+    <br />
+    <div style="width:100%; margin:0 auto;">
+        <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Pateint Name</th>
+                    <th>Registration #</th>
+                    <th>Registration Date</th>
+                    <th>Delivery Date</th>                    
+                    <th>Test</th>
+                    <th>Prescribe by</th>
+                    <th>Conduct by</th>
+                    <th class="th-width"></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div style="padding:10px 0; text-align:right">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+        <input id="submit" type="button" value="Save" class="btn btn-warning" />
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/LabRegistration.js"></script>
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            if ($('#CategoryId').val() == '0') {
+                var dutyDefaultValue = "<option value='0'>--Select--</option>";
+                $("#TestId").html(dutyDefaultValue).show();
+            }
+
+            $('#CategoryId').change(function () {
+                var selectedItemValue = $(this).val();
+                var ddlTest = $("#TestId");
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "/LabTestModule/LabRegistration/GetTestById",
+                    data: { "id": selectedItemValue },
+                    success: function (data) {
+                        ddlTest.html('');
+                        $.each(data, function (id, option) {
+                            ddlTest.append($('<option></option>').val(option.id).html(option.name));
+                        });
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Found error to load!!.');
+                    }
+                });
+            });
+
+            $('#btnSearch').click(function () {
+                if ($('#tokenId').val() != '') {
+                    var _myValue = $('#tokenId').val();
+                    var ddlPatient = $("#PatientId");
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        url: "/LabTestModule/LabRegistration/GetPateintName",
+                        data: { "myvalue": _myValue },
+                        success: function (data) {
+                            ddlPatient.html('');
+                            $.each(data, function (id, option) {
+                                ddlPatient.append($('<option></option>').val(option.id).html(option.name));
+                            });
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert('Found error to load data!!.');
+                        }
+                    });
+                }
+                else {
+                    alert('Please enter some value.');
+                }
+
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,72 @@
+﻿@model XCLHMS.Models.Budget
+
+@{
+    ViewBag.Title = "Create";
+
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Budget</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HeadId, "Select Heads", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("HeadId", (IEnumerable<SelectListItem>)ViewBag.HeadId, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.HeadId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Code", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("Code", null, new { @class = "form-control", @disabled = "true" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Budget1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Budget1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Budget1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary btn-success" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#HeadId").change(function () {
+                var selectedItemValue = $(this).val();
+                $.ajax({
+                    url: "/Accounts/Budget/GetCodeById",
+                    type: "GET",
+                    data: { Id: selectedItemValue },
+                    success: function (data) {
+                        $('#Code').val(data);
+                    },
+                    error: function () {
+                        alert("Error! Fetching records.")
+                    }
+                });
+            });
+        });
+    </script>
+
+}

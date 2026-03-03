@@ -1,0 +1,125 @@
+﻿@model IEnumerable<XCLHMS.Models.Menu_ListGetByParentID_Result>
+@{
+    ViewBag.Title = "View Applications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+
+<div class="cl-mcont">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="block-flat">
+                <div>
+                    <h3 class="pull-left">Manage Applications</h3>
+                    <h3 class="pull-right">
+                        <a href="javascript:void(0);" class="btn btn-primary pull-right rounded AddApplication"><i class="fa fa-plus"></i>Add Application</a>
+                        <a href="javascript:void(0);" class="btn btn-primary pull-right rounded btnBack hide"><i class="fa fa-plus"></i>Back</a>
+                    </h3>
+                </div>
+                <div class="content">
+                    <div class="table-responsive">
+                        @if (Model != null)
+                        {
+                            if (Model.Count() > 0)
+                            {
+                                <table class="table table-bordered" id="datatable">
+                                    <thead>
+                                        <tr>
+                                            <th>Menu Name</th>
+                                            <th>Applcaton Path</th>
+
+                                            <th width="150">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var data in Model)
+                                        {
+                                            <tr>
+                                                <td>@data.menuName</td>
+                                                <td>@data.applicationPath</td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-default btn-xs" type="button">Actions</button>
+                                                        <button data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle" type="button">
+                                                            <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+                                                        </button>
+                                                        <ul role="menu" class="dropdown-menu pull-right">
+                                                            <li><a href="@Url.Action("ManageCreateApplication", "CreateApplication", new { id = data.menuID })">Add Child node</a></li>
+                                                            <li><a href="@Url.Action("AddEditApplication", "CreateApplication", new { id = data.menuID })">Edit</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <table class="table table-bordered" id="datatableNoRecord">
+                                    <thead>
+                                        <tr>
+                                            <th>No Record Found</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+
+                            }
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            //initialize the javascript
+            //App.dataTables();
+
+            //$('.dataTables_filter input').addClass('form-control').attr('placeholder', 'Search');
+            //$('.dataTables_length select').addClass('form-control');
+
+            var url = window.location.href;
+            var number = url.match(/(\d+)$/g);
+            console.log('number==' + number);
+            //jQuery('.btnBackHref').attr('href', '/CreateApplication/LoadDataForCreateApplication?parentid=0');
+            if (parseInt(number) > 0 && number != null && number != 'null') {
+                jQuery('.AddApplication').attr('href', '/CreateApplication/AddEditApplication?parentid=' + number);
+                jQuery('.btnBack').removeClass('hide')
+
+            }
+            else {
+                jQuery('.btnBack').addClass('hide')
+                jQuery('.AddApplication').attr('href', '/CreateApplication/AddEditApplication?parentid=0');
+            }
+
+            var _curr = '@ViewBag.currentUrl';
+            if (parseInt(_curr) > 0 && _curr != null && _curr != 'null')
+                //if (parseInt(_curr) > 0)
+            {
+                jQuery('.btnBack').attr('href', '/CreateApplication/ManageCreateApplication?parentid=' + _curr);
+            }
+            else {
+                jQuery('.btnBack').attr('href', '/CreateApplication/ManageCreateApplication');
+
+            }
+
+
+        });
+
+
+    </script>
+} 

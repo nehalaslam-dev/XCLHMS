@@ -1,0 +1,33 @@
+﻿@model IEnumerable<XCLHMS.Models.Menu>
+
+@{foreach (var item in Model.Where(s => s.menuParentID == 0).GroupBy(Obj => new { Obj.menuID }).Distinct().ToList())
+    {
+
+       <li class="dropdown">
+    
+        <a href="/@item.FirstOrDefault().controllerName/@item.FirstOrDefault().actionName">@item.FirstOrDefault().menuName</a>
+           @if(@item.FirstOrDefault().parentCount > 0)
+           { 
+           <ul class="dropdown-menu">
+               @{foreach (var firstItem in (Model.Where(s => s.menuParentID == item.FirstOrDefault().menuID).ToList()))
+               {
+
+
+                   <li>
+                       <a href="/@firstItem.controllerName/@firstItem.actionName">@firstItem.menuName</a>
+
+
+                   </li>
+
+
+
+               }
+               }
+           </ul> 
+           }
+
+    </li>
+
+
+    }
+}

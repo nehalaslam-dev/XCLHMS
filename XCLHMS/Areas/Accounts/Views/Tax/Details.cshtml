@@ -1,0 +1,58 @@
+﻿@model XCLHMS.Models.TaxDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TaxDetail</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxValues)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxValues)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tax.TaxName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tax.TaxName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

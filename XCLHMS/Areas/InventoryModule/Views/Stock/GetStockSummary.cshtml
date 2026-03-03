@@ -1,0 +1,64 @@
+﻿@model IEnumerable<XCLHMS.Models.GetStockSumamry_Result>
+
+@{
+    ViewBag.Title = "GetStockSummary";
+}
+
+<h2>Stock Summary</h2>
+
+<p style="float:right;">
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Medicine Name")
+        </th>        
+        <th>
+            @Html.DisplayNameFor(model => model.batchno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mfgdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.expirydate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QtyIn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QtyOut)
+        </th>       
+        <th>
+            @Html.DisplayNameFor(model => model.RemainigQty)
+        </th>    
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>       
+        <td>
+            @Html.DisplayFor(modelItem => item.batchno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mfgdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.expirydate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QtyIn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QtyOut)
+        </td>          
+        <td>
+            @Html.DisplayFor(modelItem => item.RemainigQty)
+        </td>    
+    </tr>
+}
+
+</table>

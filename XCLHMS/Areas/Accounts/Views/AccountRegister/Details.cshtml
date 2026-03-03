@@ -1,0 +1,98 @@
+﻿@model XCLHMS.Models.AccountRegister
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AccountRegister</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BillNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.billdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.billdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnnualBudget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnnualBudget)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BudgetRelease)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BudgetRelease)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GrossAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GrossAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxDeduction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxDeduction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NetAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NetAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Balance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Balance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COA.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COA.Code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vendor.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vendor.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

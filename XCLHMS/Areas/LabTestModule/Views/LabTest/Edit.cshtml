@@ -1,0 +1,76 @@
+﻿@model XCLHMS.Models.LabTest
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Lab Test</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LabId, "Select Lab", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("LabId", null, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LabId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PatientId, "Select Patient", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PatientId", null, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PatientId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TestId, "Select Test Category", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TestId", null, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TestId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PrescribedById, "Prescribe By", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PrescribedById", null, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PrescribedById)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TestConductById, "Conduct By", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TestConductById", (IEnumerable<SelectListItem>)ViewBag.TestConductById, "--Select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TestConductById)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+        </div>
+
+       
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary btn-success" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+            </div>
+        </div>
+    </div>
+}

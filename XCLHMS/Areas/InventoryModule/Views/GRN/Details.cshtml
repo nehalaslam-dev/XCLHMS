@@ -1,0 +1,68 @@
+﻿@model IEnumerable<XCLHMS.Models.GRNDetail>
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Product Name")
+        </th>
+        <th>
+            @Html.DisplayName("Description")
+        </th>
+        <th>
+            @Html.DisplayName("Qty")
+        </th>
+        <th>
+            @Html.DisplayName("Reject Qty")
+        </th>
+        <th>
+            @Html.DisplayName("Unit Cost")
+        </th>
+        <th>
+            @Html.DisplayName("Batch No")
+        </th>
+        <th>
+            @Html.DisplayName("Mfg Date")
+        </th>
+        <th>
+            @Html.DisplayName("Expiry Date")
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rejectQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CostPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.batchno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MgfDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpiryDate)
+            </td>
+        </tr>
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

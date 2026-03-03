@@ -1,0 +1,358 @@
+﻿@model XCLHMS.Models.PageSecurityModel
+@{
+    ViewBag.Title = "Manage Page Security";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/style.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jstree.min.js"></script>
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            @using (Html.BeginForm("ManagePageSecurity", "PageSecurity", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <h3 class="page-title">Manager Page Security</h3>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                //@Html.HiddenFor(x => x.rateID)
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>
+                                Page
+                            </label>
+                            <select id="ddlApplications" class="ddlApplications form-control"></select>
+
+
+                            @*@Html.DropDownListFor(model => model.menuID, new SelectList(ViewBag.CategoryType, "Id", "Type_Name"), "-- Select --")*@
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>
+                                Type
+                            </label>
+                            @Html.DropDownListFor(m => m.menuID, new SelectList(Enum.GetValues(typeof(AppSelectedTypesForPageSecurity))),
+  "-- Select --", new { @class = "form-control ddlAppSelectedTypes" })
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="mainPanel">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>
+                                    Name
+                                </label>
+                                <select id="stateDropDown" class="stateDropDown form-control ddlName"></select>
+
+
+                                @*@Html.DropDownListFor(model => model.menuID, new SelectList(ViewBag.CategoryType, "Id", "Type_Name"), "-- Select --")*@
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-sm-12 text-center m-t-20">
+                                <button type="submit" class="btn btn-primary btnSave">Save </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <input type="hidden" name="selectedDesigOREmpType" id="selectedDesigOREmpType" />
+                <input type="hidden" name="selectedDesigOREmpTypeid" id="selectedDesigOREmpTypeid" />
+                <input type="hidden" name="selectedMenuid" id="selectedMenuid" />
+                <input type="hidden" name="selectedMenuText" id="selectedMenuText" />
+
+
+                <br />
+
+
+                @Html.CheckBox("isAdd", false, new { @class = "isAdd" })    <span>ADD</span>
+                @Html.CheckBox("isEdit", false, new { @class = "isEdit" })    <span>Edit</span>
+                @Html.CheckBox("isDelete", false, new { @class = "isDelete" })    <span>Delete</span>
+
+
+            }
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<script>
+    jQuery(document).ready(function () {
+
+        var _qrSelType = '@ViewBag.QueryStringSeltype';
+        var _qrSelName = '@ViewBag.QueryStringSelName';
+
+        jQuery('.stateDropDown').html(""); // clear before appending new list
+        jQuery('.stateDropDown').get(0).options.length = 0;
+        jQuery('.stateDropDown').get(0).options[0] = new Option("-- Select --", "0");
+
+
+
+        jQuery('.ddlApplications').html(""); // clear before appending new list
+        jQuery('.ddlApplications').get(0).options.length = 0;
+        jQuery('.ddlApplications').get(0).options[0] = new Option("-- Select --", "0");
+
+        jQuery('.btnSave').attr('disabled', 'disabled');
+
+        GetApplicationName();
+        GetAddEditDeleteValues();
+
+
+
+        jQuery('.ddlApplications').change(function () {
+            EnabledSaveButton();
+            var _value = jQuery('#ddlApplications :selected').val();
+            var _text = jQuery('#ddlApplications :selected').text();
+
+            if (_value != '0') {
+
+                jQuery('#selectedMenuid').val(_value);
+                jQuery('#selectedMenuText').val(_text);
+                GetAddEditDeleteValues();
+            }
+
+            //checkSelectedDropDowns();
+        });
+
+        jQuery('.stateDropDown').change(function () {
+            EnabledSaveButton();
+            //checkSelectedDropDowns();
+
+
+            var _val = jQuery(this).val();
+            //console.log(_valSel)
+            if (_val.length > 0) {
+
+                jQuery('#selectedDesigOREmpTypeid').val(_val);
+                GetAddEditDeleteValues();
+            }
+
+        });
+
+        jQuery('.ddlAppSelectedTypes').change(function () {
+            EnabledSaveButton();
+            var _valSel = jQuery(this).val();
+            //console.log(_valSel)
+            if (_valSel.length == 0) {
+
+                jQuery('.stateDropDown').html(""); 
+                jQuery('.stateDropDown').get(0).options.length = 0;
+                jQuery('.stateDropDown').get(0).options[0] = new Option("-- Select --", "0");
+
+            }
+            else {
+
+                GetValueDesOREmpName(_valSel);
+                GetAddEditDeleteValues();
+            }
+
+
+        });
+
+    });
+
+
+    function GetAddEditDeleteValues() {
+
+
+        jQuery('.isAdd').prop('checked', false);
+        jQuery('.isEdit').prop('checked', false);
+        jQuery('.isDelete').prop('checked', false);
+
+
+        var _pageID = jQuery('#ddlApplications :selected').val();
+        var _Type = jQuery('.ddlAppSelectedTypes :selected').val();
+        var _name = jQuery('#stateDropDown :selected').val();
+
+        var _empID = '';
+        var _desigID = '';
+
+        var _html = '';
+        var _url = "/PageSecurity/GetSelectedAddEditDeleteValues";
+
+
+        if ((_pageID != '0') && (_Type.length > 0) && _name != '0') {
+            if (_Type == 'Designation') {
+                _empID = '0';
+                _desigID = _name;
+            }
+            else {
+                _empID = _name;
+                _desigID = '0';
+            }
+
+
+            jQuery.ajax({
+                url: _url,
+                type: "POST",
+                //dataType: "JSON",
+                data: { pageID: _pageID, employeeID: _empID, designationID: _desigID },
+                success: function (data1) {
+
+                    var bb2 = data1.split('|');
+                    //alert(bb2)
+                    // console.log('chars====' + data1.split('|')[0]);
+
+                    var _isAddval = bb2[0];
+                    var _isEditval = bb2[1];
+                    var _isDeleteval = bb2[2];
+
+                    //console.log('_isAddval' + _isAddval)
+                    //console.log('isEditval' + isEditval)
+                    //console.log('_isDeleteval' + _isDeleteval)
+
+
+                    var _isAddfullval = _isAddval.split(',')[1];
+                    var _isEditfullval = _isEditval.split(',')[1];
+                    var _isDeletefullval = _isDeleteval.split(',')[1];
+
+
+                    //console.log('_isAddfullval' + _isAddfullval)
+                    //console.log('_isEditfullval' + _isEditfullval)
+                    //console.log('_isDeletefullval' + _isDeletefullval)
+
+                    if (_isAddfullval == '1') {
+                        jQuery('.isAdd').prop('checked', true);
+
+                    }
+                    else {
+                        jQuery('.isAdd').prop('checked', false);
+                    }
+
+
+                    if (_isEditfullval == '1') {
+                        //jQuery('.isEdit').attr('checked', 'checked');
+                        jQuery('.isEdit').prop('checked', true);
+                    }
+                    else {
+                        //jQuery('.isEdit').removeAttr('checked');
+                        jQuery('.isEdit').prop('checked', false);
+                    }
+
+
+                    if (_isDeletefullval == '1') {
+                        //jQuery('.isDelete').attr('checked', 'checked');
+                        jQuery('.isDelete').prop('checked', true);
+                    }
+                    else {
+                        //jQuery('.isDelete').removeAttr('checked');
+                        jQuery('.isDelete').prop('checked', false);
+                    }
+
+
+                }
+            });
+
+
+        }
+
+    }
+
+
+    function EnabledSaveButton() {
+        var _s1 = jQuery('.ddlApplications').val();
+        var _s2 = jQuery('.stateDropDown').val();
+        var _s3 = jQuery('.ddlAppSelectedTypes').val().length;
+
+        if (_s1 != '0' && _s2 != '0' && _s3 > 0) {
+
+            jQuery('.btnSave').removeAttr('disabled');
+        }
+        else {
+
+            jQuery('.btnSave').attr('disabled', 'disabled');
+        }
+
+    }
+
+
+    function GetValueDesOREmpName(selectedDDLvalue) {
+
+
+        var _html = '';
+        var _url = "/PageSecurity/Type_Selected";
+        //var ddlsource = "#cat_type_id";
+
+        if (selectedDDLvalue.length > 0) {
+            jQuery('#selectedDesigOREmpType').val(selectedDDLvalue);
+        }
+
+        jQuery.ajax({
+            url: _url,
+            type: "POST",
+            dataType: "JSON",
+            data: { id: selectedDDLvalue },
+            success: function (ddldata) {
+                
+                jQuery('.stateDropDown').html(""); // clear before appending new list
+                jQuery('.stateDropDown').get(0).options.length = 0;
+                jQuery('.stateDropDown').get(0).options[0] = new Option("-- Select --", "0");
+                
+                jQuery.each(ddldata, function (i, value) {
+                    jQuery('.stateDropDown').get(0).options[jQuery('.stateDropDown').get(0).options.length] = new Option(value.Name, value.ID);
+                    
+
+                });
+
+
+                jQuery('.stateDropDown').append(_html);
+               
+            }
+        });
+    }
+
+
+    function GetApplicationName() {
+        var _html = '';
+        var _url = "/PageSecurity/GetAllApplications";
+        jQuery.ajax({
+            url: _url,
+            type: "POST",
+            dataType: "JSON",
+            data: { id: '123' },
+            success: function (applicat) {
+                jQuery('.ddlApplications').html(""); // clear before appending new list
+                jQuery('.ddlApplications').get(0).options.length = 0;
+                jQuery('.ddlApplications').get(0).options[0] = new Option("-- Select --", "0");
+                jQuery.each(applicat, function (i, value1) {
+                    jQuery('.ddlApplications').get(0).options[jQuery('.ddlApplications').get(0).options.length] = new Option(value1.menuName, value1.menuID);
+                });
+
+
+                jQuery('.ddlApplications').append(_html);
+                //jQuery('#selectedNameApplicationid').val(_qrSelNameddl);
+                //jQuery(".ddlApplications option[value=" + _qrSelNameddl + "]").attr("selected", "selected");
+            }
+        });
+
+
+    }
+
+</script>
+
+

@@ -1,0 +1,1624 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{93F031F0-6337-456A-9C06-AACB5A2D46FB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XCLHMS</RootNamespace>
+    <AssemblyName>XCLHMS</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1652.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1652.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1652.0\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <Private>True</Private>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.1.0.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.1.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.0.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.2.0.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.0.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.2.0.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Accounts\AccountsAreaRegistration.cs" />
+    <Compile Include="Areas\Accounts\Controllers\AccountLedgerController.cs" />
+    <Compile Include="Areas\Accounts\Controllers\AccountRegisterController.cs" />
+    <Compile Include="Areas\Accounts\Controllers\BudgetController.cs" />
+    <Compile Include="Areas\Accounts\Controllers\COAController.cs" />
+    <Compile Include="Areas\Accounts\Controllers\TaxController.cs" />
+    <Compile Include="Areas\EmployeeModule\Controllers\DutyShiftController.cs" />
+    <Compile Include="Areas\EmployeeModule\Controllers\EmployeeAllowanceController.cs" />
+    <Compile Include="Areas\EmployeeModule\Controllers\EmployeeController.cs" />
+    <Compile Include="Areas\EmployeeModule\Controllers\EmployeeDutyRoasterController.cs" />
+    <Compile Include="Areas\EmployeeModule\Controllers\EmployeeRoleController.cs" />
+    <Compile Include="Areas\EmployeeModule\Controllers\EmployeeTypeController.cs" />
+    <Compile Include="Areas\EmployeeModule\Controllers\ShiftPeriodController.cs" />
+    <Compile Include="Areas\EmployeeModule\EmployeeModuleAreaRegistration.cs" />
+    <Compile Include="Areas\InventoryModule\Controllers\BedController.cs" />
+    <Compile Include="Areas\InventoryModule\Controllers\BedManagementController.cs" />
+    <Compile Include="Areas\InventoryModule\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\InventoryModule\Controllers\GRNController.cs" />
+    <Compile Include="Areas\InventoryModule\Controllers\IRController.cs" />
+    <Compile Include="Areas\InventoryModule\Controllers\PharmacyController.cs" />
+    <Compile Include="Areas\InventoryModule\Controllers\POController.cs" />
+    <Compile Include="Areas\InventoryModule\Controllers\ProductCategoryController.cs" />
+    <Compile Include="Areas\InventoryModule\Controllers\ProductsController.cs" />
+    <Compile Include="Areas\InventoryModule\Controllers\StockController.cs" />
+    <Compile Include="Areas\InventoryModule\Controllers\VendorController.cs" />
+    <Compile Include="Areas\InventoryModule\InventoryModuleAreaRegistration.cs" />
+    <Compile Include="Areas\LabTestModule\Controllers\LabRegistrationController.cs" />
+    <Compile Include="Areas\LabTestModule\Controllers\LabTestController.cs" />
+    <Compile Include="Areas\LabTestModule\Controllers\SemanAnalysisController.cs" />
+    <Compile Include="Areas\LabTestModule\Controllers\TestCategoryController.cs" />
+    <Compile Include="Areas\LabTestModule\Controllers\TestController.cs" />
+    <Compile Include="Areas\LabTestModule\Controllers\TestResultController.cs" />
+    <Compile Include="Areas\LabTestModule\Controllers\TestUnitController.cs" />
+    <Compile Include="Areas\LabTestModule\LabTestModuleAreaRegistration.cs" />
+    <Compile Include="Areas\LabTestModule\Controllers\LabsController.cs" />
+    <Compile Include="Areas\MLCModule\Controllers\MartamController.cs" />
+    <Compile Include="Areas\MLCModule\Controllers\MLCController.cs" />
+    <Compile Include="Areas\MLCModule\MLCModuleAreaRegistration.cs" />
+    <Compile Include="Areas\PatientModule\Controllers\PateintAppointmentsController.cs" />
+    <Compile Include="Areas\PatientModule\Controllers\PateintController.cs" />
+    <Compile Include="Areas\PatientModule\Controllers\PatientPrescriptionsController.cs" />
+    <Compile Include="Areas\PatientModule\Controllers\PatienTypeController.cs" />
+    <Compile Include="Areas\PatientModule\PatientModuleAreaRegistration.cs" />
+    <Compile Include="Areas\StockInventory\Controllers\AUController.cs" />
+    <Compile Include="Areas\StockInventory\Controllers\BrandsController.cs" />
+    <Compile Include="Areas\StockInventory\Controllers\DosagesController.cs" />
+    <Compile Include="Areas\StockInventory\Controllers\IssuancesController.cs" />
+    <Compile Include="Areas\StockInventory\Controllers\ManufacturesController.cs" />
+    <Compile Include="Areas\StockInventory\StockInventoryAreaRegistration.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AssignApplicationController.cs" />
+    <Compile Include="Controllers\CreateApplicationController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DesignationsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\PageSecurityController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\WardsController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="HMSAccReg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSAccReg.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSCash.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSCash.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSGRN.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSGRN.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSIRDetail.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSIRDetail.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSLabAudit.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSLabAudit.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSLabReg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSLabReg.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSMLC.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSMLC.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSMortem.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSMortem.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSOperator.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSOperator.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSPatient.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSPatient.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSPatientOperator.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSPatientOperator.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSPO.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSPO.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSSeman.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSSeman.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSTestResult.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSTestResult.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HMSWards.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMSWards.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="IssuanceReportsData.cs">
+      <DependentUpon>IssuanceReportsData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="IssuanceReportsData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IssuanceReportsData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountLedger.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountLedgerDetail.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountRegister.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountRegister_BK09OCT2019.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AssignApplicationModel.cs" />
+    <Compile Include="Models\AU.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Bed.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BedManagement.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Brand.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Budget.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Budget_BK09OCT2019.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cashbook.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cashbook_BK09OCT2019.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\COA.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CreateApplicationModel.cs" />
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBase.cs" />
+    <Compile Include="Models\Department.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Designation.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Document.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Documents_GetAllByHeadAndBillNo_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Dosage.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dummy_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DutyShift.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeAllowance.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeDutyRoaster.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeRole.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeType.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee_EncryptedPassworLog.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_Split_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\generateMenu_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAccountRegister_BK22DEC2020_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAccountRegister_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllLabDetail_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAll_Menu_List_OnlyChild_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAll_Menu_List_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAppointmentList_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetBedAllocationDetail_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetCOA_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetDesignationAndEmpIdsForAssignApplication_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetGRNDetailByDate_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetGRNDetail_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetIRDetailByDate_121112020_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetIRDetailByDate_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetIRDetail_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetIRList_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetLabRecordByRegNo_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetLabRegistartion_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetLabRegisterByNic_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetLedgerDetail_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetMedicineBytoken_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetMenuBydesignationOrEmployeeID_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetMLCDetail_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetOperatorDetailById_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetPateintAppointments_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetPatientById_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetPatientByMR_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetPODetail1_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetPODetail4_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetPODetailByDate_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetPODetail_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetPostMortemById_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetPrescriptionById_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetStockListOrderByProductNameAndID_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetStockList_12102020_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetStockList_13Dec2020_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetStockList_BK10OCT2020_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetStockList_BK28Oct2020_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetStockList_New_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetStockList_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetStockQty_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetStockSumamry_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetStockSummaryByProductAndDate_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetTestResultDetailById_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetTestResult_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GRN.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GRNDetail.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HMS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HMS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HMS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HMS.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InventoryGRNDetail.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryGRNMaster.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryGRN_SelectByID_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryIssuanceDetail.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryIssuanceMaster.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryItem.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryItems_SelectAllByFilter_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryItems_SelectAllByID_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryItems_SelectAll_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IR.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IRDetail.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IsItemExpired_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Issuance.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ItemStock_SelectAllByID_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Items_Stock.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Items_Stock_SelectAll_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Item_GetByMainCategoryIDAndSubCategoryID_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Item_Stocks_SelectAllByFilter_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Lab.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LabRegistration.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LabTest.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MainCategory.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MainCategory_SelectAll_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MainCategory_SelectByID_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MainStore.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MainStore_SelectAllByID_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MainStore_SelectAll_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Manufacture.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Menu.cs" />
+    <Compile Include="Models\MenuAppCompanyMapp.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MenuApplicationPrivacy.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MenuAuthorization.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MenuModel.cs" />
+    <Compile Include="Models\Menu_List.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Menu_ListGetByParentID_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Metadata.cs" />
+    <Compile Include="Models\MLC.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MLCDetail.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Organization.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PageSecurity.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PageSecurityModel.cs" />
+    <Compile Include="Models\PageSecurity_SelectByPageName_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartialClasses.cs" />
+    <Compile Include="Models\Pateint.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pateint09SEP2020.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PateintAppointment.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pateint_SelectForThumbImpression_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PatientPrescription.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PatientType.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PatientVisit.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pharmacy.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PO.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PODetail.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PostMartam.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductCategory.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product_Report_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_AccountRegister_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_BedAllotment_BK04NOV2019_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_BedAllotment_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_GetTestResult_05062019_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_GetTestResult_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_pateint_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_PatientOperator_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_ProductExpiryOfProduct_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_SemanAnalysis_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_StockDetail_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_StockSummary_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_TaxDeduction_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_WardPerItem_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SemanAnalysi.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ShiftPeriod.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spGetPatient_BK04212021_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spGetPatient_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spGetPatient_Test_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Splitstring_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Stock.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockSummary_GetAllDataForReport_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubCategory.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubCategoryGetAllByCategoryID_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubCategory_SelectAll_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubCategory_SelectByID_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubStoreGetAllByMainStoreID_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubStore_SelectAll_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubStore_SelectByID_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Sync_Backup_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tax.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaxDetail.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Test.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Test1_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TestCategory.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TestResult.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TestResultDetail.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TestUnit.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThumbImpression.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Token.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tokengenerate_test_Result.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\token_archieve.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Vendor.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ward.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PatientDataHandler.ashx.cs">
+      <DependentUpon>PatientDataHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\IssuanceReport.aspx.cs">
+      <DependentUpon>IssuanceReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\IssuanceReport.aspx.designer.cs">
+      <DependentUpon>IssuanceReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\OperatorReport.aspx.cs">
+      <DependentUpon>OperatorReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\OperatorReport.aspx.designer.cs">
+      <DependentUpon>OperatorReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\PateintReport.aspx.cs">
+      <DependentUpon>PateintReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\PateintReport.aspx.designer.cs">
+      <DependentUpon>PateintReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\POReport.aspx.cs">
+      <DependentUpon>POReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\POReport.aspx.designer.cs">
+      <DependentUpon>POReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\PostMortemReport.aspx.cs">
+      <DependentUpon>PostMortemReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\PostMortemReport.aspx.designer.cs">
+      <DependentUpon>PostMortemReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RegisterReport.aspx.cs">
+      <DependentUpon>RegisterReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\RegisterReport.aspx.designer.cs">
+      <DependentUpon>RegisterReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ReportWardBeds.aspx.cs">
+      <DependentUpon>ReportWardBeds.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ReportWardBeds.aspx.designer.cs">
+      <DependentUpon>ReportWardBeds.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\SemanAnalysis.aspx.cs">
+      <DependentUpon>SemanAnalysis.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\SemanAnalysis.aspx.designer.cs">
+      <DependentUpon>SemanAnalysis.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\TestResult.aspx.cs">
+      <DependentUpon>TestResult.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\TestResult.aspx.designer.cs">
+      <DependentUpon>TestResult.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="TestResultDataHandler.ashx.cs">
+      <DependentUpon>TestResultDataHandler.ashx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\32px.png" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\datatables.css" />
+    <Content Include="Content\jquery-ui-timepicker-addon.css" />
+    <Content Include="Content\jquery.dataTables.min.css" />
+    <Content Include="Content\jquery.ui.datepicker.css" />
+    <Content Include="Content\sjquery-ui.css" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\style.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\Delete.png" />
+    <Content Include="Images\Detail.png" />
+    <Content Include="Images\edit_16.gif" />
+    <Content Include="Images\Logo.jpg" />
+    <Content Include="Images\plus.png" />
+    <Content Include="Images\Report.gif" />
+    <Content Include="Models\HMS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HMS.edmx</DependentUpon>
+      <LastGenOutput>HMS.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\HMS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HMS.edmx</DependentUpon>
+      <LastGenOutput>HMS.cs</LastGenOutput>
+    </Content>
+    <Content Include="Reports\IssuanceReport.aspx" />
+    <Content Include="Reports\OperatorReport.aspx" />
+    <Content Include="Reports\PateintReport.aspx" />
+    <Content Include="Reports\POReport.aspx" />
+    <Content Include="Reports\PostMortemReport.aspx" />
+    <Content Include="Reports\RegisterReport.aspx" />
+    <Content Include="Reports\ReportWardBeds.aspx" />
+    <Content Include="Reports\SemanAnalysis.aspx" />
+    <Content Include="Reports\TestResult.aspx" />
+    <Content Include="Scripts\AccountsRegister.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\PatientModule\Views\web.config" />
+    <Content Include="Areas\PatientModule\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\PatientModule\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\PatientModule\Views\PatienType\Create.cshtml" />
+    <Content Include="Areas\PatientModule\Views\PatienType\Delete.cshtml" />
+    <Content Include="Areas\PatientModule\Views\PatienType\Details.cshtml" />
+    <Content Include="Areas\PatientModule\Views\PatienType\Edit.cshtml" />
+    <Content Include="Areas\PatientModule\Views\PatienType\Index.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\web.config" />
+    <Content Include="Areas\InventoryModule\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\ProductCategory\Create.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\ProductCategory\Delete.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\ProductCategory\Details.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\ProductCategory\Edit.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\ProductCategory\Index.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\web.config" />
+    <Content Include="Areas\EmployeeModule\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\Employee\Create.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\Employee\Delete.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\Employee\Details.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\Employee\Edit.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\Employee\Index.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Vendor\Create.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Vendor\Delete.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Vendor\Details.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Vendor\Edit.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Vendor\Index.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Products\Create.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Products\Delete.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Products\Details.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Products\Edit.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Products\Index.cshtml" />
+    <Content Include="Areas\PatientModule\Views\Pateint\Create.cshtml" />
+    <Content Include="Areas\PatientModule\Views\Pateint\Delete.cshtml" />
+    <Content Include="Areas\PatientModule\Views\Pateint\Details.cshtml" />
+    <Content Include="Areas\PatientModule\Views\Pateint\Edit.cshtml" />
+    <Content Include="Areas\PatientModule\Views\Pateint\Index.cshtml" />
+    <Content Include="Areas\PatientModule\Views\PateintAppointments\Create.cshtml" />
+    <Content Include="Areas\PatientModule\Views\PateintAppointments\Delete.cshtml" />
+    <Content Include="Areas\PatientModule\Views\PateintAppointments\Details.cshtml" />
+    <Content Include="Areas\PatientModule\Views\PateintAppointments\Edit.cshtml" />
+    <Content Include="Areas\PatientModule\Views\PateintAppointments\Index.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Bed\Create.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Bed\Delete.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Bed\Details.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Bed\Edit.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Bed\Index.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\BedManagement\Create.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\BedManagement\Delete.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\BedManagement\Details.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\BedManagement\Edit.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\BedManagement\Index.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\PO\Create.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\PO\Index.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\Labs\Create.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\Labs\Delete.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\Labs\Details.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\Labs\Edit.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\Labs\Index.cshtml" />
+    <Content Include="Areas\PatientModule\Views\PatientPrescriptions\List.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\PO\Details.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeType\Create.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeType\Delete.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeType\Details.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeType\Edit.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeType\Index.cshtml" />
+    <Content Include="Areas\Accounts\Views\web.config" />
+    <Content Include="Areas\Accounts\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Accounts\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Accounts\Views\COA\Create.cshtml" />
+    <Content Include="Areas\Accounts\Views\COA\Delete.cshtml" />
+    <Content Include="Areas\Accounts\Views\COA\Details.cshtml" />
+    <Content Include="Areas\Accounts\Views\COA\Edit.cshtml" />
+    <Content Include="Areas\Accounts\Views\COA\Index.cshtml" />
+    <Content Include="App_Code\TreeView.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\PO\List.cshtml" />
+    <Content Include="Areas\Accounts\Views\COA\myTreeView.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeAllowance\Create.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeAllowance\Delete.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeAllowance\Details.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeAllowance\Edit.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeAllowance\Index.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\GRN\Create.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\GRN\Index.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\GRN\Details.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Stock\Edit.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Stock\Index.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Stock\GetStockSummary.cshtml" />
+    <Content Include="Areas\Accounts\Views\AccountLedger\Create.cshtml" />
+    <Content Include="Areas\Accounts\Views\AccountLedger\Delete.cshtml" />
+    <Content Include="Areas\Accounts\Views\AccountLedger\Details.cshtml" />
+    <Content Include="Areas\Accounts\Views\AccountLedger\Edit.cshtml" />
+    <Content Include="Areas\Accounts\Views\AccountLedger\Index.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\ShiftPeriod\Create.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\ShiftPeriod\Delete.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\ShiftPeriod\Details.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\ShiftPeriod\Edit.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\ShiftPeriod\Index.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\DutyShift\Create.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\DutyShift\Delete.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\DutyShift\Details.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\DutyShift\Edit.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\DutyShift\Index.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeDutyRoaster\Create.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeDutyRoaster\Delete.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeDutyRoaster\Details.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeDutyRoaster\Edit.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeDutyRoaster\Index.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\web.config" />
+    <Content Include="Areas\LabTestModule\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestCategory\Create.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestCategory\Delete.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestCategory\Details.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestCategory\Edit.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestCategory\Index.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\Test\Create.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\Test\Delete.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\Test\Details.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\Test\Edit.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\Test\Index.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestUnit\Create.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestUnit\Delete.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestUnit\Details.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestUnit\Edit.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestUnit\Index.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\LabTest\Create.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\LabTest\Delete.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\LabTest\Details.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\LabTest\Edit.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\LabTest\Index.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestResult\Create.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestResult\Delete.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestResult\Details.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestResult\Edit.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\TestResult\Index.cshtml" />
+    <Content Include="Areas\Accounts\Views\Budget\Create.cshtml" />
+    <Content Include="Areas\Accounts\Views\Budget\Delete.cshtml" />
+    <Content Include="Areas\Accounts\Views\Budget\Details.cshtml" />
+    <Content Include="Areas\Accounts\Views\Budget\Edit.cshtml" />
+    <Content Include="Areas\Accounts\Views\Budget\Index.cshtml" />
+    <Content Include="Areas\Accounts\Views\AccountRegister\Create.cshtml" />
+    <Content Include="Areas\Accounts\Views\AccountRegister\Delete.cshtml" />
+    <Content Include="Areas\Accounts\Views\AccountRegister\Details.cshtml" />
+    <Content Include="Areas\Accounts\Views\AccountRegister\Edit.cshtml" />
+    <Content Include="Areas\Accounts\Views\AccountRegister\Index.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Pharmacy\Create.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Pharmacy\Delete.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Pharmacy\Details.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Pharmacy\Edit.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Pharmacy\Index.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeRole\Create.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeRole\Delete.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeRole\Details.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeRole\Edit.cshtml" />
+    <Content Include="Areas\EmployeeModule\Views\EmployeeRole\Index.cshtml" />
+    <Content Include="Areas\Accounts\Views\Tax\Create.cshtml" />
+    <Content Include="Areas\Accounts\Views\Tax\Delete.cshtml" />
+    <Content Include="Areas\Accounts\Views\Tax\Details.cshtml" />
+    <Content Include="Areas\Accounts\Views\Tax\Edit.cshtml" />
+    <Content Include="Areas\Accounts\Views\Tax\Index.cshtml" />
+    <Content Include="HMSGRN.xsc">
+      <DependentUpon>HMSGRN.xsd</DependentUpon>
+    </Content>
+    <Content Include="Areas\MLCModule\Views\web.config" />
+    <Content Include="Areas\MLCModule\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MLCModule\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\MLCModule\Views\MLC\Create.cshtml" />
+    <Content Include="Areas\MLCModule\Views\MLC\Delete.cshtml" />
+    <Content Include="Areas\MLCModule\Views\MLC\Details.cshtml" />
+    <Content Include="Areas\MLCModule\Views\MLC\Edit.cshtml" />
+    <Content Include="Areas\MLCModule\Views\MLC\Index.cshtml" />
+    <Content Include="Areas\MLCModule\Views\Martam\Create.cshtml" />
+    <Content Include="Areas\MLCModule\Views\Martam\Delete.cshtml" />
+    <Content Include="Areas\MLCModule\Views\Martam\Details.cshtml" />
+    <Content Include="Areas\MLCModule\Views\Martam\Edit.cshtml" />
+    <Content Include="Areas\MLCModule\Views\Martam\Index.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\LabRegistration\Create.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\LabRegistration\Delete.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\LabRegistration\Details.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\LabRegistration\Edit.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\LabRegistration\Index.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\SemanAnalysis\Create.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\SemanAnalysis\Delete.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\SemanAnalysis\Details.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\SemanAnalysis\Edit.cshtml" />
+    <Content Include="Areas\LabTestModule\Views\SemanAnalysis\Index.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Customer\Create.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Customer\Delete.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Customer\Details.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Customer\Edit.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\IR\Create.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\IR\Delete.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\IR\Details.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\IR\Edit.cshtml" />
+    <Content Include="Areas\InventoryModule\Views\IR\Index.cshtml" />
+    <Content Include="HMSAccReg.xsc">
+      <DependentUpon>HMSAccReg.xsd</DependentUpon>
+    </Content>
+    <Content Include="Areas\StockInventory\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\StockInventory\Views\AU\Create.cshtml" />
+    <Content Include="Areas\StockInventory\Views\AU\Delete.cshtml" />
+    <Content Include="Areas\StockInventory\Views\AU\Details.cshtml" />
+    <Content Include="Areas\StockInventory\Views\AU\Edit.cshtml" />
+    <Content Include="Areas\StockInventory\Views\AU\Index.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Web.config" />
+    <Content Include="Areas\StockInventory\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Dosages\Create.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Dosages\Delete.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Dosages\Details.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Dosages\Edit.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Dosages\Index.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Brands\Create.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Brands\Delete.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Brands\Details.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Brands\Edit.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Brands\Index.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Manufactures\Create.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Manufactures\Delete.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Manufactures\Details.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Manufactures\Edit.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Manufactures\Index.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Suppliers\Create.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Suppliers\Delete.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Suppliers\Details.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Suppliers\Edit.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Suppliers\Index.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Issuances\Create.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Issuances\Delete.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Issuances\Details.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Issuances\Edit.cshtml" />
+    <Content Include="Areas\StockInventory\Views\Issuances\Index.cshtml" />
+    <None Include="HMSAccReg.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSAccReg.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSAccReg.xss">
+      <DependentUpon>HMSAccReg.xsd</DependentUpon>
+    </Content>
+    <Content Include="HMSCash.xsc">
+      <DependentUpon>HMSCash.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSCash.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSCash.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSCash.xss">
+      <DependentUpon>HMSCash.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSGRN.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSGRN.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSGRN.xss">
+      <DependentUpon>HMSGRN.xsd</DependentUpon>
+    </Content>
+    <Content Include="HMSMLC.xsc">
+      <DependentUpon>HMSMLC.xsd</DependentUpon>
+    </Content>
+    <Content Include="HMSLabReg.xsc">
+      <DependentUpon>HMSLabReg.xsd</DependentUpon>
+    </Content>
+    <Content Include="HMSIRDetail.xsc">
+      <DependentUpon>HMSIRDetail.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSIRDetail.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSIRDetail.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSIRDetail.xss">
+      <DependentUpon>HMSIRDetail.xsd</DependentUpon>
+    </Content>
+    <Content Include="HMSLabAudit.xsc">
+      <DependentUpon>HMSLabAudit.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSLabAudit.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSLabAudit.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSLabAudit.xss">
+      <DependentUpon>HMSLabAudit.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSLabReg.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSLabReg.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSLabReg.xss">
+      <DependentUpon>HMSLabReg.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSMLC.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSMLC.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSMLC.xss">
+      <DependentUpon>HMSMLC.xsd</DependentUpon>
+    </Content>
+    <Content Include="HMSMortem.xsc">
+      <DependentUpon>HMSMortem.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSMortem.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSMortem.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSMortem.xss">
+      <DependentUpon>HMSMortem.xsd</DependentUpon>
+    </Content>
+    <Content Include="HMSOperator.xsc">
+      <DependentUpon>HMSOperator.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSOperator.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSOperator.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSOperator.xss">
+      <DependentUpon>HMSOperator.xsd</DependentUpon>
+    </Content>
+    <Content Include="HMSPO.xsc">
+      <DependentUpon>HMSPO.xsd</DependentUpon>
+    </Content>
+    <Content Include="HMSPatientOperator.xsc">
+      <DependentUpon>HMSPatientOperator.xsd</DependentUpon>
+    </Content>
+    <Content Include="HMSPatient.xsc">
+      <DependentUpon>HMSPatient.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSPatient.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSPatient.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSPatient.xss">
+      <DependentUpon>HMSPatient.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSPatientOperator.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSPatientOperator.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSPatientOperator.xss">
+      <DependentUpon>HMSPatientOperator.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSPO.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSPO.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSPO.xss">
+      <DependentUpon>HMSPO.xsd</DependentUpon>
+    </Content>
+    <Content Include="HMSSeman.xsc">
+      <DependentUpon>HMSSeman.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSSeman.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSSeman.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSSeman.xss">
+      <DependentUpon>HMSSeman.xsd</DependentUpon>
+    </Content>
+    <Content Include="PatientDataHandler.ashx" />
+    <Content Include="HMSWards.xsc">
+      <DependentUpon>HMSWards.xsd</DependentUpon>
+    </Content>
+    <Content Include="HMSTestResult.xsc">
+      <DependentUpon>HMSTestResult.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSTestResult.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSTestResult.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSTestResult.xss">
+      <DependentUpon>HMSTestResult.xsd</DependentUpon>
+    </Content>
+    <None Include="HMSWards.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HMSWards.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="HMSWards.xss">
+      <DependentUpon>HMSWards.xsd</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\HMS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HMS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\HMS.edmx.diagram">
+      <DependentUpon>HMS.edmx</DependentUpon>
+    </Content>
+    <Content Include="IssuanceReportsData.xsc">
+      <DependentUpon>IssuanceReportsData.xsd</DependentUpon>
+    </Content>
+    <None Include="IssuanceReportsData.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>IssuanceReportsData.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="IssuanceReportsData.xss">
+      <DependentUpon>IssuanceReportsData.xsd</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\datatables.js" />
+    <Content Include="Scripts\GRNScript.js" />
+    <Content Include="Scripts\IRScripts.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jstree.min.js" />
+    <Content Include="Scripts\LabRegistration.js" />
+    <Content Include="Scripts\LedgerScript.js" />
+    <Content Include="Scripts\MLCScript.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\sjquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.js" />
+    <Content Include="Scripts\sjquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\sjquery-ui.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.ui.datepicker.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\POScript.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\TestScript.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Designations\TestIndex.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Designations\Create.cshtml" />
+    <Content Include="Views\Designations\Delete.cshtml" />
+    <Content Include="Views\Designations\Details.cshtml" />
+    <Content Include="Views\Designations\Edit.cshtml" />
+    <Content Include="Views\Designations\Index.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Organization\Create.cshtml" />
+    <Content Include="Views\Organization\Delete.cshtml" />
+    <Content Include="Views\Organization\Details.cshtml" />
+    <Content Include="Views\Organization\Edit.cshtml" />
+    <Content Include="Views\Organization\Index.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\Delete.cshtml" />
+    <Content Include="Views\Department\Details.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Shared\_BlankLayout.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\Shared\_SideMenu.cshtml" />
+    <Content Include="Views\AssignApplication\ManageAssignApplication.cshtml" />
+    <Content Include="Views\CreateApplication\AddEditApplication.cshtml" />
+    <Content Include="Views\CreateApplication\ManageCreateApplication.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\LogOut.cshtml" />
+    <Content Include="Views\Account\LogOut.cshtml" />
+    <Content Include="Views\PageSecurity\ManagePageSecurity.cshtml" />
+    <Content Include="Views\Wards\Create.cshtml" />
+    <Content Include="Views\Wards\Delete.cshtml" />
+    <Content Include="Views\Wards\Details.cshtml" />
+    <Content Include="Views\Wards\Edit.cshtml" />
+    <Content Include="Views\Wards\Index.cshtml" />
+    <Content Include="TestResultDataHandler.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Accounts\Models\" />
+    <Folder Include="Areas\EmployeeModule\Models\" />
+    <Folder Include="Areas\InventoryModule\Models\" />
+    <Folder Include="Areas\LabTestModule\Models\" />
+    <Folder Include="Areas\MLCModule\Models\" />
+    <Folder Include="Areas\PatientModule\Models\" />
+    <Folder Include="Areas\StockInventory\Models\" />
+    <Folder Include="Content\images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\CashBook.rdlc" />
+    <EmbeddedResource Include="Reports\GRNReport.rdlc" />
+    <EmbeddedResource Include="Reports\IRReport.rdlc" />
+    <EmbeddedResource Include="Reports\IssuanceDateWise.rdlc" />
+    <EmbeddedResource Include="Reports\LabRegistration.rdlc" />
+    <EmbeddedResource Include="Reports\MLCReport.rdlc" />
+    <Content Include="Reports\Patient.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Reports\PostMortem.rdlc" />
+    <EmbeddedResource Include="Reports\PurchaseOrder.rdlc" />
+    <EmbeddedResource Include="Reports\Register.rdlc" />
+    <EmbeddedResource Include="Reports\Report1.rdlc" />
+    <EmbeddedResource Include="Reports\Report_Operator.rdlc" />
+    <EmbeddedResource Include="Reports\rptBedAllotment.rdlc" />
+    <EmbeddedResource Include="Reports\rptPatientOperator.rdlc" />
+    <EmbeddedResource Include="Reports\TestResult.rdlc" />
+    <EmbeddedResource Include="Reports\SemanAnalysis.rdlc" />
+    <EmbeddedResource Include="Reports\TestReport\Report1.rdlc" />
+    <EmbeddedResource Include="Reports\TestReport\Report2.rdlc" />
+    <EmbeddedResource Include="Reports\TestReport\Report3.rdlc" />
+    <EmbeddedResource Include="Reports\TestReport\Report4.rdlc" />
+    <EmbeddedResource Include="Reports\TestReport\Report5.rdlc" />
+    <EmbeddedResource Include="Reports\TestReport\Report6.rdlc" />
+    <EmbeddedResource Include="Reports\TestReport\Report7.rdlc" />
+    <EmbeddedResource Include="Reports\TestReport\Report8.rdlc" />
+    <EmbeddedResource Include="Reports\TestReport\Report9.rdlc" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>35918</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:35918/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

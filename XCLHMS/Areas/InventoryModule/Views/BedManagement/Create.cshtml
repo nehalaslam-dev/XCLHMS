@@ -1,0 +1,213 @@
+﻿@model XCLHMS.Models.BedManagement
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div style="font-family:Arial">
+    <h2>Create</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Bed Allocation</h4>
+            <hr />
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                @Html.Label("TokenNo", "Search by MR #", new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <input type="text" id="tokenId" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <input type="button" id="btnSearch" value="Search" class="btn btn-primary btn-success" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PatientID, "Select Patient", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("PatientID", null, new { @class = "form-control", @disabled = true })
+                    <span class="error">select pateint</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Father Name", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.TextBox("FName", new { @class = "form-control", @readonly = true })*@
+                    <input type="text" class="form-control" disabled="disabled" id="fName" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Address", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.TextBox("FName", new { @class = "form-control", @readonly = true })*@
+                    <input type="text" class="form-control"  disabled="disabled" id="address" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Contact#", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.TextBox("FName", new { @class = "form-control", @readonly = true })*@
+                    <input type="text" class="form-control" disabled="disabled" id="contact" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Age", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.TextBox("FName", new { @class = "form-control", @readonly = true })*@
+                    <input type="text" class="form-control" disabled="disabled" id="age" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Ward", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("WardId", null, new { @class = "form-control" })
+                    <span class="error">select Ward</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BedID, "Select Bed", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("BedID", null, new { @class = "form-control" })
+                    <span class="error">select Bed</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Discharge Status", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("dischargeType", new List<SelectListItem> {
+                    new SelectListItem{Text="DC",Value="DC"},
+                    new SelectListItem{Text="LAMA",Value="LAMA"},
+                    new SelectListItem{Text="DOR",Value="DOR"},
+                    new SelectListItem{Text="Death",Value="Death"},
+                    new SelectListItem{Text="Refferd",Value="Refferd"}
+               }, "-- Select --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.dischargeType)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DischargeDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.DischargeDate, new { @class = "date form-control" })
+                    @Html.ValidationMessageFor(model => model.DischargeDate)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" id="submit" value="Save" class="btn btn-primary btn-success" />
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+</style>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            $('#submit').click(function () {
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "/InventoryModule/BedManagement/save",
+                    data: {
+                        "bedId": $("#BedID option:selected").val(),
+                        "patientId": $("#PatientID option:selected").val()
+                        
+                    },
+                    success: function (data) {
+                        window.location.href = '/InventoryModule/BedManagement/Index'
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Found error to load!!.');
+                    }
+
+
+                });
+            });
+
+            if ($('#WardId').val() == '0') {
+                var dutyDefaultValue = "<option value='0'>--Select--</option>";
+                $("#BedID").html(dutyDefaultValue).show();
+            }
+
+            $('#WardId').change(function () {
+                var selectedItemValue = $(this).val();
+                var ddlBeds = $("#BedID");
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "/InventoryModule/BedManagement/GetBedById",
+                    data: { "id": selectedItemValue },
+                    success: function (data) {
+                        ddlBeds.html('');
+                        $.each(data, function (id, option) {
+                            ddlBeds.append($('<option></option>').val(option.id).html(option.name));
+                        });
+
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Found error to load!!.');
+                    }
+                });
+            });
+
+            $('#btnSearch').click(function () {
+                if ($('#tokenId').val() != '') {
+                    var _myValue = $('#tokenId').val();
+                    var ddlPatient = $("#PatientID");
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        url: "/InventoryModule/BedManagement/GetPateintName",
+                        data: { "myvalue": _myValue },
+                        success: function (data) {                           
+                            ddlPatient.html('');
+                            $.each(data, function (id, option) {
+                                ddlPatient.append($('<option></option>').val(option.id).html(option.name));
+                                $("#fName").val(option.fname);
+                                $("#address").val(option.address);
+                                $("#contact").val(option.contact);
+                                $("#age").val(option.age);
+                            });
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert('Found error to load data!!.');
+                        }
+                    });
+                }
+                else {
+                    alert('Please enter some value.');
+                }
+
+            });
+
+        });
+    </script>
+}
