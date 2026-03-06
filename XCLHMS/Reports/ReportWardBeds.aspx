@@ -1,85 +1,83 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportWardBeds.aspx.cs" Inherits="XCLHMS.Reports.ReportWardBeds" %>
-
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
-
-
 <html>
 <head>
     <link href="../Content/bootstrap.css" rel="stylesheet" />
     <link href="../Content/jquery-ui.css" rel="stylesheet" />
     <link href="../Content/Site.css" rel="stylesheet" />
     <link href="../Content/style.min.css" rel="stylesheet" />
+code
+Code
+<script src="../Scripts/jquery-1.12.4.js"></script>
+<script src="../Scripts/jquery-ui.js"></script>
 
-
-    <script src="../Scripts/jquery-1.12.4.js"></script>
-    <script src="../Scripts/jquery-ui.js"></script>
-
-    <script>
-        jQuery(function () {
-            jQuery(".date").datepicker();
-        });
-    </script>
+<script>
+    jQuery(function () {
+        jQuery(".date").datepicker();
+    });
+</script>
 </head>
 <body>
     <form id="form1" runat="server">
    <div class="col-md-8 col-md-offset-1">
-
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="margin-Zero">
-                            Select Wards:
-                        </label>
-                        <asp:DropDownList ID="ddlWards" runat="server" CssClass="form-control" Width="">
-                        </asp:DropDownList>
-                    </div>
-                </div>          
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="margin-Zero">
-                            Admit Start Date:
-                        </label>
-                        <asp:TextBox ID="txtAdmitStart" runat="server" CssClass="date form-control"></asp:TextBox>
-                    </div>
+code
+Code
+<div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="margin-Zero">
+                        Select Wards:
+                    </label>
+                    <asp:DropDownList ID="ddlWards" runat="server" CssClass="form-control" Width="">
+                    </asp:DropDownList>
                 </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="margin-Zero">
-                            Admit End Date:
-                        </label>
-                        <asp:TextBox ID="txtAdmitEnd" runat="server" CssClass="date form-control"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="margin-Zero">
-                            Discharge Start Date:
-                        </label>
-                        <asp:TextBox ID="txtDischargeStart" runat="server" CssClass="date form-control"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="margin-Zero">
-                            Discharge End Date:
-                        </label>
-                        <asp:TextBox ID="txtDischargeEnd" runat="server" CssClass="date form-control"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <br />
-                    <div class="form-group">
-                        <asp:Button ID="btnSearch" runat="server" Text="Search"  CssClass="btn btn-primary" OnClick="btnSearch_Click" />
-                        <input type="button" id="printBtn" value="Print" class="btn btn-primary" />
-                    </div>
+            </div>          
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="margin-Zero">
+                        Admit Start Date:
+                    </label>
+                    <asp:TextBox ID="txtAdmitStart" runat="server" CssClass="date form-control"></asp:TextBox>
                 </div>
             </div>
-            <div>
-                <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-                <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="104%" Height="590px"></rsweb:ReportViewer>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="margin-Zero">
+                        Admit End Date:
+                    </label>
+                    <asp:TextBox ID="txtAdmitEnd" runat="server" CssClass="date form-control"></asp:TextBox>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="margin-Zero">
+                        Discharge Start Date:
+                    </label>
+                    <asp:TextBox ID="txtDischargeStart" runat="server" CssClass="date form-control"></asp:TextBox>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="margin-Zero">
+                        Discharge End Date:
+                    </label>
+                    <asp:TextBox ID="txtDischargeEnd" runat="server" CssClass="date form-control"></asp:TextBox>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <br />
+                <div class="form-group">
+                    <asp:Button ID="btnSearch" runat="server" Text="Search"  CssClass="btn btn-primary" OnClick="btnSearch_Click" />
+                    <input type="button" id="printBtn" value="Print" class="btn btn-primary" />
+                </div>
             </div>
         </div>
-    </form>
+        <div>
+            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+            <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="104%" Height="590px"></rsweb:ReportViewer>
+        </div>
+    </div>
+</form>
 </body>
 </html>
 <script type="text/javascript">
@@ -87,7 +85,8 @@
         function printReport(report_ID) {
             var rv1 = $('#' + report_ID);
             var iDoc = rv1.parents('html');
-
+            code
+            Code
             // Reading the report styles
             var styles = iDoc.find("head style[id$='ReportControl_styles']").html();
             if ((styles == undefined) || (styles == '')) {
