@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -14,7 +14,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
     {
         private HMSEntities db = new HMSEntities();
 
-        // GET: /InventoryModule/Customer/
+        // GET: /InventoryModule/Customers/
         public ActionResult Index()
         {
             return View();
@@ -27,83 +27,83 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
             return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: /InventoryModule/Customer/Details/5
+        // GET: /InventoryModule/Customers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            Customers Customers = db.Customers.Find(id);
+            if (Customers == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(Customers);
         }
 
-        // GET: /InventoryModule/Customer/Create
+        // GET: /InventoryModule/Customers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: /InventoryModule/Customer/Create
+        // POST: /InventoryModule/Customers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Name,Description")] Customer customer)
+        public ActionResult Create([Bind(Include="Id,Name,Description")] Customers Customers)
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
+                db.Customers.Add(Customers);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(customer);
+            return View(Customers);
         }
 
-        // GET: /InventoryModule/Customer/Edit/5
+        // GET: /InventoryModule/Customers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            Customers Customers = db.Customers.Find(id);
+            if (Customers == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(Customers);
         }
 
-        // POST: /InventoryModule/Customer/Edit/5
+        // POST: /InventoryModule/Customers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Name,Description")] Customer customer)
+        public ActionResult Edit([Bind(Include="Id,Name,Description")] Customers Customers)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
+                db.Entry(Customers).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(customer);
+            return View(Customers);
         }
 
-        // GET: /InventoryModule/Customer/Delete/5
+        // GET: /InventoryModule/Customers/Delete/5
 
         [HttpPost]
         public JsonResult Delete(int? Id)
         {
             try
             {
-                Customer customers = db.Customers.Find(Id);
+                Customers customers = db.Customers.Find(Id);
                 if (Id == null)
                 {
                     return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
@@ -129,3 +129,4 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         }
     }
 }
+

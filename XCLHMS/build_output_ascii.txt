@@ -1,0 +1,19 @@
+MSBuild version 17.13.19+0d9f5a35a for .NET Framework
+Build started 3/28/2026 8:53:31 PM.
+
+Project "C:\Users\Personal Computer\Downloads\XCLHMS\XCLHMS\XCLHMS.sln" on node 1 (Build target(s)).
+ValidateSolutionConfiguration:
+  Building solution configuration "Debug|Any CPU".
+C:\Users\Personal Computer\Downloads\XCLHMS\XCLHMS\XCLHMS.sln.metaproj : error MSB3202: The project file "C:\Users\Personal Computer\Downloads\XCLHMS\XCLHMS\XCLHMS\XCLHMS.csproj" was not found. [C:\Users\Personal Computer\Downloads\XCLHMS\XCLHMS\XCLHMS.sln]
+Done Building Project "C:\Users\Personal Computer\Downloads\XCLHMS\XCLHMS\XCLHMS.sln" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+"C:\Users\Personal Computer\Downloads\XCLHMS\XCLHMS\XCLHMS.sln" (Build target) (1) ->
+(Build target) -> 
+  C:\Users\Personal Computer\Downloads\XCLHMS\XCLHMS\XCLHMS.sln.metaproj : error MSB3202: The project file "C:\Users\Personal Computer\Downloads\XCLHMS\XCLHMS\XCLHMS\XCLHMS.csproj" was not found. [C:\Users\Personal Computer\Downloads\XCLHMS\XCLHMS\XCLHMS.sln]
+
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:00.10

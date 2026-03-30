@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+using System;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 using XCLHMS.Models;
 
 namespace XCLHMS.Areas.Accounts.Controllers
@@ -14,126 +10,95 @@ namespace XCLHMS.Areas.Accounts.Controllers
     {
         private HMSEntities db = new HMSEntities();
 
-        // GET: /Accounts/COA/
         public ActionResult Index()
         {
-            //var coas = db.COAs;
-            //return View(coas.ToList());
             return View();
         }
 
-        public ActionResult LoadGrid()
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-            var data = db.COAs.ToList();
-            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
-        }
-
-        // GET: /Accounts/COA/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            COA coa = db.COAs.Find(id);
-            if (coa == null)
-            {
-                return HttpNotFound();
-            }
-            return View(coa);
-        }
-
-        // GET: /Accounts/COA/Create
+        [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.ParentID = new SelectList(db.COAs, "ID", "Name");
-            return View();
+            return View(new XCLHMS.Models.COA());
         }
 
-        // POST: /Accounts/COA/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ParentID,Code,Name,Description,CreatedDate,ModifiedDate")] COA coa)
+        [HttpGet]
+        public ActionResult Edit(int id)
         {
-            if (ModelState.IsValid)
-            {
-                coa.CreatedDate = DateTime.Now;
-                db.COAs.Add(coa);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.ParentID = new SelectList(db.COAs, "ID", "Name", coa.ID);
-            return View(coa);
+            var model = db.COAs.Find(id);
+            if (model == null) return HttpNotFound();
+            return View("Create", model);
         }
 
-        // GET: /Accounts/COA/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            COA coa = db.COAs.Find(id);
-            TempData["crtDate"] = coa.CreatedDate;
-            if (coa == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ParentID = new SelectList(db.COAs, "ID", "Name", coa.ID);
-
-            return View(coa);
-        }
-
-        // POST: /Accounts/COA/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Code,ParentID,Name,Description,CreatedDate,ModifiedDate")] COA coa)
-        {
-            if (ModelState.IsValid)
-            {
-                coa.CreatedDate = Convert.ToDateTime(TempData["crtDate"]);
-                coa.ModifiedDate = DateTime.Now;
-                db.Entry(coa).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ParentID = new SelectList(db.COAs, "ID", "Name", coa.ID);
-
-            return View(coa);
-        }
-
-        [HttpPost]
-        public JsonResult Delete(int? Id)
+        // --- FETCH DATA FOR GRID ---
+        [HttpGet]
+        public ActionResult LoadGrid()
         {
             try
             {
-                COA coa = db.COAs.Find(Id);
-                if (Id == null)
-                {
-                    return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
-                }
-                db.COAs.Remove(coa);
-                db.SaveChanges();
-                return Json(data: "Deleted", behavior: JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception)
-            {
-                return Json(data: "Exists", behavior: JsonRequestBehavior.AllowGet);
-            }
+                // Disables proxy to prevent circular reference errors during JSON serialization
+                db.Configuration.ProxyCreationEnabled = false;
 
+                // Use the bridge alias COAs from partial class to ensure it's accessible
+                var data = db.COAs.OrderBy(x => x.Code).ToList();
+
+                return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
-        public ActionResult myTreeView()
+        [HttpPost]
+        public JsonResult Save(COA model)
         {
-            List<COA> all = new List<COA>();
-            all = db.COAs.OrderBy(x => x.ParentID).ToList();
-            return View(all);
+            try
+            {
+                if (model.ID == 0)
+                {
+                    model.CreatedDate = DateTime.Now;
+                    if (model.ParentID == 0) model.ParentID = 0; // Ensure it's set
+                    db.COAs.Add(model);
+                }
+                else
+                {
+                    var existing = db.COAs.Find(model.ID);
+                    if (existing != null)
+                    {
+                        existing.Code = model.Code;
+                        existing.Name = model.Name;
+                        existing.Description = model.Name; // Map Name to Description as well
+                        existing.ModifiedDate = DateTime.Now;
+                        db.Entry(existing).State = EntityState.Modified;
+                    }
+                }
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.InnerException?.Message ?? ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            try
+            {
+                var data = db.COAs.Find(id);
+                if (data != null)
+                {
+                    db.COAs.Remove(data);
+                    db.SaveChanges();
+                    return Json(new { success = true });
+                }
+                return Json(new { success = false, message = "Record not found" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
 
         protected override void Dispose(bool disposing)

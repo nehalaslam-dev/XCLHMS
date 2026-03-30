@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -14,21 +14,21 @@ namespace XCLHMS.Areas.Accounts.Controllers
     {
         private HMSEntities db = new HMSEntities();
 
-        // GET: /Accounts/Tax/
+        // GET: /Accounts/taxes/
         public ActionResult Index()
         {
-            //var taxdetails = db.TaxDetails.Include(t => t.tax);
+            //var taxdetails = db.TaxDetails.Include(t => t.taxes);
             return View();
         }
 
         public ActionResult LoadGrid()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var data = db.TaxDetails.Include(t => t.tax);
+            var data = db.TaxDetails.Include(t => t.taxes);
             var final = (from d in data
                          select new { 
                             Id=d.Id,
-                            taxCategory = d.tax.TaxName,
+                            taxCategory = d.taxes.TaxName,
                             taxName = d.TaxName,
                             taxVal = d.TaxValues
                          
@@ -36,7 +36,7 @@ namespace XCLHMS.Areas.Accounts.Controllers
             return Json(new { data = final }, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: /Accounts/Tax/Details/5
+        // GET: /Accounts/taxes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -51,14 +51,14 @@ namespace XCLHMS.Areas.Accounts.Controllers
             return View(taxdetail);
         }
 
-        // GET: /Accounts/Tax/Create
+        // GET: /Accounts/taxes/Create
         public ActionResult Create()
         {
             ViewBag.TaxId = new SelectList(db.taxes, "Id", "TaxName");
             return View();
         }
 
-        // POST: /Accounts/Tax/Create
+        // POST: /Accounts/taxes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -77,7 +77,7 @@ namespace XCLHMS.Areas.Accounts.Controllers
             return View(taxdetail);
         }
 
-        // GET: /Accounts/Tax/Edit/5
+        // GET: /Accounts/taxes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -94,7 +94,7 @@ namespace XCLHMS.Areas.Accounts.Controllers
             return View(taxdetail);
         }
 
-        // POST: /Accounts/Tax/Edit/5
+        // POST: /Accounts/taxes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -144,3 +144,4 @@ namespace XCLHMS.Areas.Accounts.Controllers
         }
     }
 }
+

@@ -26,7 +26,7 @@ namespace XCLHMS.Models
     
         public virtual Employee Employee { get; set; }
         public virtual Employee Employee1 { get; set; }
-        public virtual Lab Lab { get; set; }
+        public virtual Labs Labs { get; set; }
         public virtual Pateint Pateint { get; set; }
         public virtual TestCategory TestCategory { get; set; }
     }

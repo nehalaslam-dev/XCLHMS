@@ -12,7 +12,7 @@ namespace XCLHMS.PatientModule.PatientReport.Data
     {
         string connString = ConfigurationManager.ConnectionStrings["HMSDB"].ConnectionString;
 
-        public DataTable GetPatientReport(string challanNo = null, DateTime? startDate = null, DateTime? endDate = null, string patientType = null)
+        public DataTable GetPatientReport(string challanNo = null, DateTime? startDate = null, DateTime? endDate = null, string patientType = null, string mrNo = null)
         {
             DataTable dt = new DataTable();
             using (SqlConnection conn = new SqlConnection(connString))
@@ -24,6 +24,7 @@ namespace XCLHMS.PatientModule.PatientReport.Data
                     cmd.Parameters.AddWithValue("@StartDate", (object)startDate ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@EndDate", (object)endDate ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@PatientType", (object)patientType ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@MRNo", (object)mrNo ?? DBNull.Value);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     da.Fill(dt);
                 }

@@ -17,9 +17,9 @@ namespace XCLHMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public COA()
         {
-            this.AccountLedgerDetails = new HashSet<AccountLedgerDetail>();
-            this.AccountRegisters = new HashSet<AccountRegister>();
-            this.Budgets = new HashSet<Budget>();
+            this.AccountLedgerDetail = new HashSet<AccountLedgerDetail>();
+            this.AccountRegister = new HashSet<AccountRegister>();
+            this.Budget = new HashSet<Budget>();
         }
     
         public int ID { get; set; }
@@ -31,10 +31,10 @@ namespace XCLHMS.Models
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AccountLedgerDetail> AccountLedgerDetails { get; set; }
+        public virtual ICollection<AccountLedgerDetail> AccountLedgerDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AccountRegister> AccountRegisters { get; set; }
+        public virtual ICollection<AccountRegister> AccountRegister { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Budget> Budgets { get; set; }
+        public virtual ICollection<Budget> Budget { get; set; }
     }
 }

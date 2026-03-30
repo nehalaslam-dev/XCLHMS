@@ -17,7 +17,7 @@ namespace XCLHMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AccountLedger()
         {
-            this.AccountLedgerDetails = new HashSet<AccountLedgerDetail>();
+            this.AccountLedgerDetail = new HashSet<AccountLedgerDetail>();
         }
     
         public int Id { get; set; }
@@ -29,6 +29,6 @@ namespace XCLHMS.Models
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AccountLedgerDetail> AccountLedgerDetails { get; set; }
+        public virtual ICollection<AccountLedgerDetail> AccountLedgerDetail { get; set; }
     }
 }

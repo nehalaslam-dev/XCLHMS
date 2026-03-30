@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -14,7 +14,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
     {
         private HMSEntities db = new HMSEntities();
 
-        // GET: /InventoryModule/Bed/
+        // GET: /InventoryModule/Beds/
         public ActionResult Index()
         {
             return View();
@@ -23,12 +23,12 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         public ActionResult LoadGrid()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var data = db.Beds.Include(w => w.Ward).ToList();
+            var data = db.Beds.Include(w => w.Wards).ToList();
             var final = (from d in data
                          select new
                          {
                              ID=d.ID,
-                             WardName = d.Ward.WardName,
+                             WardName = d.Wards.WardName,
                              BedNumber = d.BedNumber,
                              IsOccupied = d.IsOccupied,
                              description = d.Description
@@ -36,86 +36,86 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
             return Json(new { data = final }, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: /InventoryModule/Bed/Details/5
+        // GET: /InventoryModule/Beds/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Bed bed = db.Beds.Find(id);
-            if (bed == null)
+            Beds Beds = db.Beds.Find(id);
+            if (Beds == null)
             {
                 return HttpNotFound();
             }
-            return View(bed);
+            return View(Beds);
         }
 
-        // GET: /InventoryModule/Bed/Create
+        // GET: /InventoryModule/Beds/Create
         public ActionResult Create()
         {
             ViewBag.WardID = new SelectList(db.Wards, "Id", "WardName");
             return View();
         }
 
-        // POST: /InventoryModule/Bed/Create
+        // POST: /InventoryModule/Beds/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,WardId,BedNumber,Description,IsOccupied,CreatedDate,ModifiedDate")] Bed bed)
+        public ActionResult Create([Bind(Include="ID,WardId,BedNumber,Description,IsOccupied,CreatedDate,ModifiedDate")] Beds Beds)
         {
             if (ModelState.IsValid)
             {
-                bed.CreatedDate = DateTime.Now;
-                db.Beds.Add(bed);
+                Beds.CreatedDate = DateTime.Now;
+                db.Beds.Add(Beds);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.WardID = new SelectList(db.Wards, "Id", "WardName",bed.WardId);
+            ViewBag.WardID = new SelectList(db.Wards, "Id", "WardName",Beds.WardId);
 
-            return View(bed);
+            return View(Beds);
         }
 
-        // GET: /InventoryModule/Bed/Edit/5
+        // GET: /InventoryModule/Beds/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Bed bed = db.Beds.Find(id);
-            TempData["crtDate"] = bed.CreatedDate;
-            if (bed == null)
+            Beds Beds = db.Beds.Find(id);
+            TempData["crtDate"] = Beds.CreatedDate;
+            if (Beds == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.WardID = new SelectList(db.Wards, "Id", "WardName", bed.WardId);
+            ViewBag.WardID = new SelectList(db.Wards, "Id", "WardName", Beds.WardId);
        
-            return View(bed);
+            return View(Beds);
         }
 
-        // POST: /InventoryModule/Bed/Edit/5
+        // POST: /InventoryModule/Beds/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,WardId,BedNumber,Description,IsOccupied,CreatedDate,ModifiedDate")] Bed bed)
+        public ActionResult Edit([Bind(Include="ID,WardId,BedNumber,Description,IsOccupied,CreatedDate,ModifiedDate")] Beds Beds)
         {
             if (ModelState.IsValid)
             {
-                bed.CreatedDate = Convert.ToDateTime(TempData["crtDate"]);
-                bed.ModifiedDate = DateTime.Now;
-                db.Entry(bed).State = EntityState.Modified;
+                Beds.CreatedDate = Convert.ToDateTime(TempData["crtDate"]);
+                Beds.ModifiedDate = DateTime.Now;
+                db.Entry(Beds).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.WardID = new SelectList(db.Wards, "Id", "WardName", bed.WardId);
+            ViewBag.WardID = new SelectList(db.Wards, "Id", "WardName", Beds.WardId);
           
-            return View(bed);
+            return View(Beds);
         }
 
      
@@ -125,7 +125,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         {
             try
             {
-                Bed beds = db.Beds.Find(Id);
+                Beds beds = db.Beds.Find(Id);
                 if (Id == null)
                 {
                     return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
@@ -151,3 +151,4 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         }
     }
 }
+

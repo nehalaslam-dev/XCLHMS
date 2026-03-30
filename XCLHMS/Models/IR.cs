@@ -17,8 +17,8 @@ namespace XCLHMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public IR()
         {
-            this.IRDetails = new HashSet<IRDetail>();
-            this.Stocks = new HashSet<Stock>();
+            this.IRDetails = new HashSet<IRDetails>();
+            this.Stock = new HashSet<Stock>();
         }
     
         public int Id { get; set; }
@@ -28,10 +28,10 @@ namespace XCLHMS.Models
         public string Remarks { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
     
-        public virtual Customer Customer { get; set; }
+        public virtual Customers Customers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IRDetail> IRDetails { get; set; }
+        public virtual ICollection<IRDetails> IRDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Stock> Stocks { get; set; }
+        public virtual ICollection<Stock> Stock { get; set; }
     }
 }

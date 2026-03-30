@@ -26,6 +26,6 @@ namespace XCLHMS.Models
         public Nullable<int> lowQuantity { get; set; }
     
         public virtual GRN GRN { get; set; }
-        public virtual Product Product { get; set; }
+        public virtual Products Products { get; set; }
     }
 }

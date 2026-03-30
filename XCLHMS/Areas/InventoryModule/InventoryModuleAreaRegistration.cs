@@ -1,4 +1,4 @@
-﻿using System.Web.Mvc;
+using System.Web.Mvc;
 
 namespace XCLHMS.Areas.InventoryModule
 {
@@ -17,7 +17,7 @@ namespace XCLHMS.Areas.InventoryModule
             context.MapRoute(
                 "InventoryModule_default",
                 "InventoryModule/{controller}/{action}/{id}",
-                new { controller = "Vendor", action = "Index", id = UrlParameter.Optional }
+                new { controller = "Vendors", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

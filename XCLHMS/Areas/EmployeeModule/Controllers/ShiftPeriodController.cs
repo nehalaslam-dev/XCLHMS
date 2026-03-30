@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -14,7 +14,7 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
     {
         private HMSEntities db = new HMSEntities();
 
-        // GET: /EmployeeModule/ShiftPeriod/
+        // GET: /EmployeeModule/ShiftPeriods/
         public ActionResult Index()
         {
            // return View(db.ShiftPeriods.ToList());
@@ -28,77 +28,77 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
             return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: /EmployeeModule/ShiftPeriod/Details/5
+        // GET: /EmployeeModule/ShiftPeriods/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ShiftPeriod shiftperiod = db.ShiftPeriods.Find(id);
-            if (shiftperiod == null)
+            ShiftPeriods ShiftPeriods = db.ShiftPeriods.Find(id);
+            if (ShiftPeriods == null)
             {
                 return HttpNotFound();
             }
-            return View(shiftperiod);
+            return View(ShiftPeriods);
         }
 
-        // GET: /EmployeeModule/ShiftPeriod/Create
+        // GET: /EmployeeModule/ShiftPeriods/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: /EmployeeModule/ShiftPeriod/Create
+        // POST: /EmployeeModule/ShiftPeriods/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Name,Description,Active,CreatedDate,ModifiedDate")] ShiftPeriod shiftperiod)
+        public ActionResult Create([Bind(Include="Id,Name,Description,Active,CreatedDate,ModifiedDate")] ShiftPeriods ShiftPeriods)
         {
             if (ModelState.IsValid)
             {
-                shiftperiod.CreatedDate = DateTime.Now;
-                db.ShiftPeriods.Add(shiftperiod);
+                ShiftPeriods.CreatedDate = DateTime.Now;
+                db.ShiftPeriods.Add(ShiftPeriods);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(shiftperiod);
+            return View(ShiftPeriods);
         }
 
-        // GET: /EmployeeModule/ShiftPeriod/Edit/5
+        // GET: /EmployeeModule/ShiftPeriods/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ShiftPeriod shiftperiod = db.ShiftPeriods.Find(id);
-            TempData["crtDate"] = shiftperiod.CreatedDate;
-            if (shiftperiod == null)
+            ShiftPeriods ShiftPeriods = db.ShiftPeriods.Find(id);
+            TempData["crtDate"] = ShiftPeriods.CreatedDate;
+            if (ShiftPeriods == null)
             {
                 return HttpNotFound();
             }
-            return View(shiftperiod);
+            return View(ShiftPeriods);
         }
 
-        // POST: /EmployeeModule/ShiftPeriod/Edit/5
+        // POST: /EmployeeModule/ShiftPeriods/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Name,Description,Active,CreatedDate,ModifiedDate")] ShiftPeriod shiftperiod)
+        public ActionResult Edit([Bind(Include="Id,Name,Description,Active,CreatedDate,ModifiedDate")] ShiftPeriods ShiftPeriods)
         {
             if (ModelState.IsValid)
             {
-                shiftperiod.CreatedDate = Convert.ToDateTime(TempData["crtDate"]);
-                shiftperiod.ModifiedDate = DateTime.Now;
-                db.Entry(shiftperiod).State = EntityState.Modified;
+                ShiftPeriods.CreatedDate = Convert.ToDateTime(TempData["crtDate"]);
+                ShiftPeriods.ModifiedDate = DateTime.Now;
+                db.Entry(ShiftPeriods).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(shiftperiod);
+            return View(ShiftPeriods);
         }
 
         [HttpPost]
@@ -106,12 +106,12 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
         {
             try
             {
-                ShiftPeriod shiftperiod = db.ShiftPeriods.Find(Id);
+                ShiftPeriods ShiftPeriods = db.ShiftPeriods.Find(Id);
                 if (Id == null)
                 {
                     return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
                 }
-                db.ShiftPeriods.Remove(shiftperiod);
+                db.ShiftPeriods.Remove(ShiftPeriods);
                 db.SaveChanges();
                 return Json(data: "Deleted", behavior: JsonRequestBehavior.AllowGet);
             }
@@ -132,3 +132,4 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
         }
     }
 }
+

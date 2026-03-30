@@ -1,0 +1,113 @@
+@{
+    ViewBag.Title = "Tax Sheet";
+    Layout = "~/Areas/Accounts/Views/Shared/_AccountsLayout.cshtml";
+}
+
+<div style="font-family:Arial">
+    <h2>Tax Sheet</h2>
+    <p>Comprehensive vendor tax deductions report</p>
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-md-3">
+            <label>Start Date</label>
+            <input type="date" id="startDate" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label>End Date</label>
+            <input type="date" id="endDate" class="form-control" />
+        </div>
+        <div class="col-md-5" style="padding-top:25px;">
+            <button class="btn btn-primary" onclick="loadReport()">Generate Extract</button>
+            <a href="/Reports/TaxDeduction.aspx" target="_blank" class="btn btn-info"><i class="fa fa-file-pdf-o"></i> View RDLC Report</a>
+        </div>
+    </div>
+
+    <div class="container" style="width:100%; padding:0; overflow-x: auto;">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap text-center" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Payment Sec</th>
+                        <th>NTN No.</th>
+                        <th>CNIC</th>
+                        <th>Name</th>
+                        <th>City</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Taxable Amount</th>
+                        <th>Income Tax</th>
+                        <th>SRB/SST</th>
+                        <th>Stamp Duty</th>
+                        <th>Net Amount</th>
+                        <th>Object</th>
+                        <th>Bill No#</th>
+                        <th>Cheque No.</th>
+                        <th>Cheque Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loaded via AJAX -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var dataTable;
+        $(document).ready(function() {
+            var end = new Date();
+            var start = new Date();
+            start.setDate(end.getDate() - 30);
+            
+            $("#startDate").val(start.toISOString().split('T')[0]);
+            $("#endDate").val(end.toISOString().split('T')[0]);
+            
+            loadReport();
+        });
+        
+        function loadReport() {
+            var sDate = $("#startDate").val();
+            var eDate = $("#endDate").val();
+            
+            if (dataTable) {
+                dataTable.destroy();
+            }
+            
+            $.get("@Url.Action("LoadSheet", "TaxSheet", new { area = "Accounts" })", { startDate: sDate, endDate: eDate }, function(res) {
+                var html = "";
+                if(res.data && res.data.length > 0) {
+                    $.each(res.data, function(i, item) {
+                        var cd = item.ChequeDate ? new Date(parseInt(item.ChequeDate.substr(6))).toLocaleDateString() : '-';
+                        html += `<tr>
+                            <td>${item.PaymentSection || '-'}</td>
+                            <td>${item.NTN || '-'}</td>
+                            <td>${item.CNIC || '-'}</td>
+                            <td class="text-left fw-bold">${item.VendorName || '-'}</td>
+                            <td>${item.City || '-'}</td>
+                            <td class="text-left">${item.Address || '-'}</td>
+                            <td>${item.TaxStatus || '-'}</td>
+                            <td class="fw-bold">${item.TaxableAmount ? item.TaxableAmount.toLocaleString() : '0'}</td>
+                            <td class="text-danger">${item.IncomeTax ? item.IncomeTax.toLocaleString() : '0'}</td>
+                            <td class="text-danger">${item.SRB ? item.SRB.toLocaleString() : '0'}</td>
+                            <td class="text-danger">${item.StampDuty ? item.StampDuty.toLocaleString() : '0'}</td>
+                            <td class="text-success fw-bold">${item.NetAmount ? item.NetAmount.toLocaleString() : '0'}</td>
+                            <td>${item.ObjectHead || '-'}</td>
+                            <td>${item.BillNo || '-'}</td>
+                            <td>${item.ChequeNo || '-'}</td>
+                            <td>${cd}</td>
+                        </tr>`;
+                    });
+                }
+                
+                $("#demoGrid tbody").html(html);
+                dataTable = $('#demoGrid').DataTable({
+                    "scrollX": true,
+                    "ordering": false
+                });
+            });
+        }
+    </script>
+}

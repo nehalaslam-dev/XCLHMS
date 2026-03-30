@@ -17,12 +17,12 @@ namespace XCLHMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Pateint()
         {
-            this.BedManagements = new HashSet<BedManagement>();
-            this.LabRegistrations = new HashSet<LabRegistration>();
-            this.LabTests = new HashSet<LabTest>();
-            this.PateintAppointments = new HashSet<PateintAppointment>();
-            this.SemanAnalysis = new HashSet<SemanAnalysi>();
-            this.TestResults = new HashSet<TestResult>();
+            this.BedManagement = new HashSet<BedManagement>();
+            this.LabRegistration = new HashSet<LabRegistration>();
+            this.LabTest = new HashSet<LabTest>();
+            this.PateintAppointments = new HashSet<PateintAppointments>();
+            this.SemanAnalysis = new HashSet<SemanAnalysis>();
+            this.TestResult = new HashSet<TestResult>();
         }
     
         public int Id { get; set; }
@@ -44,17 +44,17 @@ namespace XCLHMS.Models
         public Nullable<int> employeeId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BedManagement> BedManagements { get; set; }
+        public virtual ICollection<BedManagement> BedManagement { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LabRegistration> LabRegistrations { get; set; }
+        public virtual ICollection<LabRegistration> LabRegistration { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LabTest> LabTests { get; set; }
+        public virtual ICollection<LabTest> LabTest { get; set; }
         public virtual PatientType PatientType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PateintAppointment> PateintAppointments { get; set; }
+        public virtual ICollection<PateintAppointments> PateintAppointments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SemanAnalysi> SemanAnalysis { get; set; }
+        public virtual ICollection<SemanAnalysis> SemanAnalysis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestResult> TestResults { get; set; }
+        public virtual ICollection<TestResult> TestResult { get; set; }
     }
 }

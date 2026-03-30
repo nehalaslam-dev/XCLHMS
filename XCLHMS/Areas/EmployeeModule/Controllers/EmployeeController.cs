@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -24,12 +24,12 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
         public ActionResult LoadGrid()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var data = db.Employees.Include(e => e.Designation).Include(e => e.EmployeeType).Include(d => d.Department).ToList();
+            var data = db.Employees.Include(e => e.Designations).Include(e => e.EmployeeType).Include(d => d.Department).ToList();
             var final = (from f in data
                          select new
                          {
                              Id = f.Id,
-                             designationName = f.Designation.Name,
+                             designationName = f.Designations.Name,
                              departmentName = f.Department.DepartmentName,
                              empType = f.EmployeeType.EmpType,
                              Name = f.Name,
@@ -183,3 +183,4 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
         }
     }
 }
+

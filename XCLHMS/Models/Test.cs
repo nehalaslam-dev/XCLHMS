@@ -17,8 +17,8 @@ namespace XCLHMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Test()
         {
-            this.LabRegistrations = new HashSet<LabRegistration>();
-            this.TestResultDetails = new HashSet<TestResultDetail>();
+            this.LabRegistration = new HashSet<LabRegistration>();
+            this.TestResultDetails = new HashSet<TestResultDetails>();
         }
     
         public int Id { get; set; }
@@ -29,9 +29,9 @@ namespace XCLHMS.Models
         public string Unit { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LabRegistration> LabRegistrations { get; set; }
+        public virtual ICollection<LabRegistration> LabRegistration { get; set; }
         public virtual TestCategory TestCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TestResultDetail> TestResultDetails { get; set; }
+        public virtual ICollection<TestResultDetails> TestResultDetails { get; set; }
     }
 }

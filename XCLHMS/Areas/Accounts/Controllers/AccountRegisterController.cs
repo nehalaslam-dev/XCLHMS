@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -19,14 +19,14 @@ namespace XCLHMS.Areas.Accounts.Controllers
         // GET: /Accounts/AccountRegister/
         public ActionResult Index()
         {
-            //var accountregisters = db.AccountRegisters.Include(a => a.COA).Include(a => a.Vendor);
+            //var accountregisters = db.AccountRegisters.Include(a => a.COA).Include(a => a.Vendors);
             return View();
         }
 
         public ActionResult LoadGrid()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var data = db.AccountRegisters.Include(a => a.COA).ToList();
+            var data = db.AccountRegister.Include(a => a.COA).ToList();
             var final = (from d in data
                          select new
                          {
@@ -64,8 +64,8 @@ namespace XCLHMS.Areas.Accounts.Controllers
         {
 
             List<dynamic> result = new List<dynamic>();
-            var accCode = (from d in db.COAs where d.ID == Id select new { Code = d.Code }).SingleOrDefault();
-            var sumBudget = (from b in db.Budgets where b.HeadId == Id select b.Budget1).Sum();
+            var accCode = (from d in db.COA where d.ID == Id select new { Code = d.Code }).SingleOrDefault();
+            var sumBudget = (from b in db.Budget where b.HeadId == Id select b.Budget1).Sum();
             //var data = (from d in db.COAs
             //            join c in db.Budgets on d.ID equals c.HeadId
             //            where c.HeadId == Id
@@ -120,7 +120,7 @@ namespace XCLHMS.Areas.Accounts.Controllers
                         acReg.SST = item.SST;
                         acReg.NetAmount = item.NetAmount;
                         acReg.Balance = item.Balance;
-                        db.AccountRegisters.Add(acReg);
+                        db.AccountRegister.Add(acReg);
                     }
                     db.SaveChanges();
                     result = "Success! Record saved!";
@@ -196,7 +196,7 @@ namespace XCLHMS.Areas.Accounts.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AccountRegister accountregister = db.AccountRegisters.Find(id);
+            AccountRegister accountregister = db.AccountRegister.Find(id);
             if (accountregister == null)
             {
                 return HttpNotFound();
@@ -207,11 +207,11 @@ namespace XCLHMS.Areas.Accounts.Controllers
         // GET: /Accounts/AccountRegister/Create
         public ActionResult Create(int? id)
         {
-            List<tax> lstTax = db.taxes.ToList();
-            lstTax.Insert(0, new tax { Id = 0, TaxName = "--Select--" });
+            List<taxes> lstTax = db.taxes.ToList();
+            lstTax.Insert(0, new taxes { Id = 0, TaxName = "--Select--" });
             List<TaxDetail> lsttaxdetail = new List<TaxDetail>();
 
-            var data = db.COAs.Where(p => p.ParentID != 0).ToList();
+            var data = db.COA.Where(p => p.ParentID != 0).ToList();
             ViewBag.HeadId = new SelectList(data, "ID", "Name");
             ViewBag.VendorId = new SelectList(db.Vendors, "Id", "Name");
             ViewBag.TaxId = new SelectList(lstTax, "Id", "TaxName");
@@ -230,12 +230,12 @@ namespace XCLHMS.Areas.Accounts.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.AccountRegisters.Add(accountregister);
+                db.AccountRegister.Add(accountregister);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.HeadId = new SelectList(db.COAs, "ID", "Code", accountregister.HeadId);
+            ViewBag.HeadId = new SelectList(db.COA, "ID", "Code", accountregister.HeadId);
             ViewBag.VendorId = new SelectList(db.Vendors, "Id", "Name", accountregister.VendorId);
             return View(accountregister);
         }
@@ -247,12 +247,12 @@ namespace XCLHMS.Areas.Accounts.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AccountRegister accountregister = db.AccountRegisters.Find(id);
+            AccountRegister accountregister = db.AccountRegister.Find(id);
             if (accountregister == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.HeadId = new SelectList(db.COAs, "ID", "Code", accountregister.HeadId);
+            ViewBag.HeadId = new SelectList(db.COA, "ID", "Code", accountregister.HeadId);
             ViewBag.VendorId = new SelectList(db.Vendors, "Id", "Name", accountregister.VendorId);
             return View(accountregister);
         }
@@ -270,7 +270,7 @@ namespace XCLHMS.Areas.Accounts.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.HeadId = new SelectList(db.COAs, "ID", "Code", accountregister.HeadId);
+            ViewBag.HeadId = new SelectList(db.COA, "ID", "Code", accountregister.HeadId);
             ViewBag.VendorId = new SelectList(db.Vendors, "Id", "Name", accountregister.VendorId);
             return View(accountregister);
         }
@@ -313,3 +313,5 @@ namespace XCLHMS.Areas.Accounts.Controllers
         }
     }
 }
+
+

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,18 +17,18 @@ namespace XCLHMS.Areas.LabTestModule.Controllers
         // GET: /LabTestModule/SemanAnalysis/
         public ActionResult Index()
         {
-           // var semananalysis = db.SemanAnalysis.Include(s => s.Lab).Include(s => s.Pateint);
+           // var semananalysis = db.SemanAnalysis.Include(s => s.Labs).Include(s => s.Pateint);
             return View();
         }
 
         public ActionResult LoadGrid()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var data = db.SemanAnalysis.Include(s => s.Lab).Include(s => s.Pateint).Include(s=>s.Employee).ToList();
+            var data = db.SemanAnalysis.Include(s => s.Labs).Include(s => s.Pateint).Include(s=>s.Employee).ToList();
             var final = (from d in data
                          select new { 
                            Id=d.Id,
-                           labName = d.Lab.Name,
+                           labName = d.Labs.Name,
                            patientName =d.Pateint.Name,
                            doctorName = d.Employee.Name,
                            nic = d.Pateint.NIC,
@@ -62,12 +62,12 @@ namespace XCLHMS.Areas.LabTestModule.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SemanAnalysi semananalysi = db.SemanAnalysis.Find(id);
-            if (semananalysi == null)
+            SemanAnalysis SemanAnalysis = db.SemanAnalysis.Find(id);
+            if (SemanAnalysis == null)
             {
                 return HttpNotFound();
             }
-            return View(semananalysi);
+            return View(SemanAnalysis);
         }
 
         // GET: /LabTestModule/SemanAnalysis/Create
@@ -84,19 +84,19 @@ namespace XCLHMS.Areas.LabTestModule.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,PatientId,LabId,employeeId,TestDate,sampleDate,Quantity,colour,consistency,reaction,count,countUnit,motility,motilityUnit,normal,normalUnit,puscells,puscellsUnit,Remarks")] SemanAnalysi semananalysi)
+        public ActionResult Create([Bind(Include = "Id,PatientId,LabId,employeeId,TestDate,sampleDate,Quantity,colour,consistency,reaction,count,countUnit,motility,motilityUnit,normal,normalUnit,puscells,puscellsUnit,Remarks")] SemanAnalysis SemanAnalysis)
         {
             if (ModelState.IsValid)
             {
-                db.SemanAnalysis.Add(semananalysi);
+                db.SemanAnalysis.Add(SemanAnalysis);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.employeeId = new SelectList(db.Employees.Where(x => x.DesignationID == 10), "Id", "Name", semananalysi.employeeId);
-            ViewBag.LabId = new SelectList(db.Labs, "Id", "Name", semananalysi.LabId);
-            ViewBag.PatientId = new SelectList(db.Pateints, "Id", "Name", semananalysi.PatientId);
-            return View(semananalysi);
+            ViewBag.employeeId = new SelectList(db.Employees.Where(x => x.DesignationID == 10), "Id", "Name", SemanAnalysis.employeeId);
+            ViewBag.LabId = new SelectList(db.Labs, "Id", "Name", SemanAnalysis.LabId);
+            ViewBag.PatientId = new SelectList(db.Pateints, "Id", "Name", SemanAnalysis.PatientId);
+            return View(SemanAnalysis);
         }
 
         // GET: /LabTestModule/SemanAnalysis/Edit/5
@@ -106,15 +106,15 @@ namespace XCLHMS.Areas.LabTestModule.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SemanAnalysi semananalysi = db.SemanAnalysis.Find(id);
-            if (semananalysi == null)
+            SemanAnalysis SemanAnalysis = db.SemanAnalysis.Find(id);
+            if (SemanAnalysis == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.employeeId = new SelectList(db.Employees.Where(x => x.DesignationID == 10), "Id", "Name", semananalysi.employeeId);
-            ViewBag.LabId = new SelectList(db.Labs, "Id", "Name", semananalysi.LabId);
-            ViewBag.PatientId = new SelectList(db.Pateints, "Id", "Name", semananalysi.PatientId);
-            return View(semananalysi);
+            ViewBag.employeeId = new SelectList(db.Employees.Where(x => x.DesignationID == 10), "Id", "Name", SemanAnalysis.employeeId);
+            ViewBag.LabId = new SelectList(db.Labs, "Id", "Name", SemanAnalysis.LabId);
+            ViewBag.PatientId = new SelectList(db.Pateints, "Id", "Name", SemanAnalysis.PatientId);
+            return View(SemanAnalysis);
         }
 
         // POST: /LabTestModule/SemanAnalysis/Edit/5
@@ -122,19 +122,19 @@ namespace XCLHMS.Areas.LabTestModule.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,PatientId,LabId,employeeId,TestDate,sampleDate,Quantity,colour,consistency,reaction,count,countUnit,motility,motilityUnit,normal,normalUnit,puscells,puscellsUnit,Remarks")] SemanAnalysi semananalysi)
+        public ActionResult Edit([Bind(Include = "Id,PatientId,LabId,employeeId,TestDate,sampleDate,Quantity,colour,consistency,reaction,count,countUnit,motility,motilityUnit,normal,normalUnit,puscells,puscellsUnit,Remarks")] SemanAnalysis SemanAnalysis)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(semananalysi).State = EntityState.Modified;
+                db.Entry(SemanAnalysis).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.employeeId = new SelectList(db.Employees.Where(x => x.DesignationID == 10), "Id", "Name", semananalysi.employeeId);
-            ViewBag.LabId = new SelectList(db.Labs, "Id", "Name", semananalysi.LabId);
-            ViewBag.PatientId = new SelectList(db.Pateints, "Id", "Name", semananalysi.PatientId);
-            return View(semananalysi);
+            ViewBag.employeeId = new SelectList(db.Employees.Where(x => x.DesignationID == 10), "Id", "Name", SemanAnalysis.employeeId);
+            ViewBag.LabId = new SelectList(db.Labs, "Id", "Name", SemanAnalysis.LabId);
+            ViewBag.PatientId = new SelectList(db.Pateints, "Id", "Name", SemanAnalysis.PatientId);
+            return View(SemanAnalysis);
         }
 
 
@@ -143,7 +143,7 @@ namespace XCLHMS.Areas.LabTestModule.Controllers
         {
             try
             {
-                SemanAnalysi sa = db.SemanAnalysis.Find(Id);
+                SemanAnalysis sa = db.SemanAnalysis.Find(Id);
                 if (Id == null)
                 {
                     return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
@@ -175,3 +175,4 @@ namespace XCLHMS.Areas.LabTestModule.Controllers
         }
     }
 }
+

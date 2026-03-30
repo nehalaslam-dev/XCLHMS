@@ -21,6 +21,6 @@ namespace XCLHMS.Models
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
-        public virtual tax tax { get; set; }
+        public virtual taxes taxes { get; set; }
     }
 }

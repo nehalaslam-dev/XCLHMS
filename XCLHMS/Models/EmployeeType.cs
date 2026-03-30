@@ -17,8 +17,8 @@ namespace XCLHMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EmployeeType()
         {
-            this.Employees = new HashSet<Employee>();
-            this.EmployeeAllowances = new HashSet<EmployeeAllowance>();
+            this.Employee = new HashSet<Employee>();
+            this.EmployeeAllowance = new HashSet<EmployeeAllowance>();
         }
     
         public int Id { get; set; }
@@ -26,8 +26,8 @@ namespace XCLHMS.Models
         public string Comments { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Employee> Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmployeeAllowance> EmployeeAllowances { get; set; }
+        public virtual ICollection<EmployeeAllowance> EmployeeAllowance { get; set; }
     }
 }

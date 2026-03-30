@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,7 +17,7 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
         // GET: /EmployeeModule/EmployeeDutyRoaster/
         public ActionResult Index()
         {
-            //var employeedutyroasters = db.EmployeeDutyRoasters.Include(e => e.DutyShift).Include(e => e.Employee);
+            //var employeedutyroasters = db.EmployeeDutyRoasters.Include(e => e.DutyShifts).Include(e => e.Employee);
             //return View(employeedutyroasters.ToList());
             return View();
         }
@@ -25,13 +25,13 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
         public ActionResult LoadGrid()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var data = db.EmployeeDutyRoasters.Include(p => p.ShiftPeriod).Include(p => p.DutyShift).Include(p => p.Employee).ToList();
+            var data = db.EmployeeDutyRoasters.Include(p => p.ShiftPeriods).Include(p => p.DutyShifts).Include(p => p.Employee).ToList();
             var final = (from d in data
                          select new
                          {
                              Id = d.Id,
-                             shiftPeriod = d.ShiftPeriod.Name,
-                             dutyShift = d.DutyShift.Name,
+                             ShiftPeriods = d.ShiftPeriods.Name,
+                             DutyShifts = d.DutyShifts.Name,
                              employee = d.Employee.Name,
                              timeIn = d.InTime,
                              timeout = d.OutTime
@@ -58,10 +58,10 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
         // GET: /EmployeeModule/EmployeeDutyRoaster/Create
         public ActionResult Create()
         {
-            List<ShiftPeriod> lstperiod = db.ShiftPeriods.ToList();
-            lstperiod.Insert(0, new ShiftPeriod { Id = 0, Name = "--Select Shift--" });
+            List<ShiftPeriods> lstperiod = db.ShiftPeriods.ToList();
+            lstperiod.Insert(0, new ShiftPeriods { Id = 0, Name = "--Select Shift--" });
 
-            List<DutyShift> lstdutyshift = new List<DutyShift>();
+            List<DutyShifts> lstdutyshift = new List<DutyShifts>();
             ViewBag.PeriodId = new SelectList(lstperiod, "Id", "Name");
             ViewBag.ShiftId = new SelectList(lstdutyshift, "Id", "Name");
             ViewBag.EmployeeId = new SelectList(db.Employees, "Id", "Name");
@@ -70,16 +70,16 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
 
         public JsonResult GetShiftByPeriodId(int id)
         {
-            List<DutyShift> dutyshift = new List<DutyShift>();
+            List<DutyShifts> DutyShifts = new List<DutyShifts>();
             if (id > 0)
             {
-                dutyshift = db.DutyShifts.Where(p => p.PeriodID == id).ToList();
+                DutyShifts = db.DutyShifts.Where(p => p.PeriodID == id).ToList();
             }
             else
             {
-                dutyshift.Insert(0, new DutyShift { Id = 0, Name = "--Select--" });
+                DutyShifts.Insert(0, new DutyShifts { Id = 0, Name = "--Select--" });
             }
-            var result = (from d in dutyshift
+            var result = (from d in DutyShifts
                           select new
                           {
                               id = d.Id,
@@ -102,9 +102,9 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            List<ShiftPeriod> lstperiod = db.ShiftPeriods.ToList();
-            lstperiod.Insert(0, new ShiftPeriod { Id = 0, Name = "--Select Shift--" });
-            List<DutyShift> lstdutyshift = new List<DutyShift>();
+            List<ShiftPeriods> lstperiod = db.ShiftPeriods.ToList();
+            lstperiod.Insert(0, new ShiftPeriods { Id = 0, Name = "--Select Shift--" });
+            List<DutyShifts> lstdutyshift = new List<DutyShifts>();
 
             ViewBag.PeriodId = new SelectList(lstperiod, "Id", "Name");
             ViewBag.ShiftId = new SelectList(lstdutyshift, "Id", "Name");
@@ -186,3 +186,4 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
 
     }
 }
+

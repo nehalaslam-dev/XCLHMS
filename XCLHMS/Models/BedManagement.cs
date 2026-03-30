@@ -23,7 +23,7 @@ namespace XCLHMS.Models
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
-        public virtual Bed Bed { get; set; }
+        public virtual Beds Beds { get; set; }
         public virtual Pateint Pateint { get; set; }
     }
 }

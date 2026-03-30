@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -37,7 +37,7 @@ namespace XCLHMS.Controllers
             String _menuids = "";
             MenuAuthorization objMenuAuth;
 
-            if (selectedType.ToLower() == "designation")
+            if (selectedType.ToLower() == "Designations")
             {
                 _desigid = Convert.ToInt32(selectedNameid);
             }
@@ -130,7 +130,7 @@ namespace XCLHMS.Controllers
             if (!String.IsNullOrEmpty(seltype) && !String.IsNullOrEmpty(selName))
             {
 
-                if (seltype == "Designation")
+                if (seltype == "Designations")
                 {
                     _empID = 0;
                     _desID = Convert.ToInt32(selName);

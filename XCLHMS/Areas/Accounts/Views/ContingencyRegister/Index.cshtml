@@ -1,0 +1,207 @@
+@{
+    ViewBag.Title = "Contingency Register";
+    Layout = "~/Areas/Accounts/Views/Shared/_AccountsLayout.cshtml";
+}
+
+<div style="font-family:Arial">
+    <h2 id="pageTitle">Contingency Register</h2>
+    <p>Financial Year 2024-2025 | SASIMS Sehwan</p>
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-default" id="btnPrint">
+                <i class="fa fa-print"></i> Print Register
+            </button>
+        </div>
+    </div>
+
+    <h4>a) Contingency Form Entry</h4>
+    <div class="well">
+        @using (Html.BeginForm("Save", "ContingencyRegister", new { area = "Accounts" }, FormMethod.Post, new { id = "frmRegister" }))
+        {
+            <input type="hidden" name="Id" id="txtId" value="0" />
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label>Bill No#</label>
+                    <input type="text" name="BillNo" id="txtBillNo" class="form-control" placeholder="Enter Bill No" required />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Cheque No#</label>
+                    <input type="text" name="ChequeNo" id="txtChequeNo" class="form-control" placeholder="Enter Cheque No" />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Cheque Date</label>
+                    <input type="date" name="billdate" id="txtDate" class="form-control" required />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Name of Vendor</label>
+                    @Html.DropDownList("VendorId", (SelectList)ViewBag.VendorId, "--Select Vendor--", new { @class = "form-control", id = "ddlVendor", required = "required" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label>Annual Budget Balance</label>
+                    <input type="text" id="txtBudgetBalance" class="form-control" value="0.00" readonly />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Gross Amount</label>
+                    <input type="number" step="0.01" name="GrossAmount" id="txtGross" class="form-control calc-trigger" placeholder="Enter Amount" required />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Income Tax (3%)</label>
+                    <input type="number" step="0.01" name="IncomeTax" id="txtIT" class="form-control" readonly />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Sindh Sales Tax (13%)</label>
+                    <input type="number" step="0.01" name="SST" id="txtSST" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label>Stamp Duty (0.35%)</label>
+                    <input type="number" step="0.01" name="ManualTax" id="txtStamp" class="form-control" readonly />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Net Amount</label>
+                    <input type="text" id="txtNetDisplay" class="form-control" style="font-weight: bold; color: green;" value="0.00" readonly />
+                    <input type="hidden" name="NetAmount" id="txtNetValue" value="0" />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Object Head</label>
+                    @Html.DropDownList("HeadId", (SelectList)ViewBag.Heads, "--Select Head--", new { @class = "form-control", id = "ddlHead", required = "required" })
+                </div>
+                <div class="col-md-3 form-group" style="padding-top: 25px;">
+                    <button type="submit" class="btn btn-primary w-100" id="btnSave">Post to Register</button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <h4>b) Contingency Register View</h4>
+    <div class="container" style="width:100%; padding:0;">
+        <div style="width:100%; margin:0 auto;">
+            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>BILL NO#</th>
+                        <th>CHEQUE NO#</th>
+                        <th>CHEQUE DATE</th>
+                        <th>NAME OF VENDOR</th>
+                        <th>ANNUAL BUDGET</th>
+                        <th>GROSS AMOUNT</th>
+                        <th>INCOME TAX</th>
+                        <th>SINDH SALES TAX</th>
+                        <th>STAMP DUTY 0.35%</th>
+                        <th>NET AMOUNT</th>
+                        <th>BALANCE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loaded via AJAX -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var dataTable;
+        $(document).ready(function () {
+            // Initial Load
+            loadData();
+
+            // Head Change Event
+            $("#ddlHead").change(function() {
+                var headName = $("#ddlHead option:selected").text();
+                if ($(this).val()) {
+                    $("#pageTitle").text("Contingency Register (" + headName + ")");
+                } else {
+                    $("#pageTitle").text("Contingency Register");
+                }
+                loadData();
+            });
+
+            // Auto-calculation logic
+            $(".calc-trigger").on('input', function() {
+                var gross = parseFloat($("#txtGross").val()) || 0;
+                
+                var it = (gross * 0.03).toFixed(2);
+                var sst = (gross * 0.13).toFixed(2);
+                var stamp = (gross * 0.0035).toFixed(2);
+                
+                $("#txtIT").val(it);
+                $("#txtSST").val(sst);
+                $("#txtStamp").val(stamp);
+                
+                var net = (gross - (parseFloat(it) + parseFloat(sst) + parseFloat(stamp))).toFixed(2);
+                $("#txtNetDisplay").val(parseFloat(net).toLocaleString());
+                $("#txtNetValue").val(net);
+            });
+
+            // Save Form
+            $("#frmRegister").submit(function (e) {
+                e.preventDefault();
+                var $btn = $("#btnSave");
+                $btn.prop('disabled', true).text('Posting...');
+
+                $.post("@Url.Action("Save", "ContingencyRegister", new { area = "Accounts" })", $(this).serialize(), function (res) {
+                    $btn.prop('disabled', false).text('Post to Register');
+                    if (res.success) {
+                        alert("Record posted to contingency register successfully.");
+                        loadData();
+                        $("#frmRegister")[0].reset();
+                        $("#txtId").val("0");
+                    } else {
+                        alert("Error: " + res.message);
+                    }
+                });
+            });
+        });
+
+        function loadData() {
+            var headId = $("#ddlHead").val();
+            if (dataTable) {
+                dataTable.destroy();
+            }
+            $.get("@Url.Action("GetLoadData", "ContingencyRegister", new { area = "Accounts" })", { headId: headId }, function (res) {
+                if (res.success) {
+                    // Update Budget Balance
+                    $("#txtBudgetBalance").val(res.budgetBalance.toLocaleString());
+
+                    // Populate Table
+                    var html = "";
+                    if (res.entries && res.entries.length > 0) {
+                        $.each(res.entries, function (i, item) {
+                            var dateStr = "";
+                            if (item.billdate) {
+                                var dt = new Date(parseInt(item.billdate.substr(6)));
+                                dateStr = dt.toISOString().split('T')[0];
+                            }
+                            
+                            html += `<tr>
+                                <td>${item.BillNo || '-'}</td>
+                                <td>${item.ChequeNo || '-'}</td>
+                                <td>${dateStr}</td>
+                                <td>${item.Vendors ? item.Vendors.Name : '-'}</td>
+                                <td>${ (item.AnnualBudget || 0).toLocaleString() }</td>
+                                <td>${ (item.GrossAmount || 0).toLocaleString() }</td>
+                                <td>${ (item.IncomeTax || 0).toLocaleString() }</td>
+                                <td>${ (item.SST || 0).toLocaleString() }</td>
+                                <td>${ (item.ManualTax || 0).toLocaleString() }</td>
+                                <td style="font-weight: 700; color:green;">${ (item.NetAmount || 0).toLocaleString() }</td>
+                                <td style="font-weight: 700;">${ (item.Balance || 0).toLocaleString() }</td>
+                            </tr>`;
+                        });
+                    }
+                    $("#demoGrid tbody").html(html);
+                    dataTable = $('#demoGrid').DataTable({
+                        "scrollX": true
+                    });
+                }
+            });
+        }
+    </script>
+}

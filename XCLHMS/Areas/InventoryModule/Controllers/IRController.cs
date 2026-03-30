@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -20,19 +20,19 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         // GET: /InventoryModule/IR/
         public ActionResult Index()
         {
-            //var irs = db.IRs.Include(i => i.Customer);
+            //var irs = db.IRs.Include(i => i.Customers);
             return View();
         }
 
         public ActionResult LoadGrid()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var data = db.IRs.Include(p => p.Customer).ToList();
+            var data = db.IRs.Include(p => p.Customers).ToList();
             var final = (from f in data
                          select new
                          {
                              Id = f.Id,
-                             customerName = f.Customer.Name,
+                             customerName = f.Customers.Name,
                              irCode = f.IRCode,
                              irDate = f.IRDate,
                              Remarks = f.Remarks
@@ -62,14 +62,14 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
 
         public JsonResult GetItemsById(int id)
         {
-            List<Product> lstproducts = new List<Product>();
+            List<Products> lstproducts = new List<Products>();
             if (id > 0)
             {
                 lstproducts = db.Products.Where(p => p.CategoryId == id).ToList();
             }
             else
             {
-                lstproducts.Insert(0, new Product { Id = 0, Name = "--Select--" });
+                lstproducts.Insert(0, new Products { Id = 0, Name = "--Select--" });
             }
             var result = (from d in lstproducts
                           select new
@@ -227,7 +227,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            List<IRDetail> ir = db.IRDetails.Where(x => x.IRID == id).ToList();
+            List<IRDetails> ir = db.IRDetails.Where(x => x.IRID == id).ToList();
             if (ir == null)
             {
                 return HttpNotFound();
@@ -243,7 +243,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
             List<ProductCategory> lstcategory = db.ProductCategories.ToList();
             lstcategory.Insert(0, new ProductCategory { Id = 0, Name = "--Select--" });
 
-            List<Product> lstproducts = new List<Product>();
+            List<Products> lstproducts = new List<Products>();
 
             List<GRNDetail> lstGrndtl = new List<GRNDetail>();
 
@@ -366,3 +366,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         }
     }
 }
+
+
+
+

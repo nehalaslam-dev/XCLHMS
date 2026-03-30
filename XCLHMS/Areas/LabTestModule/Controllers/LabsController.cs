@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -35,12 +35,12 @@ namespace XCLHMS.Areas.LabTestModule.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lab lab = db.Labs.Find(id);
-            if (lab == null)
+            Labs Labs = db.Labs.Find(id);
+            if (Labs == null)
             {
                 return HttpNotFound();
             }
-            return View(lab);
+            return View(Labs);
         }
 
         // GET: /PatientModule/Labs/Create
@@ -54,17 +54,17 @@ namespace XCLHMS.Areas.LabTestModule.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Name,Description,IsActive,CreatedDate,ModifiedDate")] Lab lab)
+        public ActionResult Create([Bind(Include="Id,Name,Description,IsActive,CreatedDate,ModifiedDate")] Labs Labs)
         {
             if (ModelState.IsValid)
             {
-                db.Labs.Add(lab);
+                db.Labs.Add(Labs);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
          
-            return View(lab);
+            return View(Labs);
         }
 
         // GET: /PatientModule/Labs/Edit/5
@@ -74,13 +74,13 @@ namespace XCLHMS.Areas.LabTestModule.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lab lab = db.Labs.Find(id);
-            if (lab == null)
+            Labs Labs = db.Labs.Find(id);
+            if (Labs == null)
             {
                 return HttpNotFound();
             }
            
-            return View(lab);
+            return View(Labs);
         }
 
         // POST: /PatientModule/Labs/Edit/5
@@ -88,23 +88,23 @@ namespace XCLHMS.Areas.LabTestModule.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Name,Description,IsActive,CreatedDate,ModifiedDate")] Lab lab)
+        public ActionResult Edit([Bind(Include="Id,Name,Description,IsActive,CreatedDate,ModifiedDate")] Labs Labs)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(lab).State = EntityState.Modified;
+                db.Entry(Labs).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
          
-            return View(lab);
+            return View(Labs);
         }
 
         //// GET: /PatientModule/Labs/Delete/5
         //[HttpPost]
         //public ActionResult Delete(int? id)
         //{
-        //    Lab labs = db.Labs.Find(id);
+        //    Labs labs = db.Labs.Find(id);
         //    db.Labs.Remove(labs);
         //    db.SaveChanges();
         //    return RedirectToAction("Index");
@@ -115,7 +115,7 @@ namespace XCLHMS.Areas.LabTestModule.Controllers
         {
             try
             {
-                Lab labs = db.Labs.Find(Id);
+                Labs labs = db.Labs.Find(Id);
                 if (Id == null)
                 {
                     return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
@@ -140,3 +140,4 @@ namespace XCLHMS.Areas.LabTestModule.Controllers
         }
     }
 }
+

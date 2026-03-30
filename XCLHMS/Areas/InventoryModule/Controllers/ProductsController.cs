@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -46,7 +46,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
                          {
                              Id = f.Id,
                              //Category = f.ProductCategory.Name,
-                             //vendor = f.Vendor.Name,
+                             //Vendors = f.Vendors.Name,
                              Brand = f.Brand.BrandName,
                              Manufacture = f.Manufacture.ManufactureName,
                              Dosage = f.Dosage.DosageName,
@@ -70,12 +70,12 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            Products Products = db.Products.Find(id);
+            if (Products == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(Products);
         }
 
         // GET: /InventoryModule/Products/Create
@@ -97,24 +97,24 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,BrandId,ManufactureId,DosageId,AUId,Name,CreatedDate,ModifiedDate")] Product product)
+        public ActionResult Create([Bind(Include = "Id,BrandId,ManufactureId,DosageId,AUId,Name,CreatedDate,ModifiedDate")] Products Products)
         {
             if (ModelState.IsValid)
             {
-                product.CreatedDate = DateTime.Now;
-                db.Products.Add(product);
+                Products.CreatedDate = DateTime.Now;
+                db.Products.Add(Products);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
 
-            //ViewBag.CategoryId = new SelectList(db.ProductCategories, "Id", "Name", product.CategoryId);
-            //ViewBag.VendorId = new SelectList(db.Vendors, "Id", "Name", product.VendorId);
-            ViewBag.BrandId = new SelectList(db.Brands, "Id", "BrandName", product.BrandId);
-            ViewBag.ManufactureId = new SelectList(db.Manufactures, "Id", "ManufactureName", product.ManufactureId);
-            ViewBag.DosageId = new SelectList(db.Dosages, "Id", "DosageName", product.DosageId);
-            ViewBag.AUId = new SelectList(db.AUs, "Id", "Name", product.AUId);
-            return View(product);
+            //ViewBag.CategoryId = new SelectList(db.ProductCategories, "Id", "Name", Products.CategoryId);
+            //ViewBag.VendorId = new SelectList(db.Vendors, "Id", "Name", Products.VendorId);
+            ViewBag.BrandId = new SelectList(db.Brands, "Id", "BrandName", Products.BrandId);
+            ViewBag.ManufactureId = new SelectList(db.Manufactures, "Id", "ManufactureName", Products.ManufactureId);
+            ViewBag.DosageId = new SelectList(db.Dosages, "Id", "DosageName", Products.DosageId);
+            ViewBag.AUId = new SelectList(db.AUs, "Id", "Name", Products.AUId);
+            return View(Products);
         }
 
         // GET: /InventoryModule/Products/Edit/5
@@ -124,24 +124,24 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
-            TempData["crtDate"] = product.CreatedDate;
-            if (product == null)
+            Products Products = db.Products.Find(id);
+            TempData["crtDate"] = Products.CreatedDate;
+            if (Products == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.CategoryId = new SelectList(db.ProductCategories, "Id", "Name", product.CategoryId);
-            ViewBag.VendorId = new SelectList(db.Vendors, "Id", "Name", product.VendorId);
-            ViewBag.BrandId = new SelectList(db.Brands, "Id", "BrandName", product.BrandId);
-            ViewBag.ManufactureId = new SelectList(db.Manufactures, "Id", "ManufactureName", product.ManufactureId);
+            ViewBag.CategoryId = new SelectList(db.ProductCategories, "Id", "Name", Products.CategoryId);
+            ViewBag.VendorId = new SelectList(db.Vendors, "Id", "Name", Products.VendorId);
+            ViewBag.BrandId = new SelectList(db.Brands, "Id", "BrandName", Products.BrandId);
+            ViewBag.ManufactureId = new SelectList(db.Manufactures, "Id", "ManufactureName", Products.ManufactureId);
 
-            var selectedAUId = product.AUId;
+            var selectedAUId = Products.AUId;
             var filteredDosages = db.Dosages.Where(d => d.AUId == selectedAUId).ToList();
-            ViewBag.DosageId = new SelectList(filteredDosages, "Id", "DosageName", product.DosageId);
+            ViewBag.DosageId = new SelectList(filteredDosages, "Id", "DosageName", Products.DosageId);
 
-            ViewBag.AUId = new SelectList(db.AUs, "Id", "Name", product.AUId);
-            return View(product);
+            ViewBag.AUId = new SelectList(db.AUs, "Id", "Name", Products.AUId);
+            return View(Products);
         }
 
         // POST: /InventoryModule/Products/Edit/5
@@ -149,23 +149,23 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CategoryId,VendorId,BrandId,ManufactureId,DosageId,AUId,Name,Code,Qty,strength,genericName,Description,Active,CreatedDate,ModifiedDate")] Product product)
+        public ActionResult Edit([Bind(Include = "Id,CategoryId,VendorId,BrandId,ManufactureId,DosageId,AUId,Name,Code,Qty,strength,genericName,Description,Active,CreatedDate,ModifiedDate")] Products Products)
         {
             if (ModelState.IsValid)
             {
-                product.CreatedDate = Convert.ToDateTime(TempData["crtDate"]);
-                product.ModifiedDate = DateTime.Now;
-                db.Entry(product).State = EntityState.Modified;
+                Products.CreatedDate = Convert.ToDateTime(TempData["crtDate"]);
+                Products.ModifiedDate = DateTime.Now;
+                db.Entry(Products).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryId = new SelectList(db.ProductCategories, "Id", "Name", product.CategoryId);
-            ViewBag.VendorId = new SelectList(db.Vendors, "Id", "Name", product.VendorId);
-            ViewBag.BrandId = new SelectList(db.Brands, "Id", "BrandName", product.BrandId);
-            ViewBag.ManufactureId = new SelectList(db.Manufactures, "Id", "ManufactureName", product.ManufactureId);
-            ViewBag.DosageId = new SelectList(db.Dosages, "Id", "DosageName", product.DosageId);
-            ViewBag.AUId = new SelectList(db.AUs, "Id", "Name", product.AUId);
-            return View(product);
+            ViewBag.CategoryId = new SelectList(db.ProductCategories, "Id", "Name", Products.CategoryId);
+            ViewBag.VendorId = new SelectList(db.Vendors, "Id", "Name", Products.VendorId);
+            ViewBag.BrandId = new SelectList(db.Brands, "Id", "BrandName", Products.BrandId);
+            ViewBag.ManufactureId = new SelectList(db.Manufactures, "Id", "ManufactureName", Products.ManufactureId);
+            ViewBag.DosageId = new SelectList(db.Dosages, "Id", "DosageName", Products.DosageId);
+            ViewBag.AUId = new SelectList(db.AUs, "Id", "Name", Products.AUId);
+            return View(Products);
         }
 
 
@@ -175,12 +175,12 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         {
             try
             {
-                Product product = db.Products.Find(Id);
+                Products Products = db.Products.Find(Id);
                 if (Id == null)
                 {
                     return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
                 }
-                db.Products.Remove(product);
+                db.Products.Remove(Products);
                 db.SaveChanges();
                 return Json(data: "Deleted", behavior: JsonRequestBehavior.AllowGet);
             }
@@ -200,3 +200,4 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         }
     }
 }
+

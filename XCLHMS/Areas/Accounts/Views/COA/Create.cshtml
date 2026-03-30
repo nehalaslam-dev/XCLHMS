@@ -1,60 +1,61 @@
-﻿@model XCLHMS.Models.COA
+@model XCLHMS.Models.COA
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = Model.ID == 0 ? "New Object Head" : "Edit Object Head";
+    Layout = "~/Areas/Accounts/Views/Shared/_AccountsLayout.cshtml";
 }
 
-<h2>Accounts Heads</h2>
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
+<div style="font-family:Arial">
+    <h2>@ViewBag.Title</h2>
+    <p>Define new Object Heads & Descriptions</p>
     
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true)
+    <p style="float:right;">
+        <a href="@Url.Action("Index", "COA", new { area = "Accounts" })" class="btn btn-default">Back to List</a>
+    </p>
 
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ParentID,"Select Head" ,new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ParentID", (IEnumerable<SelectListItem>)ViewBag.ParentID, "--Select--", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ParentID)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Code, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Code)
-            </div>
-        </div>
-
-    
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Name)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Description)
-            </div>
-        </div>
-
-    
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-primary btn-success" />
-                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
-            </div>
+    <div class="container" style="width:100%; padding:0;">
+        <br /><br />
+        <div class="well" style="max-width: 600px;">
+            @using (Html.BeginForm("Save", "COA", new { area = "Accounts" }, FormMethod.Post, new { id = "frmCOA" }))
+            {
+                <input type="hidden" name="ID" id="txtId" value="@Model.ID" />
+                <div class="form-group">
+                    <label>Object Head Code (e.g., A03901)</label>
+                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control", placeholder = "Enter Code", id="txtCode", required="required" })
+                </div>
+                <div class="form-group">
+                    <label>Object Description</label>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Enter Name of Expense Head", id="txtName", required="required" })
+                </div>
+                <div class="text-right" style="margin-top:20px;">
+                    <button type="submit" class="btn btn-primary btn-large" id="btnSave">
+                        @(Model.ID == 0 ? "Save Account Head" : "Update Account Head")
+                    </button>
+                </div>
+            }
         </div>
     </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#frmCOA").submit(function (e) {
+                e.preventDefault();
+                var $btn = $("#btnSave");
+                var originalText = $btn.text();
+                $btn.prop('disabled', true).text('Processing...');
+
+                $.post("@Url.Action("Save", "COA", new { area = "Accounts" })", $(this).serialize(), function (res) {
+                    $btn.prop('disabled', false).text(originalText);
+                    if (res.success) {
+                        alert("Account head saved successfully.");
+                        setTimeout(() => { window.location.href = '@Url.Action("Index", "COA", new { area = "Accounts" })'; }, 500);
+                    } else {
+                        alert("Error: " + res.message);
+                    }
+                });
+            });
+        });
+    </script>
 }

@@ -1,0 +1,100 @@
+@{
+    ViewBag.Title = "Cash Book";
+    Layout = "~/Areas/Accounts/Views/Shared/_AccountsLayout.cshtml";
+}
+
+<div style="font-family:Arial">
+    <h2>Cash Book</h2>
+    <p>Daily receipts and payments tracking</p>
+
+    <!-- Header Stats Card -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="well text-center form-group">
+                <label>Opening Balance</label>
+                <h3 id="openingBalance" style="color: #444; margin:5px 0;">PKR 0.00</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="well text-center form-group">
+                <label>Total Receipts/Payments</label>
+                <h3 id="totalRP" style="color: #3f8cfe; margin:5px 0;">PKR 0.00</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="well text-center form-group bg-primary text-white" style="background-color: #337ab7; color:white; border-color: #2e6da4;">
+                <label style="color:white;">Closing Balance</label>
+                <h3 id="closingBalance" style="margin:5px 0;">PKR 0.00</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="width:100%; padding:0;">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="background-color: #ffd700;">Month & Date</th>
+                        <th style="background-color: #ffd700;">Particulars</th>
+                        <th style="background-color: #ffd700;">Bank Rs.</th>
+                        <th style="background-color: #ffd700;">Amount Rs.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loaded via AJAX -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var dataTable;
+        $(document).ready(function() {
+            loadGrid();
+        });
+
+        function loadGrid() {
+            if (dataTable) {
+                dataTable.destroy();
+            }
+            $.get("@Url.Action("GetCashBookData", "CashBook", new { area = "Accounts" })", function(res) {
+                var html = "";
+                var totalRev = 0;
+                var totalExp = 0;
+                var currentBalance = 0;
+                
+                if(res.data && res.data.length > 0) {
+                    $.each(res.data, function(i, item) {
+                        var dt = item.billdate ? new Date(parseInt(item.billdate.substr(6))).toLocaleDateString() : '-';
+                        var rev = item.Revenue || 0;
+                        var exp = item.Expense || 0;
+                        
+                        totalRev += rev;
+                        totalExp += exp;
+                        currentBalance += (rev - exp); // Running Balance
+
+                        var tr = `<tr>
+                            <td>${dt}</td>
+                            <td>${item.HeadName || 'MANUAL'} (Bill: ${item.BillNo || '-'}) - ${item.PartyName || '-'}</td>
+                            <td>${rev > 0 ? 'PKR ' + rev.toLocaleString() : '-'}</td>
+                            <td>${rev > 0 ? 'PKR ' + rev.toLocaleString() : (exp > 0 ? 'PKR ' + exp.toLocaleString() : '-')}</td>
+                        </tr>`;
+                        html = tr + html; // Prepend
+                    });
+                }
+                
+                $("#demoGrid tbody").html(html);
+                dataTable = $('#demoGrid').DataTable({
+                    "order": [] // Disable initial sorting so prepended order remains
+                });
+                
+                // Update Top Cards
+                $("#totalRP").text(`PKR ${(totalRev + totalExp).toLocaleString()}`);
+                $("#closingBalance").text(`PKR ${currentBalance.toLocaleString()}`);
+            });
+        }
+    </script>
+}

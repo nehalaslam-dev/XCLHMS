@@ -1,0 +1,113 @@
+﻿@model IEnumerable<XCLHMS.Models.COA>
+
+<div class="container-fluid" style="padding: 20px;">
+    <!-- Add New Button -->
+    <div class="text-right mb-3">
+        <button class="btn btn-primary" onclick="openModal(0)">+ Add New Head</button>
+    </div>
+
+    <!-- The Table -->
+    <div class="card shadow">
+        <div class="card-body p-0">
+            <table class="table table-bordered table-hover mb-0">
+                <thead style="background-color: #3498db; color: white;">
+                    <tr>
+                        <th>Head Name</th>
+                        <th>Head Code</th>
+                        <th>Description</th>
+                        <th style="width: 150px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Code</td>
+                            <td>@item.Description</td>
+                            <td>
+                                <button class="btn btn-info btn-sm" onclick="editRow(@item.ID, '@item.Name', '@item.Code', '@item.Description')">Edit</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteRow(@item.ID)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Modal (The Popup Box) -->
+<div class="modal fade" id="coaModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Account Head Details</h5>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="txtID" />
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="txtName" class="form-control" placeholder="e.g. Gas Charges" />
+                </div>
+                <div class="form-group">
+                    <label>Code</label>
+                    <input type="text" id="txtCode" class="form-control" placeholder="e.g. A03301" />
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="txtDesc" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" onclick="saveData()">Save</button>
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function openModal() {
+            $('#txtID').val(0);
+            $('#txtName').val('');
+            $('#txtCode').val('');
+            $('#txtDesc').val('');
+            $('#coaModal').modal('show');
+        }
+
+        function editRow(id, name, code, desc) {
+            $('#txtID').val(id);
+            $('#txtName').val(name);
+            $('#txtCode').val(code);
+            $('#txtDesc').val(desc);
+            $('#coaModal').modal('show');
+        }
+
+        function saveData() {
+            var data = {
+                ID: $('#txtID').val(),
+                Name: $('#txtName').val(),
+                Code: $('#txtCode').val(),
+                Description: $('#txtDesc').val()
+            };
+
+            $.post("/COA/Save", data, function (res) {
+                if (res.success) {
+                    location.reload();
+                } else {
+                    alert("Error: " + res.message);
+                }
+            });
+        }
+
+        function deleteRow(id) {
+            if (confirm("Are you sure you want to delete this?")) {
+                $.post("/COA/Delete", { id: id }, function (res) {
+                    if (res.success) location.reload();
+                });
+            }
+        }
+    </script>
+}

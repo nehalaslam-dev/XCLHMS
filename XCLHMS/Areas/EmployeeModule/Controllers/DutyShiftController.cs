@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -14,10 +14,10 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
     {
         private HMSEntities db = new HMSEntities();
 
-        // GET: /EmployeeModule/DutyShift/
+        // GET: /EmployeeModule/DutyShifts/
         public ActionResult Index()
         {
-            //var dutyshifts = db.DutyShifts.Include(d => d.ShiftPeriod);
+            //var dutyshifts = db.DutyShifts.Include(d => d.ShiftPeriods);
             //return View(dutyshifts.ToList());
             return View();
         }
@@ -25,12 +25,12 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
         public ActionResult LoadGrid()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var data = db.DutyShifts.Include(e => e.ShiftPeriod).ToList();
+            var data = db.DutyShifts.Include(e => e.ShiftPeriods).ToList();
             var final = (from f in data
                          select new
                          {
                              Id = f.Id,
-                             shiftName = f.ShiftPeriod.Name,
+                             shiftName = f.ShiftPeriods.Name,
                              dutyshiftName = f.Name,
                              Description = f.Description,
                              StartTime = f.StartTime,
@@ -40,81 +40,81 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
             return Json(new { data = final }, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: /EmployeeModule/DutyShift/Details/5
+        // GET: /EmployeeModule/DutyShifts/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DutyShift dutyshift = db.DutyShifts.Find(id);
-            if (dutyshift == null)
+            DutyShifts DutyShifts = db.DutyShifts.Find(id);
+            if (DutyShifts == null)
             {
                 return HttpNotFound();
             }
-            return View(dutyshift);
+            return View(DutyShifts);
         }
 
-        // GET: /EmployeeModule/DutyShift/Create
+        // GET: /EmployeeModule/DutyShifts/Create
         public ActionResult Create()
         {
             ViewBag.PeriodID = new SelectList(db.ShiftPeriods, "Id", "Name");
             return View();
         }
 
-        // POST: /EmployeeModule/DutyShift/Create
+        // POST: /EmployeeModule/DutyShifts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,PeriodID,Name,Description,StartTime,EndTime,CreateDate,ModifiedDate")] DutyShift dutyshift)
+        public ActionResult Create([Bind(Include = "Id,PeriodID,Name,Description,StartTime,EndTime,CreateDate,ModifiedDate")] DutyShifts DutyShifts)
         {
             if (ModelState.IsValid)
             {
-                dutyshift.CreateDate = DateTime.Now;
-                db.DutyShifts.Add(dutyshift);
+                DutyShifts.CreateDate = DateTime.Now;
+                db.DutyShifts.Add(DutyShifts);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PeriodID = new SelectList(db.ShiftPeriods, "Id", "Name", dutyshift.PeriodID);
-            return View(dutyshift);
+            ViewBag.PeriodID = new SelectList(db.ShiftPeriods, "Id", "Name", DutyShifts.PeriodID);
+            return View(DutyShifts);
         }
 
-        // GET: /EmployeeModule/DutyShift/Edit/5
+        // GET: /EmployeeModule/DutyShifts/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DutyShift dutyshift = db.DutyShifts.Find(id);
-            TempData["crtDate"] = dutyshift.CreateDate;
-            if (dutyshift == null)
+            DutyShifts DutyShifts = db.DutyShifts.Find(id);
+            TempData["crtDate"] = DutyShifts.CreateDate;
+            if (DutyShifts == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.PeriodID = new SelectList(db.ShiftPeriods, "Id", "Name", dutyshift.PeriodID);
-            return View(dutyshift);
+            ViewBag.PeriodID = new SelectList(db.ShiftPeriods, "Id", "Name", DutyShifts.PeriodID);
+            return View(DutyShifts);
         }
 
-        // POST: /EmployeeModule/DutyShift/Edit/5
+        // POST: /EmployeeModule/DutyShifts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,PeriodID,Name,Description,StartTime,EndTime,CreateDate,ModifiedDate")] DutyShift dutyshift)
+        public ActionResult Edit([Bind(Include = "Id,PeriodID,Name,Description,StartTime,EndTime,CreateDate,ModifiedDate")] DutyShifts DutyShifts)
         {
             if (ModelState.IsValid)
             {
-                dutyshift.CreateDate = Convert.ToDateTime(TempData["crtDate"]);
-                dutyshift.ModifiedDate = DateTime.Now;
-                db.Entry(dutyshift).State = EntityState.Modified;
+                DutyShifts.CreateDate = Convert.ToDateTime(TempData["crtDate"]);
+                DutyShifts.ModifiedDate = DateTime.Now;
+                db.Entry(DutyShifts).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PeriodID = new SelectList(db.ShiftPeriods, "Id", "Name", dutyshift.PeriodID);
-            return View(dutyshift);
+            ViewBag.PeriodID = new SelectList(db.ShiftPeriods, "Id", "Name", DutyShifts.PeriodID);
+            return View(DutyShifts);
         }
 
         [HttpPost]
@@ -122,12 +122,12 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
         {
             try
             {
-                DutyShift dutyshift = db.DutyShifts.Find(Id);
+                DutyShifts DutyShifts = db.DutyShifts.Find(Id);
                 if (Id == null)
                 {
                     return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
                 }
-                db.DutyShifts.Remove(dutyshift);
+                db.DutyShifts.Remove(DutyShifts);
                 db.SaveChanges();
                 return Json(data: "Deleted", behavior: JsonRequestBehavior.AllowGet);
             }
@@ -148,3 +148,4 @@ namespace XCLHMS.Areas.EmployeeModule.Controllers
         }
     }
 }
+

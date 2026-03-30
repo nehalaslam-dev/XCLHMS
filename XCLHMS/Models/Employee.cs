@@ -17,13 +17,13 @@ namespace XCLHMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
         {
-            this.EmployeeDutyRoasters = new HashSet<EmployeeDutyRoaster>();
-            this.LabRegistrations = new HashSet<LabRegistration>();
-            this.LabRegistrations1 = new HashSet<LabRegistration>();
-            this.LabTests = new HashSet<LabTest>();
-            this.LabTests1 = new HashSet<LabTest>();
-            this.PateintAppointments = new HashSet<PateintAppointment>();
-            this.SemanAnalysis = new HashSet<SemanAnalysi>();
+            this.EmployeeDutyRoaster = new HashSet<EmployeeDutyRoaster>();
+            this.LabRegistration = new HashSet<LabRegistration>();
+            this.LabRegistration1 = new HashSet<LabRegistration>();
+            this.LabTest = new HashSet<LabTest>();
+            this.LabTest1 = new HashSet<LabTest>();
+            this.PateintAppointments = new HashSet<PateintAppointments>();
+            this.SemanAnalysis = new HashSet<SemanAnalysis>();
         }
     
         public int Id { get; set; }
@@ -49,21 +49,21 @@ namespace XCLHMS.Models
         public string EmployeeCode { get; set; }
     
         public virtual Department Department { get; set; }
-        public virtual Designation Designation { get; set; }
+        public virtual Designations Designations { get; set; }
         public virtual EmployeeType EmployeeType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmployeeDutyRoaster> EmployeeDutyRoasters { get; set; }
+        public virtual ICollection<EmployeeDutyRoaster> EmployeeDutyRoaster { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LabRegistration> LabRegistrations { get; set; }
+        public virtual ICollection<LabRegistration> LabRegistration { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LabRegistration> LabRegistrations1 { get; set; }
+        public virtual ICollection<LabRegistration> LabRegistration1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LabTest> LabTests { get; set; }
+        public virtual ICollection<LabTest> LabTest { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LabTest> LabTests1 { get; set; }
+        public virtual ICollection<LabTest> LabTest1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PateintAppointment> PateintAppointments { get; set; }
+        public virtual ICollection<PateintAppointments> PateintAppointments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SemanAnalysi> SemanAnalysis { get; set; }
+        public virtual ICollection<SemanAnalysis> SemanAnalysis { get; set; }
     }
 }

@@ -31,6 +31,6 @@ namespace XCLHMS.Models
     
         public virtual GRN GRN { get; set; }
         public virtual IR IR { get; set; }
-        public virtual Product Product { get; set; }
+        public virtual Products Products { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace XCLHMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PatientType()
         {
-            this.Pateints = new HashSet<Pateint>();
+            this.Pateint = new HashSet<Pateint>();
         }
     
         public int Id { get; set; }
@@ -25,6 +25,6 @@ namespace XCLHMS.Models
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pateint> Pateints { get; set; }
+        public virtual ICollection<Pateint> Pateint { get; set; }
     }
 }

@@ -31,6 +31,6 @@ namespace XCLHMS.Models
         public Nullable<decimal> ManualTax { get; set; }
     
         public virtual COA COA { get; set; }
-        public virtual Vendor Vendor { get; set; }
+        public virtual Vendors Vendors { get; set; }
     }
 }

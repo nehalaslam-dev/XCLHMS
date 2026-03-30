@@ -17,8 +17,8 @@ namespace XCLHMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TestCategory()
         {
-            this.LabTests = new HashSet<LabTest>();
-            this.Tests = new HashSet<Test>();
+            this.LabTest = new HashSet<LabTest>();
+            this.Test = new HashSet<Test>();
         }
     
         public int Id { get; set; }
@@ -29,8 +29,8 @@ namespace XCLHMS.Models
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LabTest> LabTests { get; set; }
+        public virtual ICollection<LabTest> LabTest { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Test> Tests { get; set; }
+        public virtual ICollection<Test> Test { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -22,8 +22,8 @@ namespace XCLHMS.Areas.StockInventory.Controllers
 
         public ActionResult LoadGrid()
         {
-
             db.Configuration.ProxyCreationEnabled = false;
+            // Uses db.Brands (The collection of Brands objects)
             var data = db.Brands.OrderByDescending(a => a.Id).ToList();
             return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }
@@ -35,7 +35,8 @@ namespace XCLHMS.Areas.StockInventory.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Brand brand = db.Brands.Find(id);
+            // Changed 'Brand' to 'Brands'
+            Brands brand = db.Brands.Find(id);
             if (brand == null)
             {
                 return HttpNotFound();
@@ -49,12 +50,10 @@ namespace XCLHMS.Areas.StockInventory.Controllers
             return View();
         }
 
-        // POST: StockInventory/Brands/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,BrandName,Description")] Brand brand)
+        // Changed 'Brand' to 'Brands'
+        public ActionResult Create([Bind(Include = "Id,BrandName,Description")] Brands brand)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +72,8 @@ namespace XCLHMS.Areas.StockInventory.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Brand brand = db.Brands.Find(id);
+            // Changed 'Brand' to 'Brands'
+            Brands brand = db.Brands.Find(id);
             if (brand == null)
             {
                 return HttpNotFound();
@@ -81,12 +81,10 @@ namespace XCLHMS.Areas.StockInventory.Controllers
             return View(brand);
         }
 
-        // POST: StockInventory/Brands/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,BrandName,Description")] Brand brand)
+        // Changed 'Brand' to 'Brands'
+        public ActionResult Edit([Bind(Include = "Id,BrandName,Description")] Brands brand)
         {
             if (ModelState.IsValid)
             {
@@ -97,29 +95,15 @@ namespace XCLHMS.Areas.StockInventory.Controllers
             return View(brand);
         }
 
-        // GET: StockInventory/Brands/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Brand brand = db.Brands.Find(id);
-        //    if (brand == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(brand);
-        //}
-
         // POST: StockInventory/Brands/Delete/5
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             try
             {
-                Brand brand = db.Brands.Find(id);
-                if (id == null)
+                // Changed 'Brand' to 'Brands'
+                Brands brand = db.Brands.Find(id);
+                if (brand == null)
                 {
                     return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
                 }

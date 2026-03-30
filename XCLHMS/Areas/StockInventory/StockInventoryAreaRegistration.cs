@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -21,7 +21,7 @@ namespace XCLHMS.Areas.StockInventory
             context.MapRoute(
                 "StockInventory_default",
                 "StockInventory/{controller}/{action}/{id}",
-                new { controller = "Vendor", action = "Index", id = UrlParameter.Optional }
+                new { controller = "Vendors", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

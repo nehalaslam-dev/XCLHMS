@@ -1,0 +1,91 @@
+@{
+    ViewBag.Title = "Expenditure Statement";
+    Layout = "~/Areas/Accounts/Views/Shared/_AccountsLayout.cshtml";
+}
+
+<div style="font-family:Arial">
+    <h2>Expenditure Statement</h2>
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-md-3">
+            <label>Financial Year</label>
+            <select id="fYear" class="form-control">
+                <option value="2024-2025">2024 - 2025</option>
+                <option value="2023-2024">2023 - 2024</option>
+            </select>
+        </div>
+        <div class="col-md-3" style="padding-top:25px;">
+            <button class="btn btn-primary" onclick="loadReport()">Generate Report</button>
+        </div>
+    </div>
+
+    <div class="container" style="width:100%; padding:0; overflow-x: auto;">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap text-center" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th rowspan="1" style="vertical-align: middle;">Code</th>
+                        <th rowspan="1" style="vertical-align: middle; width: 250px;">Description</th>
+                        <th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
+                        <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th>
+                        <th rowspan="1" style="vertical-align: middle;">Total Expenditure</th>
+                        <th rowspan="1" style="vertical-align: middle;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loaded via AJAX -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var dataTable;
+        $(document).ready(function() {
+            loadReport();
+        });
+        
+        function loadReport() {
+            var fYear = $("#fYear").val();
+            if (dataTable) {
+                dataTable.destroy();
+            }
+            $.get("@Url.Action("GetMonthlyExpenditure", "ExpenditureStatement", new { area = "Accounts" })", { fiscalYear: fYear }, function(res) {
+                var html = "";
+                if(res.data && res.data.length > 0) {
+                    $.each(res.data, function(i, item) {
+                        var status = item.Balance >= 0 ? "Under Budget" : "Over Budget";
+                        var statusCls = item.Balance >= 0 ? "color:green;" : "color:red;";
+                        html += `<tr>
+                            <td>${item.Code}</td>
+                            <td class="text-left">${item.HeadName}</td>
+                            <td>${item.JulExpense || 0}</td>
+                            <td>${item.AugExpense || 0}</td>
+                            <td>${item.SepExpense || 0}</td>
+                            <td>${item.OctExpense || 0}</td>
+                            <td>${item.NovExpense || 0}</td>
+                            <td>${item.DecExpense || 0}</td>
+                            <td>${item.JanExpense || 0}</td>
+                            <td>${item.FebExpense || 0}</td>
+                            <td>${item.MarExpense || 0}</td>
+                            <td>${item.AprExpense || 0}</td>
+                            <td>${item.MayExpense || 0}</td>
+                            <td>${item.JunExpense || 0}</td>
+                            <td><strong>PKR ${item.ExpenditureAmount ? item.ExpenditureAmount.toLocaleString() : '0.00'}</strong></td>
+                            <td style="${statusCls}">${status}</td>
+                        </tr>`;
+                    });
+                }
+                
+                $("#demoGrid tbody").html(html);
+                dataTable = $('#demoGrid').DataTable({
+                    "scrollX": true,
+                    "ordering": false
+                });
+            });
+        }
+    </script>
+}

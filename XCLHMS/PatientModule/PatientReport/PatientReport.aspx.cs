@@ -18,18 +18,17 @@ namespace XCLHMS.PatientModule.PatientReport
         {
             if (!IsPostBack)
             {
-                // Set default dates to today's month
+                // Set default dates to current month
                 txtStartDate.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("yyyy-MM-dd");
                 txtEndDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
+                // Check for specific challan or load default
                 if (Request.QueryString["ChallanNo"] != null)
                 {
-                    string challanNo = Request.QueryString["ChallanNo"].ToString();
-                    LoadReport(challanNo);
+                    LoadReport(Request.QueryString["ChallanNo"].ToString());
                 }
                 else
                 {
-                    // Optionally load default data
                     btnSearch_Click(null, null);
                 }
             }
@@ -40,22 +39,18 @@ namespace XCLHMS.PatientModule.PatientReport
             DateTime? start = string.IsNullOrEmpty(txtStartDate.Text) ? (DateTime?)null : DateTime.Parse(txtStartDate.Text);
             DateTime? end = string.IsNullOrEmpty(txtEndDate.Text) ? (DateTime?)null : DateTime.Parse(txtEndDate.Text);
             string type = ddlPatientType.SelectedValue;
+            string mrNo = txtMRNo.Text.Trim();
 
-            LoadReport(null, start, end, type);
+            LoadReport(null, start, end, type, mrNo);
         }
 
         protected void btnExport_Click(object sender, EventArgs e)
         {
             Warning[] warnings;
             string[] streamids;
-            string mimeType;
-            string encoding;
-            string extension;
+            string mimeType, encoding, extension;
 
-            byte[] bytes = ReportViewer1.LocalReport.Render(
-               "Excel", null, out mimeType, out encoding,
-                out extension,
-               out streamids, out warnings);
+            byte[] bytes = ReportViewer1.LocalReport.Render("Excel", null, out mimeType, out encoding, out extension, out streamids, out warnings);
 
             Response.Clear();
             Response.ContentType = mimeType;
@@ -64,18 +59,20 @@ namespace XCLHMS.PatientModule.PatientReport
             Response.End();
         }
 
-        private void LoadReport(string challanNo = null, DateTime? startDate = null, DateTime? endDate = null, string patientType = null)
+        private void LoadReport(string challanNo = null, DateTime? startDate = null, DateTime? endDate = null, string patientType = null, string mrNo = null)
         {
             try
             {
-                DataTable dt = dal.GetPatientReport(challanNo, startDate, endDate, patientType);
+                DataTable dt = dal.GetPatientReport(challanNo, startDate, endDate, patientType, mrNo);
 
                 ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PatientModule/PatientReport/Reports/PatientReport.rdlc");
                 ReportViewer1.LocalReport.DataSources.Clear();
-                
+
                 ReportDataSource rds = new ReportDataSource("PatientReportDataset", dt);
                 ReportViewer1.LocalReport.DataSources.Add(rds);
-                
+
+                // Enable interactivity and pagination in the viewer
+                ReportViewer1.ShowPageNavigationControls = true;
                 ReportViewer1.LocalReport.Refresh();
             }
             catch (Exception ex)

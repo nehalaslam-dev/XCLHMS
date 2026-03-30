@@ -1,4 +1,4 @@
-﻿using Microsoft.Reporting.WebForms;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -114,7 +114,7 @@ namespace XCLHMS.Reports
             public int SNO { get; set; }
             public string Head { get; set; }
             public string ProductName { get; set; }
-            public int? Qty { get; set; }
+            public decimal? Qty { get; set; }
             public DateTime? Date { get; set; }
         }
     }

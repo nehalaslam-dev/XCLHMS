@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -187,6 +187,7 @@
     <Compile Include="Areas\Accounts\Controllers\BudgetController.cs" />
     <Compile Include="Areas\Accounts\Controllers\COAController.cs" />
     <Compile Include="Areas\Accounts\Controllers\TaxController.cs" />
+    <Compile Include="Areas\Accounts\Controllers\TaxSheetController.cs" />
     <Compile Include="Areas\EmployeeModule\Controllers\DutyShiftController.cs" />
     <Compile Include="Areas\EmployeeModule\Controllers\EmployeeAllowanceController.cs" />
     <Compile Include="Areas\EmployeeModule\Controllers\EmployeeController.cs" />
@@ -341,29 +342,23 @@
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRole.cs">
+    <Compile Include="Models\AspNetRoles.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUser.cs">
+    <Compile Include="Models\AspNetUserClaims.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUserClaim.cs">
+    <Compile Include="Models\AspNetUserLogins.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
+    <Compile Include="Models\AspNetUsers.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AssignApplicationModel.cs" />
-    <Compile Include="Models\AU.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Bed.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\BedManagement.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Brand.cs">
+    <Compile Include="Models\Beds.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Budget.cs">
@@ -382,7 +377,7 @@
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CreateApplicationModel.cs" />
-    <Compile Include="Models\Customer.cs">
+    <Compile Include="Models\Customers.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
@@ -392,22 +387,19 @@
     <Compile Include="Models\Department.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Designation.cs">
+    <Compile Include="Models\Designations.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Document.cs">
+    <Compile Include="Models\Documents.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Documents_GetAllByHeadAndBillNo_Result.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Dosage.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\dummy_Result.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DutyShift.cs">
+    <Compile Include="Models\DutyShifts.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.cs">
@@ -588,22 +580,7 @@
       <DependentUpon>HMS.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\InventoryGRNDetail.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\InventoryGRNMaster.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\InventoryGRN_SelectByID_Result.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\InventoryIssuanceDetail.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\InventoryIssuanceMaster.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\InventoryItem.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InventoryItems_SelectAllByFilter_Result.cs">
@@ -618,19 +595,13 @@
     <Compile Include="Models\IR.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\IRDetail.cs">
+    <Compile Include="Models\IRDetails.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IsItemExpired_Result.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Issuance.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ItemStock_SelectAllByID_Result.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Items_Stock.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Items_Stock_SelectAll_Result.cs">
@@ -642,16 +613,13 @@
     <Compile Include="Models\Item_Stocks_SelectAllByFilter_Result.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Lab.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\LabRegistration.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LabTest.cs">
+    <Compile Include="Models\Labs.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MainCategory.cs">
+    <Compile Include="Models\LabTest.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MainCategory_SelectAll_Result.cs">
@@ -660,16 +628,10 @@
     <Compile Include="Models\MainCategory_SelectByID_Result.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MainStore.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\MainStore_SelectAllByID_Result.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MainStore_SelectAll_Result.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Manufacture.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Menu.cs" />
@@ -713,19 +675,19 @@
     <Compile Include="Models\Pateint09SEP2020.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PateintAppointment.cs">
+    <Compile Include="Models\PateintAppointments.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pateint_SelectForThumbImpression_Result.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PatientPrescription.cs">
+    <Compile Include="Models\PatientPrescriptions.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PatientType.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PatientVisit.cs">
+    <Compile Include="Models\PatientVisits.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pharmacy.cs">
@@ -740,10 +702,10 @@
     <Compile Include="Models\PostMartam.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Product.cs">
+    <Compile Include="Models\ProductCategory.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductCategory.cs">
+    <Compile Include="Models\Products.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product_Report_Result.cs">
@@ -788,10 +750,10 @@
     <Compile Include="Models\Report_WardPerItem_Result.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SemanAnalysi.cs">
+    <Compile Include="Models\SemanAnalysis.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ShiftPeriod.cs">
+    <Compile Include="Models\ShiftPeriods.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\spGetPatient_BK04212021_Result.cs">
@@ -810,9 +772,6 @@
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StockSummary_GetAllDataForReport_Result.cs">
-      <DependentUpon>HMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SubCategory.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SubCategoryGetAllByCategoryID_Result.cs">
@@ -836,13 +795,16 @@
     <Compile Include="Models\Sync_Backup_Result.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
+    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tax.cs">
+    <Compile Include="Models\TaxConfiguration.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TaxDetail.cs">
+      <DependentUpon>HMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\taxes.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Test.cs">
@@ -857,7 +819,7 @@
     <Compile Include="Models\TestResult.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TestResultDetail.cs">
+    <Compile Include="Models\TestResultDetails.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TestUnit.cs">
@@ -875,10 +837,10 @@
     <Compile Include="Models\token_archieve.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Vendor.cs">
+    <Compile Include="Models\Vendors.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Ward.cs">
+    <Compile Include="Models\Wards.cs">
       <DependentUpon>HMS.tt</DependentUpon>
     </Compile>
     <Compile Include="PatientDataHandler.ashx.cs">
@@ -950,6 +912,13 @@
     <Compile Include="Reports\SemanAnalysis.aspx.designer.cs">
       <DependentUpon>SemanAnalysis.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\TaxDeduction.aspx.cs">
+      <DependentUpon>TaxDeduction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\TaxDeduction.aspx.designer.cs">
+      <DependentUpon>TaxDeduction.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\TestResult.aspx.cs">
       <DependentUpon>TestResult.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -957,6 +926,18 @@
     <Compile Include="Reports\TestResult.aspx.designer.cs">
       <DependentUpon>TestResult.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\StockInventoryModels.cs" />
+    <Compile Include="Models\HMSEntities_Partial.cs" />
+    <Compile Include="Models\Budget_Partial.cs" />
+    <Compile Include="Areas\Accounts\Repositories\IAccountsRepository.cs" />
+    <Compile Include="Areas\Accounts\Services\IAccountsService.cs" />
+    <Compile Include="Areas\Accounts\Controllers\VendorManagementController.cs" />
+    <Compile Include="Areas\Accounts\Controllers\ContingencyRegisterController.cs" />
+    <Compile Include="Areas\Accounts\Controllers\CashBookController.cs" />
+    <Compile Include="Areas\Accounts\Controllers\TaxConfigurationController.cs" />
+    <Compile Include="Areas\Accounts\Controllers\ChequeRegisterController.cs" />
+    <Compile Include="Areas\Accounts\Controllers\BankReconciliationController.cs" />
+    <Compile Include="Areas\Accounts\Controllers\ExpenditureStatementController.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TestResultDataHandler.ashx.cs">
@@ -1004,6 +985,7 @@
     <Content Include="Reports\RegisterReport.aspx" />
     <Content Include="Reports\ReportWardBeds.aspx" />
     <Content Include="Reports\SemanAnalysis.aspx" />
+    <Content Include="Reports\TaxDeduction.aspx" />
     <Content Include="Reports\TestResult.aspx" />
     <Content Include="PatientModule\PatientReport\PatientReport.aspx" />
     <Content Include="PatientModule\PatientReport\Reports\PatientReport.rdlc">
@@ -1538,6 +1520,7 @@
     <Content Include="Views\Wards\Index.cshtml" />
     <Content Include="TestResultDataHandler.ashx" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\COA\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

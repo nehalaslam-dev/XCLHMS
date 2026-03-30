@@ -18,23 +18,13 @@ namespace XCLHMS.Models
         public int POID { get; set; }
         public int ProductId { get; set; }
         public string description { get; set; }
-        public Nullable<int> Qty { get; set; }
+        public int Qty { get; set; }
         public Nullable<decimal> UnitPrice { get; set; }
         public Nullable<decimal> UnitCost { get; set; }
         public string manufactureby { get; set; }
         public string marketingby { get; set; }
-        public Nullable<int> Tender_ { get; set; }
-        public Nullable<int> DosageId { get; set; }
-        public Nullable<int> AUId { get; set; }
-        public Nullable<int> BrandId { get; set; }
-        public Nullable<int> ManufactureId { get; set; }
-        public Nullable<bool> Remarks { get; set; }
     
         public virtual PO PO { get; set; }
-        public virtual Product Product { get; set; }
-        public virtual AU AU { get; set; }
-        public virtual Brand Brand { get; set; }
-        public virtual Dosage Dosage { get; set; }
-        public virtual Manufacture Manufacture { get; set; }
+        public virtual Products Products { get; set; }
     }
 }

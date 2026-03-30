@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -34,12 +34,12 @@ namespace XCLHMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ward ward = db.Wards.Find(id);
-            if (ward == null)
+            Wards Wards = db.Wards.Find(id);
+            if (Wards == null)
             {
                 return HttpNotFound();
             }
-            return View(ward);
+            return View(Wards);
         }
 
         // GET: /Wards/Create
@@ -53,16 +53,16 @@ namespace XCLHMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,WardNo,WardName,Description")] Ward ward)
+        public ActionResult Create([Bind(Include="Id,WardNo,WardName,Description")] Wards Wards)
         {
             if (ModelState.IsValid)
             {
-                db.Wards.Add(ward);
+                db.Wards.Add(Wards);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(ward);
+            return View(Wards);
         }
 
         // GET: /Wards/Edit/5
@@ -72,12 +72,12 @@ namespace XCLHMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ward ward = db.Wards.Find(id);
-            if (ward == null)
+            Wards Wards = db.Wards.Find(id);
+            if (Wards == null)
             {
                 return HttpNotFound();
             }
-            return View(ward);
+            return View(Wards);
         }
 
         // POST: /Wards/Edit/5
@@ -85,15 +85,15 @@ namespace XCLHMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,WardNo,WardName,Description")] Ward ward)
+        public ActionResult Edit([Bind(Include="Id,WardNo,WardName,Description")] Wards Wards)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(ward).State = EntityState.Modified;
+                db.Entry(Wards).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(ward);
+            return View(Wards);
         }
 
         [HttpPost]
@@ -101,12 +101,12 @@ namespace XCLHMS.Controllers
         {
             try
             {
-                Ward ward = db.Wards.Find(Id);
+                Wards Wards = db.Wards.Find(Id);
                 if (Id == null)
                 {
                     return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
                 }
-                db.Wards.Remove(ward);
+                db.Wards.Remove(Wards);
                 db.SaveChanges();
                 return Json(data: "Deleted", behavior: JsonRequestBehavior.AllowGet);
             }
@@ -127,3 +127,4 @@ namespace XCLHMS.Controllers
         }
     }
 }
+

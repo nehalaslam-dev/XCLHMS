@@ -1,0 +1,166 @@
+@{
+    ViewBag.Title = "Cheque Register";
+    Layout = "~/Areas/Accounts/Views/Shared/_AccountsLayout.cshtml";
+}
+
+<div style="font-family:Arial">
+    <h2>Cheque Register</h2>
+
+    <p style="float:right;">
+        <button class="btn btn-primary btn-large" onclick="openModal()">New Cheque</button>
+    </p>
+
+    <div class="container" style="width:100%;">
+        <br />
+        <div style="width:100%; margin:0 auto;">
+            <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="width: 30px;">S#</th>
+                        <th>Cheque No</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Bill No</th>
+                        <th>Vendor</th>
+                        <th>Object Head</th>
+                        <th style="width: 32px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loaded via AJAX -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="chequeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Register Cheque</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="cId" value="0" />
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Cheque No</label>
+                        <input type="text" id="chequeNo" class="form-control" />
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Date</label>
+                        <input type="date" id="chequeDate" class="form-control" />
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Amount</label>
+                        <input type="number" id="chequeAmount" class="form-control" />
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Bill No</label>
+                        <input type="text" id="billNo" class="form-control" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label>Vendor</label>
+                        @Html.DropDownList("VendorId", ViewBag.Vendors as List<SelectListItem>, "Select Vendor", new { @class = "form-control", id = "vendorId" })
+                    </div>
+                    <div class="col-md-8 form-group">
+                        <label>Notes</label>
+                        <input type="text" id="cNotes" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveRecord()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var dataTable;
+        $(document).ready(function() {
+            loadGrid();
+        });
+
+        function loadGrid() {
+            if (dataTable) {
+                dataTable.destroy();
+            }
+            $.get("@Url.Action("LoadGrid", "ChequeRegister", new { area = "Accounts" })", function(res) {
+                var html = "";
+                if(res.data && res.data.length > 0) {
+                    $.each(res.data, function(i, item) {
+                        var dt = item.ChequeDate ? new Date(parseInt(item.ChequeDate.substr(6))).toLocaleDateString() : '-';
+                        html += `<tr>
+                            <td>${i + 1}</td>
+                            <td>${item.ChequeNo || '-'}</td>
+                            <td>${dt}</td>
+                            <td>PKR ${item.Amount ? item.Amount.toLocaleString() : '0.00'}</td>
+                            <td>${item.BillNo || '-'}</td>
+                            <td>${item.VendorName || '-'}</td>
+                            <td>${item.ObjectHead || '-'}</td>
+                            <td>
+                                <button class="btn btn-info btn-sm" onclick='editRecord(${JSON.stringify(item)})'>Edit</button>
+                            </td>
+                        </tr>`;
+                    });
+                }
+                $("#demoGrid tbody").html(html);
+                dataTable = $('#demoGrid').DataTable();
+            });
+        }
+
+        function openModal() {
+            $("#cId").val(0);
+            $("#chequeNo").val("");
+            $("#chequeDate").val("");
+            $("#chequeAmount").val("");
+            $("#billNo").val("");
+            $("#vendorId").val("");
+            $("#cNotes").val("");
+            $("#chequeModal").modal("show");
+        }
+
+        function editRecord(item) {
+            $("#cId").val(item.Id);
+            $("#chequeNo").val(item.ChequeNo);
+            if(item.ChequeDate) {
+                var d = new Date(parseInt(item.ChequeDate.substr(6)));
+                var month = ('0' + (d.getMonth() + 1)).slice(-2);
+                var day = ('0' + d.getDate()).slice(-2);
+                $("#chequeDate").val(d.getFullYear() + "-" + month + "-" + day);
+            }
+            $("#chequeAmount").val(item.Amount);
+            $("#billNo").val(item.BillNo);
+            $("#vendorId").val(item.VendorId);
+            $("#cNotes").val(item.Notes);
+            $("#chequeModal").modal("show");
+        }
+
+        function saveRecord() {
+            var model = {
+                Id: $("#cId").val(),
+                ChequeNo: $("#chequeNo").val(),
+                ChequeDate: $("#chequeDate").val(),
+                Amount: $("#chequeAmount").val(),
+                BillNo: $("#billNo").val(),
+                VendorId: $("#vendorId").val(),
+                Notes: $("#cNotes").val(),
+                IsCleared: false
+            };
+
+            $.post("@Url.Action("Save", "ChequeRegister", new { area = "Accounts" })", model, function(res) {
+                if(res.success) {
+                    $("#chequeModal").modal("hide");
+                    loadGrid();
+                } else {
+                    alert("Error: " + res.message);
+                }
+            });
+        }
+    </script>
+}

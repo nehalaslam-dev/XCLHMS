@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -28,7 +28,7 @@ namespace XCLHMS.Areas.PatientModule.Controllers
             return Json(new { data = list }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult savePresc(string PatientRecordId, PatientPrescription[] pres)
+        public ActionResult savePresc(string PatientRecordId, PatientPrescriptions[] pres)
         {
             string result = "Error! Record Is Not Complete!";
             bool flag = false;
@@ -39,7 +39,7 @@ namespace XCLHMS.Areas.PatientModule.Controllers
                 {
                     foreach (var item in pres)
                     {
-                        PatientPrescription p = new PatientPrescription();
+                        PatientPrescriptions p = new PatientPrescriptions();
                         p.PatientRecordId = Convert.ToInt32(PatientRecordId);
                         p.ProductId = item.ProductId;
                         p.Qty = item.Qty;
@@ -112,3 +112,4 @@ namespace XCLHMS.Areas.PatientModule.Controllers
 
     }
 }
+

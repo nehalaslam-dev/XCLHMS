@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using XCLHMS.Models;
+using XCLHMS.Models; // Ensure this matches your Models namespace
 
 namespace XCLHMS.Areas.StockInventory.Controllers
 {
@@ -23,6 +23,8 @@ namespace XCLHMS.Areas.StockInventory.Controllers
         public ActionResult LoadGrid()
         {
             db.Configuration.ProxyCreationEnabled = false;
+
+            // Check: If 'Issuances' shows a red line, remove the 's'
             var data = (from d in db.Issuances
                         join a in db.Products on d.ProductId equals a.Id into productGroup
                         from a in productGroup.DefaultIfEmpty()
@@ -39,31 +41,23 @@ namespace XCLHMS.Areas.StockInventory.Controllers
             return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: StockInventory/Issuances/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            // Check: If 'Issuance' shows a red line, add an 's'
             Issuance issuance = db.Issuances.Find(id);
-            if (issuance == null)
-            {
-                return HttpNotFound();
-            }
+            if (issuance == null) return HttpNotFound();
+
             return View(issuance);
         }
 
-        // GET: StockInventory/Issuances/Create
         public ActionResult Create()
         {
             ViewBag.ProductId = new SelectList(db.Products.OrderBy(a => a.Name).ToList(), "Id", "Name");
             return View();
         }
 
-        // POST: StockInventory/Issuances/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SNO,Head,ProductId,Qty,Date")] Issuance issuance)
@@ -79,26 +73,17 @@ namespace XCLHMS.Areas.StockInventory.Controllers
             return View(issuance);
         }
 
-        // GET: StockInventory/Issuances/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             Issuance issuance = db.Issuances.Find(id);
-            if (issuance == null)
-            {
-                return HttpNotFound();
-            }
+            if (issuance == null) return HttpNotFound();
 
             ViewBag.ProductId = new SelectList(db.Products.OrderBy(a => a.Name).ToList(), "Id", "Name", issuance.ProductId);
             return View(issuance);
         }
 
-        // POST: StockInventory/Issuances/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "SNO,Head,ProductId,Qty,Date")] Issuance issuance)
@@ -114,32 +99,14 @@ namespace XCLHMS.Areas.StockInventory.Controllers
             return View(issuance);
         }
 
-        // GET: StockInventory/Issuances/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Issuance issuance = db.Issuances.Find(id);
-        //    if (issuance == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(issuance);
-        //}
-
-        // POST: StockInventory/Issuances/Delete/5
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             try
             {
                 Issuance issuance = db.Issuances.Find(id);
-                if (id == null)
-                {
-                    return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
-                }
+                if (issuance == null) return Json(data: "Not Deleted", behavior: JsonRequestBehavior.AllowGet);
+
                 db.Issuances.Remove(issuance);
                 db.SaveChanges();
                 return Json(data: "Deleted", behavior: JsonRequestBehavior.AllowGet);
@@ -152,10 +119,7 @@ namespace XCLHMS.Areas.StockInventory.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            if (disposing) db.Dispose();
             base.Dispose(disposing);
         }
     }

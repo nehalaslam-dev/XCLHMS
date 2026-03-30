@@ -17,7 +17,7 @@ namespace XCLHMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PO()
         {
-            this.PODetails = new HashSet<PODetail>();
+            this.PODetail = new HashSet<PODetail>();
         }
     
         public int Id { get; set; }
@@ -29,8 +29,8 @@ namespace XCLHMS.Models
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
-        public virtual Vendor Vendor { get; set; }
+        public virtual Vendors Vendors { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PODetail> PODetails { get; set; }
+        public virtual ICollection<PODetail> PODetail { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace XCLHMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MLC()
         {
-            this.MLCDetails = new HashSet<MLCDetail>();
+            this.MLCDetail = new HashSet<MLCDetail>();
         }
     
         public int Id { get; set; }
@@ -42,6 +42,6 @@ namespace XCLHMS.Models
         public string Xray { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MLCDetail> MLCDetails { get; set; }
+        public virtual ICollection<MLCDetail> MLCDetail { get; set; }
     }
 }

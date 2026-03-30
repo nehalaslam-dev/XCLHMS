@@ -17,8 +17,8 @@ namespace XCLHMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GRN()
         {
-            this.GRNDetails = new HashSet<GRNDetail>();
-            this.Stocks = new HashSet<Stock>();
+            this.GRNDetail = new HashSet<GRNDetail>();
+            this.Stock = new HashSet<Stock>();
         }
     
         public int Id { get; set; }
@@ -31,8 +31,8 @@ namespace XCLHMS.Models
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GRNDetail> GRNDetails { get; set; }
+        public virtual ICollection<GRNDetail> GRNDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Stock> Stocks { get; set; }
+        public virtual ICollection<Stock> Stock { get; set; }
     }
 }

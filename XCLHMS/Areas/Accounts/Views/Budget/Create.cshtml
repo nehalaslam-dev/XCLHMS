@@ -1,72 +1,134 @@
-﻿@model XCLHMS.Models.Budget
+@model XCLHMS.Models.Budget
 
 @{
-    ViewBag.Title = "Create";
-
+    ViewBag.Title = "Budget Allocation";
+    Layout = "~/Areas/Accounts/Views/Shared/_AccountsLayout.cshtml";
 }
 
-<h2>Create</h2>
+<div style="font-family:Arial">
+    <h2>Budget Allocation FY 2024-2025</h2>
+    <p>Define new estimates and re-appropriations for departmental heads</p>
+    
+    <p style="float:right;">
+        <a href="@Url.Action("Index", "Budget", new { area = "Accounts" })" class="btn btn-default">Back to List</a>
+    </p>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+    <div class="container" style="width:100%; padding:0;">
+        <br /><br />
+        <div class="well">
+            @using (Html.BeginForm("Save", "Budget", new { area = "Accounts" }, FormMethod.Post, new { id = "frmBudget" }))
+            {
+                <input type="hidden" name="Id" value="0" />
+                
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Select Account Head</label>
+                        @Html.DropDownListFor(m => m.HeadId, (SelectList)ViewBag.HeadId, "--Select Head--", new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Fiscal Year</label>
+                        <input type="text" name="FiscalYear" class="form-control" placeholder="e.g. 2024-2025" value="2024-2025" />
+                    </div>
+                </div>
 
-    <div class="form-horizontal">
-        <h4>Budget</h4>
-        <hr />
-        @Html.ValidationSummary(true)
+                <h4>Budget Estimates Section</h4>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>a) Budget Estimates</label>
+                        <input type="number" step="0.01" name="BudgetEstimates" id="estimates" class="form-control calc-trigger" placeholder="Enter Amount" value="0" />
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>b) Revised Budget</label>
+                        <input type="number" step="0.01" name="RevisedBudget" id="revised" class="form-control calc-trigger" placeholder="Enter Amount" value="0" />
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>c) Additional Budget</label>
+                        <input type="number" step="0.01" name="AdditionalBudget" id="additional" class="form-control calc-trigger" placeholder="Enter Amount" value="0" />
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>d) Supplementary Budget</label>
+                        <input type="number" step="0.01" name="SupplementaryBudget" id="supplementary" class="form-control calc-trigger" placeholder="Enter Amount" value="0" />
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HeadId, "Select Heads", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("HeadId", (IEnumerable<SelectListItem>)ViewBag.HeadId, "--Select--", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.HeadId)
-            </div>
-        </div>
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-4 form-group">
+                        <label style="color:#337ab7;">e) Total Revised Budget</label>
+                        <h3 id="totalRevisedDisplay" style="color: #337ab7; margin-top:5px;">Rs. 0.00</h3>
+                        <input type="hidden" name="TotalRevisedBudget" id="totalRevised" value="0" />
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.Label("Code", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBox("Code", null, new { @class = "form-control", @disabled = "true" })
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Budget1, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Budget1, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Budget1)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-primary btn-success" />
-                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-large" })
-            </div>
+                <hr />
+                <h4>RE-APPROPRIATION DETAILS</h4>
+                <p>Define adjustments for the current allocation</p>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label>f) Re-Appropriation (-)</label>
+                        <input type="number" step="0.01" name="ReAppropriationNegative" id="reAppNeg" class="form-control calc-trigger" placeholder="Enter Amount" value="0" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label>g) Re-Appropriation (+)</label>
+                        <input type="number" step="0.01" name="ReAppropriationPositive" id="reAppPos" class="form-control calc-trigger" placeholder="Enter Amount" value="0" />
+                    </div>
+                    <div class="col-md-4 form-group" style="background-color: #337ab7; padding: 15px; border-radius:5px;">
+                        <label style="color: white;">h) Total Revised Budget after Re-app.</label>
+                        <h3 id="finalTotalDisplay" style="color: white; margin-top:5px;">Rs. 0.00</h3>
+                        <input type="hidden" name="TotalRevisedBudgetAfterReApp" id="finalTotal" value="0" />
+                    </div>
+                </div>
+                
+                <div class="row text-right" style="margin-top: 20px;">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary btn-large" id="btnSave">
+                            Create Budget Record
+                        </button>
+                    </div>
+                </div>
+            }
         </div>
     </div>
-}
+</div>
 
-@section Scripts{
+@section Scripts {
     <script>
         $(document).ready(function () {
-            $("#HeadId").change(function () {
-                var selectedItemValue = $(this).val();
-                $.ajax({
-                    url: "/Accounts/Budget/GetCodeById",
-                    type: "GET",
-                    data: { Id: selectedItemValue },
-                    success: function (data) {
-                        $('#Code').val(data);
-                    },
-                    error: function () {
-                        alert("Error! Fetching records.")
+            $(".calc-trigger").on('input', function() {
+                calculateBudget();
+            });
+
+            $("#frmBudget").submit(function (e) {
+                e.preventDefault();
+                $("#btnSave").prop('disabled', true).text('Creating record...');
+
+                $.post("@Url.Action("Save", "Budget", new { area = "Accounts" })", $(this).serialize(), function (res) {
+                    $("#btnSave").prop('disabled', false).html('Create Budget Record');
+                    if (res.success) {
+                        alert("Budget allocated successfully.");
+                        setTimeout(() => { window.location.href = '@Url.Action("Index", "Budget", new { area = "Accounts" })'; }, 1000);
+                    } else {
+                        alert("Error! " + res.message);
                     }
                 });
             });
         });
-    </script>
 
+        function calculateBudget() {
+            var a = parseFloat($("#estimates").val()) || 0;
+            var b = parseFloat($("#revised").val()) || 0;
+            var c = parseFloat($("#additional").val()) || 0;
+            var d = parseFloat($("#supplementary").val()) || 0;
+
+            var e = a + b + c + d;
+            $("#totalRevised").val(e);
+            $("#totalRevisedDisplay").text("Rs. " + e.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+
+            var f = parseFloat($("#reAppNeg").val()) || 0;
+            var g = parseFloat($("#reAppPos").val()) || 0;
+
+            var h = e - f + g;
+            $("#finalTotal").val(h);
+            $("#finalTotalDisplay").text("Rs. " + h.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+        }
+    </script>
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -18,7 +18,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         // GET: /InventoryModule/BedManagement/
         public ActionResult Index()
         {
-            //var bedmanagements = db.BedManagements.Include(b => b.Bed);
+            //var bedmanagements = db.BedManagements.Include(b => b.Beds);
             //return View(bedmanagements.ToList());
             return View();
         }
@@ -26,7 +26,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         [HttpGet]
         public JsonResult GetBedById(int id)
         {
-            List<Bed> lstBeds = new List<Bed>();
+            List<Beds> lstBeds = new List<Beds>();
             if (id > 0)
             {
                 lstBeds = db.Beds.Where(p => p.WardId == id).ToList();
@@ -34,7 +34,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
             }
             else
             {
-                lstBeds.Insert(0, new Bed { ID = 0, BedNumber = "--Select--" });
+                lstBeds.Insert(0, new Beds { ID = 0, BedNumber = "--Select--" });
             }
             var result = (from d in lstBeds
                           select new
@@ -93,9 +93,9 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         // GET: /InventoryModule/BedManagement/Create
         public ActionResult Create()
         {
-            List<Ward> lstWard = db.Wards.ToList();
-            lstWard.Insert(0, new Ward { Id = 0, WardName = "--Select--" });
-            List<Bed> lstBeds = new List<Bed>();
+            List<Wards> lstWard = db.Wards.ToList();
+            lstWard.Insert(0, new Wards { Id = 0, WardName = "--Select--" });
+            List<Beds> lstBeds = new List<Beds>();
             List<Pateint> lstPatient = new List<Pateint>();
             lstPatient.Insert(0, new Pateint { Id = 0, Name = "--Select--" });
 
@@ -204,3 +204,4 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         }
     }
 }
+

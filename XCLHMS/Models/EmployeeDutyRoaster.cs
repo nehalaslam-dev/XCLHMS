@@ -23,8 +23,8 @@ namespace XCLHMS.Models
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        public virtual DutyShift DutyShift { get; set; }
+        public virtual DutyShifts DutyShifts { get; set; }
         public virtual Employee Employee { get; set; }
-        public virtual ShiftPeriod ShiftPeriod { get; set; }
+        public virtual ShiftPeriods ShiftPeriods { get; set; }
     }
 }

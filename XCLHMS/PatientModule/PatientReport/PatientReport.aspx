@@ -200,6 +200,10 @@
                                     </asp:TextBox>
                                 </div>
                                 <div class="form-group">
+                                    <label>MR No</label>
+                                    <asp:TextBox ID="txtMRNo" runat="server" CssClass="form-control" placeholder="Search by MR No"></asp:TextBox>
+                                </div>
+                                <div class="form-group">
                                     <label>Patient Type</label>
                                     <asp:DropDownList ID="ddlPatientType" runat="server" CssClass="form-control">
                                         <asp:ListItem Text="All Types" Value=""></asp:ListItem>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -25,12 +25,12 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         public ActionResult LoadGrid()
         {
             //db.Configuration.ProxyCreationEnabled = false;
-            var data = db.POes.Include(p => p.Vendor).OrderByDescending(p => p.Id).ToList();
+            var data = db.POes.Include(p => p.Vendors).OrderByDescending(p => p.Id).ToList();
             var final = (from f in data
                          select new
                          {
                              Id = f.Id,
-                             vendorName = f.Vendor.Name,
+                             vendorName = f.Vendors.Name,
                              PONO = f.PONO,
                              PODate = f.PQDate,
                          });
@@ -39,14 +39,14 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
 
         public JsonResult GetItemsById(int id)
         {
-            List<Product> lstproducts = new List<Product>();
+            List<Products> lstproducts = new List<Products>();
             if (id > 0)
             {
                 lstproducts = db.Products.Where(p => p.AUId == id).ToList();
             }
             else
             {
-                lstproducts.Insert(0, new Product { Id = 0, Name = "--Select--" });
+                lstproducts.Insert(0, new Products { Id = 0, Name = "--Select--" });
             }
             var result = (from d in lstproducts
                           select new
@@ -110,7 +110,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
                                AUId = d.AUId,
                                AUName = d.AU.Name,
                                productId = d.ProductId,
-                               productName = d.Product.Name,
+                               productName = d.Products.Name,
                                DosageId = d.DosageId,
                                DosageName = d.Dosage.DosageName,
                                BrandId = d.BrandId,
@@ -131,7 +131,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
             if (id != null)
             {
                 var po = db.POes
-                    .Include(p => p.Vendor)
+                    .Include(p => p.Vendors)
                     .Include(p => p.PODetails)
                     .FirstOrDefault(p => p.Id == id);
 
@@ -156,7 +156,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
             List<AU> lstcategory = db.AUs.ToList();
             lstcategory.Insert(0, new AU { Id = 0, Name = "--Select--" });
 
-            List<Product> lstproducts = new List<Product>();
+            List<Products> lstproducts = new List<Products>();
 
             ViewBag.Dosage = new SelectList(db.Dosages.ToList(), "Id", "DosageName");
             ViewBag.BrandName = new SelectList(db.Brands.ToList(), "Id", "BrandName");
@@ -176,7 +176,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
 
             try
             {
-                int poId = pomaster.Id; // 👈 frontend hidden field se Id mil rahi hai
+                int poId = pomaster.Id; // ?? frontend hidden field se Id mil rahi hai
 
                 if (string.IsNullOrEmpty(pomaster.PONO))
                 {
@@ -359,3 +359,4 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         }
     }
 }
+

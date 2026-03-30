@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -43,14 +43,14 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
         [HttpGet]
         public JsonResult GetItemsById(int id)
         {
-            List<Product> lstproducts = new List<Product>();
+            List<Products> lstproducts = new List<Products>();
             if (id > 0)
             {
                 lstproducts = db.Products.Where(p => p.CategoryId == id).ToList();
             }
             else
             {
-                lstproducts.Insert(0, new Product { Id = 0, Name = "--Select--" });
+                lstproducts.Insert(0, new Products { Id = 0, Name = "--Select--" });
             }
             var result = (from d in lstproducts
                           select new
@@ -87,7 +87,7 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
             List<ProductCategory> lstcategory = db.ProductCategories.ToList();
             lstcategory.Insert(0, new ProductCategory { Id = 0, Name = "--Select--" });
 
-            List<Product> lstproducts = new List<Product>();
+            List<Stock> lstproducts = new List<Stock>();
 
             TempData["GRNId"] = id;
             ViewBag.POId = new SelectList(db.POes, "Id", "PONO");
@@ -264,3 +264,6 @@ namespace XCLHMS.Areas.InventoryModule.Controllers
 
     }
 }
+
+
+
